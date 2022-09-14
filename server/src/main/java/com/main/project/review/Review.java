@@ -6,7 +6,7 @@ import com.main.project.location.Location;
 import com.main.project.restaurant.Restaurant;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
+
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -37,19 +37,20 @@ public class Review {
 
     long foodTypeId;
 
+
     @ManyToOne
     @JoinColumn(name = "location_Id")
     Location location;
-
-    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
-    List<Like> likes = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "restaurant_Id")
     Restaurant restaurant;
 
-    @OneToOne(mappedBy = "review", cascade=CascadeType.ALL)
-    Food food;
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
+    List<Like> likes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
+    List<ReviewImg> reviewImgs = new ArrayList<>();
 
 
 }

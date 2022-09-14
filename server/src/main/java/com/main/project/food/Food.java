@@ -13,13 +13,11 @@ public class Food {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long foodId;
     String foodName;
-    String foodTypeId;
 
     @ManyToOne
     @JoinColumn(name="foodType_Id")
     FoodType foodType;
 
-    @OneToOne(mappedBy = "food", cascade=CascadeType.ALL)
-    Review review;
+
 
 }

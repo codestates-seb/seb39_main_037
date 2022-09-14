@@ -3,6 +3,7 @@ package com.main.project.user;
 import com.main.project.badge.UserBadge;
 import com.main.project.like.Like;
 import com.main.project.location.Location;
+import com.main.project.qna.QnA;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,7 +23,7 @@ public class WebUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userid;
+    private long userId;
 
     private String userName;
 
@@ -35,6 +36,9 @@ public class WebUser {
 
     private Enum<WebUser.authority> authority = REGULAR_USER;
 
+    byte profileImg;
+    String profileImgName;
+
 
     @ManyToOne
     @JoinColumn(name = "location_Id")
@@ -45,6 +49,12 @@ public class WebUser {
 
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
     private List<Like> likes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "qnaUser", cascade = CascadeType.ALL)
+    private List<QnA> userQnAs = new ArrayList<>();
+
+
+
 
 
 

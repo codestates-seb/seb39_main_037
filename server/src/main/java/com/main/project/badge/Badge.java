@@ -12,6 +12,8 @@ public class Badge {
     String badgename;
     String badgeDescription;
 
+    byte badgeImg;
+
     @OneToMany(mappedBy = "badge", cascade = CascadeType.ALL)
     private List<UserBadge> userBadges = new ArrayList<>();
 
