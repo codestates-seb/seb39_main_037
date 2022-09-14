@@ -20,37 +20,40 @@ public class Review extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long reviewId;
+    private long reviewId;
 
-    String reviewTitle;
+    @Column(length = 100, nullable = false)
+    private String reviewTitle;
 
-    String reviewBody;
+    @Column(nullable = false)
+    private String reviewBody;
 
-    int fiveStar;
+    private int fiveStar;
 
-    int view;
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int view;
 
-    long userid;
+    private long userid;
 
-    long foodTypeId;
+    private long foodTypeId;
 
 
     @ManyToOne
     @JoinColumn(name = "location_Id")
-    Location location;
+    private Location location;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_Id")
-    Restaurant restaurant;
+    private Restaurant restaurant;
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
-    List<ThumbUp> thumbUps = new ArrayList<>();
+    private List<ThumbUp> thumbUps = new ArrayList<>();
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
-    List<ReviewImg> reviewImgs = new ArrayList<>();
+    private List<ReviewImg> reviewImgs = new ArrayList<>();
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
-    List<Comment> comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
 
 }

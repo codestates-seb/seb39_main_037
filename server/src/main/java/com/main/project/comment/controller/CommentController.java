@@ -29,13 +29,6 @@ public class CommentController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/{review-id}")
-    public ResponseEntity getComment (@PathVariable("review-id") long reviewId) {
-
-        return new ResponseEntity<>(null,
-                HttpStatus.OK);
-    }
-
     @GetMapping("/all")
     public ResponseEntity getAllComment (@PathVariable("page") int page,
                                         @PathVariable("size") int size) {

@@ -17,9 +17,9 @@ public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long commentId;
+    private long commentId;
 
-    String commentBody;
+    private String commentBody;
 
     @ManyToOne
     @JoinColumn(name = "review_Id")
@@ -27,5 +27,5 @@ public class Comment extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    WebUser webUser;
+    private WebUser webUser;
 }
