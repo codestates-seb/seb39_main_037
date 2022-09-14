@@ -1,7 +1,7 @@
 package com.main.project.user;
 
 import com.main.project.badge.UserBadge;
-import com.main.project.like.Like;
+import com.main.project.thumbUp.ThumbUp;
 import com.main.project.location.Location;
 import com.main.project.qna.QnA;
 import lombok.Getter;
@@ -48,7 +48,7 @@ public class WebUser {
     private List<UserBadge> userBadges = new ArrayList<>();
 
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
-    private List<Like> likes = new ArrayList<>();
+    private List<ThumbUp> thumbUps = new ArrayList<>();
 
     @OneToMany(mappedBy = "qnaUser", cascade = CascadeType.ALL)
     private List<QnA> userQnAs = new ArrayList<>();

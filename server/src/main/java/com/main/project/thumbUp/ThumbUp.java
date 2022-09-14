@@ -1,4 +1,4 @@
-package com.main.project.like;
+package com.main.project.thumbUp;
 
 
 import com.main.project.review.Review;
@@ -13,10 +13,10 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
-public class Like {
+public class ThumbUp {
 
     @Id
-    long likeId;
+    long thumbUpId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

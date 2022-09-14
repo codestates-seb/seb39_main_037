@@ -1,7 +1,6 @@
 package com.main.project.review;
 
-import com.main.project.food.Food;
-import com.main.project.like.Like;
+import com.main.project.thumbUp.ThumbUp;
 import com.main.project.location.Location;
 import com.main.project.restaurant.Restaurant;
 import lombok.NoArgsConstructor;
@@ -47,7 +46,7 @@ public class Review {
     Restaurant restaurant;
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
-    List<Like> likes = new ArrayList<>();
+    List<ThumbUp> thumbUps = new ArrayList<>();
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     List<ReviewImg> reviewImgs = new ArrayList<>();
