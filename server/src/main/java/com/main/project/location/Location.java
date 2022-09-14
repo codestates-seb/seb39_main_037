@@ -1,7 +1,7 @@
 package com.main.project.location;
 
 import com.main.project.restaurant.Restaurant;
-import com.main.project.review.Review;
+import com.main.project.review.entity.Review;
 import com.main.project.user.WebUser;
 import lombok.NoArgsConstructor;
 

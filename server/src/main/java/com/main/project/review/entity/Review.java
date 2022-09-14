@@ -1,6 +1,8 @@
-package com.main.project.review;
+package com.main.project.review.entity;
 
-import com.main.project.thumbUp.ThumbUp;
+import com.main.project.comment.entity.Comment;
+import com.main.project.entity.BaseTimeEntity;
+import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.location.Location;
 import com.main.project.restaurant.Restaurant;
 import lombok.NoArgsConstructor;
@@ -14,7 +16,7 @@ import java.util.*;
 @NoArgsConstructor
 @Setter
 @Entity
-public class Review {
+public class Review extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +29,6 @@ public class Review {
     int fiveStar;
 
     int view;
-
-    LocalDateTime createdAt = LocalDateTime.now();
-
-    LocalDateTime updatedAt = LocalDateTime.now();
 
     long userid;
 
@@ -50,6 +48,9 @@ public class Review {
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     List<ReviewImg> reviewImgs = new ArrayList<>();
+
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
+    List<Comment> comments = new ArrayList<>();
 
 
 }
