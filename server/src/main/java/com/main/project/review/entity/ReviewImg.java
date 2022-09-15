@@ -1,4 +1,4 @@
-package com.main.project.review;
+package com.main.project.review.entity;
 
 import javax.persistence.*;
 

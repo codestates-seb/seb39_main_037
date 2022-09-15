@@ -1,7 +1,6 @@
 package com.main.project.food;
 
 import com.main.project.foodType.FoodType;
-import com.main.project.review.Review;
 
 import javax.persistence.*;
 
