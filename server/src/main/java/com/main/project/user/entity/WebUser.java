@@ -1,7 +1,8 @@
 package com.main.project.user.entity;
 
 import com.main.project.badge.UserBadge;
-import com.main.project.thumbUp.ThumbUp;
+import com.main.project.comment.entity.Comment;
+import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.location.Location;
 import com.main.project.qna.QnA;
 import lombok.Getter;
@@ -62,11 +63,8 @@ public class WebUser {
     @OneToMany(mappedBy = "qnaUser", cascade = CascadeType.ALL)
     private List<QnA> userQnAs = new ArrayList<>();
 
-
-
-
-
-
+    @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
     public enum authority {
 

@@ -3,7 +3,7 @@ package com.main.project.restaurant.entity;
 
 import com.main.project.foodType.FoodType;
 import com.main.project.location.Location;
-import com.main.project.review.Review;
+import com.main.project.review.entity.Review;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 

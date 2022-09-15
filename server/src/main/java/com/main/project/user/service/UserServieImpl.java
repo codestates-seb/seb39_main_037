@@ -1,7 +1,7 @@
 package com.main.project.user.service;
 
 import com.main.project.badge.entity.Badge;
-import com.main.project.thumbUp.ThumbUp;
+import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.repository.UserRepository;
 import org.springframework.data.domain.Page;

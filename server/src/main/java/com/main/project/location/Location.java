@@ -1,8 +1,8 @@
 package com.main.project.location;
 
+
 import com.main.project.restaurant.entity.Restaurant;
-import com.main.project.review.Review;
-import com.main.project.user.entity.WebUser;
+import com.main.project.review.entity.Review;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
