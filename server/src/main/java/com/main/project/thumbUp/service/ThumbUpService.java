@@ -6,7 +6,7 @@ import com.main.project.review.entity.Review;
 import com.main.project.review.repository.ReviewRepository;
 import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.thumbUp.repository.ThumbUpRepository;
-import com.main.project.user.WebUser;
+import com.main.project.user.entity.WebUser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

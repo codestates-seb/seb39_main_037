@@ -2,7 +2,7 @@ package com.main.project.thumbUp.repository;
 
 import com.main.project.review.entity.Review;
 import com.main.project.thumbUp.entity.ThumbUp;
-import com.main.project.user.WebUser;
+import com.main.project.user.entity.WebUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,7 @@
 package com.main.project.badge;
 
-import com.main.project.user.WebUser;
+import com.main.project.badge.entity.Badge;
+import com.main.project.user.entity.WebUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

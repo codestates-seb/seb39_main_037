@@ -1,4 +1,4 @@
-package com.main.project.restaurant;
+package com.main.project.restaurant.entity;
 
 
 import com.main.project.foodType.FoodType;

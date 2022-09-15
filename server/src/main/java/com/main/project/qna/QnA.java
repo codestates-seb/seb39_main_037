@@ -1,6 +1,6 @@
 package com.main.project.qna;
 
-import com.main.project.user.WebUser;
+import com.main.project.user.entity.WebUser;
 
 import javax.persistence.*;
 

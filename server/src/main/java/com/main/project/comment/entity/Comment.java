@@ -2,7 +2,7 @@ package com.main.project.comment.entity;
 
 import com.main.project.entity.BaseTimeEntity;
 import com.main.project.review.entity.Review;
-import com.main.project.user.WebUser;
+import com.main.project.user.entity.WebUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

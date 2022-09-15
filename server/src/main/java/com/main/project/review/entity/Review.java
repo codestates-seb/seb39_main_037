@@ -2,9 +2,9 @@ package com.main.project.review.entity;
 
 import com.main.project.comment.entity.Comment;
 import com.main.project.entity.BaseTimeEntity;
+import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.location.Location;
-import com.main.project.restaurant.Restaurant;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
