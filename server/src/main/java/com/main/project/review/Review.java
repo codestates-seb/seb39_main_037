@@ -2,7 +2,7 @@ package com.main.project.review;
 
 import com.main.project.thumbUp.ThumbUp;
 import com.main.project.location.Location;
-import com.main.project.restaurant.Restaurant;
+import com.main.project.restaurant.entity.Restaurant;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 

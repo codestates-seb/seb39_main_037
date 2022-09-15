@@ -1,12 +1,16 @@
 package com.main.project.foodType;
 
-import com.main.project.food.Food;
-import com.main.project.restaurant.Restaurant;
+import com.main.project.food.entity.Food;
+import com.main.project.restaurant.entity.Restaurant;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.*;
 
+@NoArgsConstructor
 @Entity
+@Setter
 public class FoodType {
 
     @Id

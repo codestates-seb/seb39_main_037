@@ -1,4 +1,6 @@
-package com.main.project.badge;
+package com.main.project.badge.entity;
+
+import com.main.project.badge.UserBadge;
 
 import javax.persistence.*;
 import java.util.*;

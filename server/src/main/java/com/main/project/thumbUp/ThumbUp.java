@@ -2,7 +2,7 @@ package com.main.project.thumbUp;
 
 
 import com.main.project.review.Review;
-import com.main.project.user.WebUser;
+import com.main.project.user.entity.WebUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
