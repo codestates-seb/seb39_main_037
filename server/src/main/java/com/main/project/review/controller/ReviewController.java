@@ -1,6 +1,8 @@
 package com.main.project.review.controller;
 
 
+import com.main.project.review.dto.ReviewPatchDto;
+import com.main.project.review.dto.ReviewPostDto;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,7 @@ import java.util.List;
 public class ReviewController {
 
     @PostMapping("/post")
-    public ResponseEntity postReview (@Valid @RequestBody String inputDto) {
+    public ResponseEntity postReview (@Valid @RequestBody ReviewPostDto reviewPostDto) {
 
 
         return new ResponseEntity<>(null,
@@ -25,7 +27,7 @@ public class ReviewController {
     }
 
     @PatchMapping("/edit")
-    public ResponseEntity patchReview (@Valid @RequestBody String inputDto) {
+    public ResponseEntity patchReview (@Valid @RequestBody ReviewPatchDto reviewPatchDto) {
 
 
         return new ResponseEntity<>(null,

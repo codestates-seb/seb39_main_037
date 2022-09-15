@@ -1,5 +1,7 @@
 package com.main.project.comment.controller;
 
+import com.main.project.comment.dto.CommentPatchDto;
+import com.main.project.comment.dto.CommentPostDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,7 +16,7 @@ import javax.validation.Valid;
 public class CommentController {
 
     @PostMapping("/post")
-    public ResponseEntity postComment (@Valid @RequestBody String inputDto) {
+    public ResponseEntity postComment (@Valid @RequestBody CommentPostDto commentPostDto) {
 
 
         return new ResponseEntity<>(null,
@@ -22,7 +24,7 @@ public class CommentController {
     }
 
     @PatchMapping("/edit")
-    public ResponseEntity patchComment (@Valid @RequestBody String inputDto) {
+    public ResponseEntity patchComment (@Valid @RequestBody CommentPatchDto commentPatchDto) {
 
 
         return new ResponseEntity<>(null,
