@@ -18,8 +18,10 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long locationdId;
 
+    @Column
     private Enum<Location.state> locationState ;
 
+    @Column
     private String city;
 
 

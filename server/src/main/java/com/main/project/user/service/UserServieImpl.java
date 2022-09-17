@@ -62,7 +62,7 @@ public class UserServieImpl implements  UserService{
         }
 
         @Override
-        public WebUser findUser() {
+        public WebUser findUser(long user) {
                 return null;
         }
 

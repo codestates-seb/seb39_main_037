@@ -13,12 +13,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Setter
 @Getter
+@Table(name = "comment")
 public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long commentId;
 
+    @Column(length = 500, nullable = false)
     private String commentBody;
 
     @ManyToOne
@@ -28,4 +30,10 @@ public class Comment extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private WebUser webUser;
+
+    public void addUser(WebUser user){this.webUser = user;}
+
+    public void addReview(Review review){
+        this.review = review;
+    }
 }

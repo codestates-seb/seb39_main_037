@@ -2,6 +2,7 @@ package com.main.project.user.entity;
 
 import com.main.project.badge.UserBadge;
 import com.main.project.comment.entity.Comment;
+import com.main.project.review.entity.Review;
 import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.location.Location;
 import com.main.project.qna.QnA;
@@ -21,25 +22,32 @@ import static com.main.project.user.entity.WebUser.authority.REGULAR_USER;
 @Setter
 @Entity
 @Getter
+@Table(name = "webUser")
 public class WebUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
+    @Column
     private String userName;
-
+    @Column
     private String nickName;
 
+    @Column
     @Email
     private String email;
 
+    @Column
     private String password;
 
+    @Column
     private Enum<WebUser.authority> authority = REGULAR_USER;
 
+    @Column
     byte profileImg;
 
+    @Column
     String profileImgName;
 /////
 
@@ -80,6 +88,9 @@ public class WebUser {
             this.authority =authority;
         }
     }
+
+    @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
 
 
 

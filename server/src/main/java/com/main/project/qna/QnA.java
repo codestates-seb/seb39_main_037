@@ -5,12 +5,17 @@ import com.main.project.user.entity.WebUser;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "qna")
 public class QnA {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long qnAId;
+    long qnaId;
+
+    @Column
     String questionTitle;
+
+    @Column
     String questionBody;
 
     @ManyToOne

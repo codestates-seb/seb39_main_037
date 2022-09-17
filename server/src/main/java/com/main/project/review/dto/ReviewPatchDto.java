@@ -19,5 +19,7 @@ public class ReviewPatchDto {
     @NotBlank(message = "별점을 선택해 주세요.")
     private int fiveStar;
 
+    private byte reviewImg;
+
 
 }

@@ -11,11 +11,14 @@ import java.util.*;
 @NoArgsConstructor
 @Entity
 @Setter
+@Table(name = "foodType")
 public class FoodType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long foodTypeId;
+
+    @Column(nullable = false)
     String typeName;
 
 

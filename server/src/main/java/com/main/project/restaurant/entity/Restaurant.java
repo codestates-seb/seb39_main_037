@@ -13,14 +13,18 @@ import java.util.*;
 @NoArgsConstructor
 @Setter
 @Entity
+@Table(name = "restaurant")
 public class Restaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long restaurantId;
 
+    @Column
     String restaurantName;
+    @Column
     String restaurantAddress;
+    @Column
     String restaurantPhone;
 
 

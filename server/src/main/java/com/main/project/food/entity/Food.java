@@ -11,11 +11,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Setter
 @Getter
+@Table(name = "food")
 public class Food {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long foodId;
+
+    @Column(nullable = false)
     String foodName;
 
     @ManyToOne
