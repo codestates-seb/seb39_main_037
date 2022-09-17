@@ -15,7 +15,7 @@ import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.main.project.user.entity.WebUser.authority.REGULAR_USER;
+
 
 @NoArgsConstructor
 @Setter
@@ -40,21 +40,21 @@ public class WebUser {
     @Column
     private String password;
 
+    @Enumerated(value = EnumType.STRING)
     @Column
-    private Enum<WebUser.authority> authority = REGULAR_USER;
-
-    @Column
+    private Enum<Authority> authority = Authority.REGULAR_USER;
+    @Lob
     byte[] profileImg;
 
     @Column
     String profileImgName;
-/////
 
-    boolean isUserActive;//유저 데이터 바로 삭제하는 대신 비활성화 -> 일정 기간 지난 후 삭제(1~2년)
+    @Enumerated(value = EnumType.STRING)
+    @Column
+    private Enum<UserActive> isUserActive =  UserActive.Active;//유저 데이터 바로 삭제하는 대신 비활성화 -> 일정 기간 지난 후 삭제(1~2년)
 
     double userLevel = 1.0d;// 유저 활동에 따른 레벨업
 
-////
     @Column
     String provider;
 
@@ -78,20 +78,8 @@ public class WebUser {
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-    public enum authority {
-
-        REGULAR_USER("일반 계정"),
-        ADMIN_USER("관리자 게정");
 
 
-        @Getter
-        private final String authority;
-
-
-        authority(String authority) {
-            this.authority =authority;
-        }
-    }
 
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
