@@ -16,8 +16,11 @@ public class ReviewPostDto {
     @NotBlank(message = "별점을 선택해 주세요.")
     private int fiveStar;
 
+    private byte reviewImg;
+
     private long userId;
     private long restaurantId;
-    private long foodTypeId;
+    private long foodId;
+    private long locationId;
 
 }

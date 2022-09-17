@@ -21,7 +21,7 @@ public interface UserService {
 
     Page<WebUser> findAllUser(int page, int size, String sortby /* 정렬기준 */);
 
-    public WebUser findUser();
+    public WebUser findUser(long user);
 
     public WebUser inActiveUser();
 
