@@ -1,4 +1,4 @@
-//package com.main.project.securityConfig;
+package com.main.project.securityConfig;
 
 
 import lombok.RequiredArgsConstructor;
@@ -8,22 +8,22 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-//@Configuration
-//@EnableWebSecurity
-//@RequiredArgsConstructor
-//public class SecurityConfig {
-//
-//
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-//        http.csrf().disable();
-//        http.headers().frameOptions().disable();
-//
-//
-//
-//
-//
-//
-//
-//    }
-//}
+@Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
+public class SecurityConfig {
+
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
+
+
+
+
+
+
+        return   null;
+    }
+}

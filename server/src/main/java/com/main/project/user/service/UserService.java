@@ -33,6 +33,8 @@ public interface UserService {
     public List<ThumbUp> findUsersLikes();//회원이 등록한 좋아요 리뷰 목록 조회
 
 
+
+
 /* ------------------------------------------------------------ */
 // 관리자 전용 메서드
     public WebUser findAllUserByMonth();//월별 총 가입자 검색
