@@ -1,6 +1,8 @@
 package com.main.project.user.service;
 
 import com.main.project.badge.entity.Badge;
+import com.main.project.exception.BusinessLogicException;
+import com.main.project.exception.ExceptionCode;
 import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.repository.UserRepository;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServieImpl implements  UserService{
@@ -62,7 +65,7 @@ public class UserServieImpl implements  UserService{
         }
 
         @Override
-        public WebUser findUser() {
+        public WebUser findUser(long user) {
                 return null;
         }
 
@@ -104,5 +107,13 @@ public class UserServieImpl implements  UserService{
         @Override
         public WebUser findNewUsersByYear() {
                 return null;
+        }
+
+        @Override
+        public WebUser findUserByEmailForAuth(String email) {
+                Optional<WebUser> checkedUser = userRepository.findByEmail(email);
+                WebUser foundUser = checkedUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_IS_NOT_EXIST));
+
+                return foundUser;
         }
 }

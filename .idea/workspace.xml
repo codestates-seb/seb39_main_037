@@ -5,19 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5520b85-0497-4cad-9a93-1a3af333a78f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/securityConfig/filter/FirstFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/securityConfig/filter/JwtAuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/securityConfig/filter/JwtAuthorizationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/badge/Badge.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/badge/entity/Badge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/badge/UserBadge.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/badge/UserBadge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/food/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/food/entity/Food.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/foodType/FoodType.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/foodType/FoodType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/location/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/location/Location.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/qna/QnA.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/qna/QnA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/restaurant/Restaurant.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/restaurant/entity/Restaurant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/review/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/review/Review.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/thumbUp/ThumbUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/thumbUp/ThumbUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/user/WebUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/user/entity/WebUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

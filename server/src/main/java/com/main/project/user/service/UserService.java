@@ -21,7 +21,7 @@ public interface UserService {
 
     Page<WebUser> findAllUser(int page, int size, String sortby /* 정렬기준 */);
 
-    public WebUser findUser();
+    public WebUser findUser(long user);
 
     public WebUser inActiveUser();
 
@@ -44,6 +44,8 @@ public interface UserService {
     public WebUser findNewUsersByMonth();
 
     public WebUser findNewUsersByYear();
+
+    WebUser findUserByEmailForAuth(String email);
 
     // 추가가능 메서드 : 가장 많이 리뷰가 쓰여진 메뉴
 

@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
+@Table(name = "thumbUp")
 public class ThumbUp {
 
     @Id
@@ -26,4 +27,9 @@ public class ThumbUp {
     @ManyToOne
     @JoinColumn(name = "review_Id")
     private Review review;
+
+    public ThumbUp(WebUser webUser, Review review){
+        this.webUser = webUser;
+        this.review = review;
+    }
 }

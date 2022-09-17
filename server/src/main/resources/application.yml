@@ -7,10 +7,10 @@ spring:
   jpa:
     properties:
       hibernate:
-        hbm2ddl.auto: update
+        hbm2ddl.auto: create
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: update # (1) ??? ?? ??
+      ddl-auto: create # (1) ??? ?? ??
     show-sql: true      # (2) SQL ?? ??
 
 
@@ -32,21 +32,21 @@ spring:
               - email
               - public_profile
 
-          naver:
-            clientId: '{네이버 client-id}'
-            clientSecret: '{네이버 client-secret}'
-            clientAuthenticationMethod: post
-            authorizationGrantType: authorization_code
-            redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
-            scope:
-              - nickname
-              - email
-              - profile_image
-            clientName: Naver
-
-        provider:
-          Naver:
-            authorizationUri: https://nid.naver.com/oauth2.0/authorize
-            tokenUri: https://nid.naver.com/oauth2.0/token
-            userInfoUri: https://openapi.naver.com/v1/nid/me
-            userNameAttribute: response
+#          naver:
+#            clientId: '{네이버 client-id}'
+#            clientSecret: '{네이버 client-secret}'
+#            clientAuthenticationMethod: post
+#            authorizationGrantType: authorization_code
+#            redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+#            scope:
+#              - nickname
+#              - email
+#              - profile_image
+#            clientName: Naver
+#
+#        provider:
+#          Naver:
+#            authorizationUri: https://nid.naver.com/oauth2.0/authorize
+#            tokenUri: https://nid.naver.com/oauth2.0/token
+#            userInfoUri: https://openapi.naver.com/v1/nid/me
+#            userNameAttribute: response

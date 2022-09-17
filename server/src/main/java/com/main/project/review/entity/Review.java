@@ -5,6 +5,8 @@ import com.main.project.entity.BaseTimeEntity;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.location.Location;
+import com.main.project.user.entity.WebUser;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -15,7 +17,9 @@ import java.util.*;
 
 @NoArgsConstructor
 @Setter
+@Getter
 @Entity
+@Table(name = "review")
 public class Review extends BaseTimeEntity {
 
     @Id
@@ -28,15 +32,17 @@ public class Review extends BaseTimeEntity {
     @Column(nullable = false)
     private String reviewBody;
 
+    @Column
     private int fiveStar;
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
 
-    private long userid;
-
     private long foodTypeId;
 
+    @ManyToOne
+    @JoinColumn(name="user_Id")
+    private WebUser webUser;
 
     @ManyToOne
     @JoinColumn(name = "location_Id")

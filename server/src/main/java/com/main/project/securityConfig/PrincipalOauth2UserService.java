@@ -81,7 +81,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             webUser.setEmail(oAuth2UserInfo.getEmail());
             webUser.setProvider(oAuth2UserInfo.getProvider());
             webUser.setProviderId(oAuth2UserInfo.getProviderId());
-           if(   oAuth2UserInfo.getProfilImg()!=null  ) webUser.setImgData(oAuth2UserInfo.getProfilImg().getBytes());
+           if(   oAuth2UserInfo.getProfileImg()!=null  ) webUser.setProfileImg(oAuth2UserInfo.getProfileImg().getBytes());
             userRepository.save(webUser);
         }
 
