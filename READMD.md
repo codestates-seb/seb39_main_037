@@ -25,15 +25,15 @@
 
 Front: ts, recoil, styled-components, eslint ,prettier ( 그림으로만 표현할지요??)
 
-<img src="https://user-images.githubusercontent.com/104165186/190957071-003561f7-90a6-4315-89fc-1d2a3819d4c7.png width="300" height="300">
+<img src="https://user-images.githubusercontent.com/104165186/190957071-003561f7-90a6-4315-89fc-1d2a3819d4c7.png" width="300" height="300">
 
-<img src="https://user-images.githubusercontent.com/104165186/190957243-842856cf-6554-48df-8a52-d758b82cf5d3.png width="300" height=”300”>
+<img src="https://user-images.githubusercontent.com/104165186/190957243-842856cf-6554-48df-8a52-d758b82cf5d3.png" width="300" height="300">
 
-<img src=”[https://user-images.githubusercontent.com/104165186/190956773-7e5a983c-6783-4250-bbf5-d9af67df937f.png](https://user-images.githubusercontent.com/104165186/190956773-7e5a983c-6783-4250-bbf5-d9af67df937f.png)” width="300" height="300”>
+<img src="https://user-images.githubusercontent.com/104165186/190956773-7e5a983c-6783-4250-bbf5-d9af67df937f.png" width="300" height="300">
 
-<img src=”[https://user-images.githubusercontent.com/104165186/190957344-69ad27a5-f93d-490b-8b73-33328ed4fccc.png](https://user-images.githubusercontent.com/104165186/190957344-69ad27a5-f93d-490b-8b73-33328ed4fccc.png)” width="300" height="300”>
+<img src="https://user-images.githubusercontent.com/104165186/190957344-69ad27a5-f93d-490b-8b73-33328ed4fccc.png" width="300" height="300">
 
-<img src=”[https://user-images.githubusercontent.com/104165186/190957417-94012ad2-1b69-463d-83e8-b9191d3d01cc.png](https://user-images.githubusercontent.com/104165186/190957417-94012ad2-1b69-463d-83e8-b9191d3d01cc.png)” width="300" height="300”>
+<img src="https://user-images.githubusercontent.com/104165186/190957417-94012ad2-1b69-463d-83e8-b9191d3d01cc.png" width="300" height="300">
 
 Backend: spring, Spring Boot AWS, NGINX, Spring security, mysql, 
 
@@ -42,7 +42,7 @@ Backend: spring, Spring Boot AWS, NGINX, Spring security, mysql,
 
 <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
 
-<img src="https://img.shields.io/badge/springboot-236DB33F?style=for-the-badge&logo=springboot&logoColor=white”>
+<img src="https://img.shields.io/badge/springboot-236DB33F?style=for-the-badge&logo=springboot&logoColor=white">
 
 <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white" >
 
