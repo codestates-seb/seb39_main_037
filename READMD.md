@@ -25,11 +25,11 @@
 
 Front: ts, recoil, styled-components, eslint ,prettier ( 그림으로만 표현할지요??)
 
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white")>
+<img src="https://img.shields.io/badge/typeScript-3178C6?style=for-the-badge&logo=typeScript&logoColor=white")>
 
 <img src="https://img.shields.io/badge/recoil-f26b00?style=for-the-badge&logo=recoil&logoColor=whit">
 
-<img src="https://img.shields.io/badge/styled-components-DB7093?style=for-the-badge&logo=styled-components&logoColor=whit")>
+<img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=whit")>
 
 <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=whit">
 
