@@ -1,4 +1,7 @@
 package com.main.project.thumbUp.mapper;
 
-public class ThumbUpMapper {
+import org.mapstruct.Mapper;
+
+@Mapper(componentModel = "spring")
+public interface ThumbUpMapper {
 }
