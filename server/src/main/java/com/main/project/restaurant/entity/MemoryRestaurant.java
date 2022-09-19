@@ -13,5 +13,5 @@ import javax.persistence.*;
 public class MemoryRestaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long restaurantId;
+    private long restaurantId;
 }

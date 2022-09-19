@@ -19,7 +19,7 @@ import java.util.Objects;
 
 @Transactional
 @Service
-public class ThumbUpServiceImpl {
+public class ThumbUpServiceImpl implements ThumbUpService{
 
     private final ThumbUpRepository thumbUpRepository;
     ReviewRepository reviewRepository;

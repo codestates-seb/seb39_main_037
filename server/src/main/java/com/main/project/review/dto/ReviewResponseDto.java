@@ -14,7 +14,6 @@ public class ReviewResponseDto {
     private long reviewId;
     private String reviewTitle;
     private String reviewBody;
-    private int fiveStar;
     private int view;
     private int thumbUp;
     private LocalDateTime createdAt;
