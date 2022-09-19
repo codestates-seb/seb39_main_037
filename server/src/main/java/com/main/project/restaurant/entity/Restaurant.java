@@ -4,40 +4,44 @@ package com.main.project.restaurant.entity;
 import com.main.project.foodType.FoodType;
 import com.main.project.location.Location;
 import com.main.project.review.entity.Review;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.*;
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Entity
 @Table(name = "restaurant")
-public class Restaurant {
+public class Restaurant extends MemoryRestaurant{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long restaurantId;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private long restaurantId;
 
     @Column
-    String restaurantName;
+    private String restaurantName;
     @Column
-    String restaurantAddress;
+    private String category; // 푸드 타입- 로직 구현
     @Column
-    String restaurantPhone;
+    private String address;
+    @Column
+    private String restaurantPhone;
+    @Column
+    private String RestaurantDescription;
 
 
     @ManyToOne
     @JoinColumn(name = "foodType_Id")
-    FoodType foodType;
+    private FoodType foodType;
 
     @ManyToOne
     @JoinColumn(name="location_Id")
-    Location location;
+    private Location location;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-    List<Review> reviewList = new ArrayList<>();
+    private List<Review> reviewList = new ArrayList<>();
 
 
 }
