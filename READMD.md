@@ -13,7 +13,11 @@
 나와 같은 지역의 다른 누군가에게 맛집을 추천해줄 수 있는 리뷰도 작성해요 🍙
 > 
 
-# 👩🏻‍💻🧑🏻‍💻 팀원 소개
+# 👩🏻‍💻🧑🏻‍💻 팀원 소개 
+
+|임찬일(팀장, BE)|임찬일(팀장, BE)|남진혁(FE)|남진혁(FE)|
+|:-:|:-:|:-:|:-:|
+|[@Akkuchan](https://github.com/Akkuchan)|[@SEBBE39JINAKIM](https://github.com/SEBBE39JINAKIM)|[@jin92926](https://github.com/jin92926)|[@JIYEONGSTAR](https://github.com/JIYEONGSTAR)
 
 ---
 
