@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/restaurant")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class RestaurantController {
 
     private final RestaurantServiceImpl restaurantServiceImpl;
@@ -26,19 +27,22 @@ public class RestaurantController {
 
 
     @PostMapping("/add")
-        public ResponseEntity add(@RequestBody RestaurantDto restaurantDto) {
+
+    public RestaurantDto add(@RequestBody RestaurantDto restaurantDto) {
+
 
             log.info("{}", restaurantDto);
 
-            RestaurantDto restaurant = restaurantServiceImpl.add(restaurantDto);
-        return new ResponseEntity<>(restaurantMapper.restaurantDtoToRestaurant(restaurant), HttpStatus.CREATED);
+
+        return restaurantServiceImpl.add(restaurantDto);
+
     }
 
     @GetMapping("/search")
-    public ResponseEntity search(@RequestParam String query) {
+    public RestaurantDto search(@RequestParam String query) {
 
-        RestaurantDto restaurant = restaurantServiceImpl.search(query);
-        return new ResponseEntity<>(restaurantMapper.restaurantDtoToRestaurant(restaurant), HttpStatus.OK);
+        return restaurantServiceImpl.search(query);
+//        return new ResponseEntity<>(restaurantMapper.restaurantDtoToRestaurant(restaurant), HttpStatus.OK);
     }
 
     @GetMapping("/all")

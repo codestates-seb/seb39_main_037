@@ -33,10 +33,10 @@ public class RestaurantServiceImpl implements RestaurantService{
 
                 // 결과 리턴
                 var result = new RestaurantDto();
-                result.setRestaurantName(localItem.getRestaurantName());
+                result.setRestaurantName(localItem.getTitle());
                 result.setCategory(localItem.getCategory());
-                result.setRestaurantDescription(localItem.getRestaurantDescription());
-                result.setRestaurantPhone(localItem.getRestaurantPhone());
+                result.setDescription(localItem.getDescription());
+                result.setRestaurantPhone(localItem.getTelephone());
                 result.setAddress(localItem.getAddress());
                 result.setReadAddress(localItem.getRoadAddress());
 
@@ -54,10 +54,10 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     private Restaurant dtoToEntity(RestaurantDto restaurantDto) {
         var restaurant = new Restaurant();
-        restaurant.setRestaurantId(restaurantDto.getRestaurantId());
+//        restaurant.setRestaurantId(restaurantDto.getRestaurantId());
         restaurant.setRestaurantName(restaurantDto.getRestaurantName());
         restaurant.setCategory(restaurantDto.getCategory());
-        restaurant.setRestaurantDescription(restaurantDto.getRestaurantDescription());
+        restaurant.setRestaurantDescription(restaurantDto.getDescription());
         restaurant.setRestaurantPhone(restaurantDto.getRestaurantPhone());
         restaurant.setAddress(restaurantDto.getAddress());
 
@@ -65,10 +65,10 @@ public class RestaurantServiceImpl implements RestaurantService{
     }
     private RestaurantDto entityToDto(Restaurant restaurant) {
         var restaurantDto = new RestaurantDto();
-        restaurantDto.setRestaurantId(restaurant.getRestaurantId());
+//        restaurantDto.setRestaurantId(restaurant.getRestaurantId());
         restaurantDto.setRestaurantName(restaurant.getRestaurantName());
         restaurantDto.setCategory(restaurant.getCategory());
-        restaurantDto.setRestaurantDescription(restaurant.getRestaurantDescription());
+        restaurantDto.setDescription(restaurant.getRestaurantDescription());
         restaurantDto.setRestaurantPhone(restaurant.getRestaurantPhone());
         restaurantDto.setAddress(restaurant.getAddress());
 
