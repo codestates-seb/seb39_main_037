@@ -13,11 +13,7 @@
 나와 같은 지역의 다른 누군가에게 맛집을 추천해줄 수 있는 리뷰도 작성해요 🍙
 > 
 
-# 👩🏻‍💻🧑🏻‍💻 팀원 소개 
-
-|임찬일(팀장, BE)|임찬일(팀장, BE)|남진혁(FE)|남진혁(FE)|
-|:-:|:-:|:-:|:-:|
-|[@Akkuchan](https://github.com/Akkuchan)|[@SEBBE39JINAKIM](https://github.com/SEBBE39JINAKIM)|[@jin92926](https://github.com/jin92926)|[@JIYEONGSTAR](https://github.com/JIYEONGSTAR)
+# 👩🏻‍💻🧑🏻‍💻 팀원 소개
 
 ---
 
@@ -29,15 +25,15 @@
 
 Front: ts, recoil, styled-components, eslint ,prettier ( 그림으로만 표현할지요??)
 
-<img src="https://user-images.githubusercontent.com/104165186/190957071-003561f7-90a6-4315-89fc-1d2a3819d4c7.png" width="300" height="300">
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white")>
 
-<img src="https://user-images.githubusercontent.com/104165186/190957243-842856cf-6554-48df-8a52-d758b82cf5d3.png" width="300" height="300">
+<img src="https://img.shields.io/badge/recoil-f26b00?style=for-the-badge&logo=recoil&logoColor=whit">
 
-<img src="https://user-images.githubusercontent.com/104165186/190956773-7e5a983c-6783-4250-bbf5-d9af67df937f.png" width="300" height="300">
+<img src="https://img.shields.io/badge/styled-components-DB7093?style=for-the-badge&logo=styled-components&logoColor=whit")>
 
-<img src="https://user-images.githubusercontent.com/104165186/190957344-69ad27a5-f93d-490b-8b73-33328ed4fccc.png" width="300" height="300">
+<img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=whit">
 
-<img src="https://user-images.githubusercontent.com/104165186/190957417-94012ad2-1b69-463d-83e8-b9191d3d01cc.png" width="300" height="300">
+<img src=="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=whit>
 
 Backend: spring, Spring Boot AWS, NGINX, Spring security, mysql, 
 
