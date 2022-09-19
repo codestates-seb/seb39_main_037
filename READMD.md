@@ -27,13 +27,13 @@ Front: ts, recoil, styled-components, eslint ,prettier ( 그림으로만 표현�
 
 <img src="https://img.shields.io/badge/typeScript-3178C6?style=for-the-badge&logo=typeScript&logoColor=white">
 
-<img src="https://img.shields.io/badge/recoil-f26b00?style=for-the-badge&logo=recoil&logoColor=whit">
+<img src="https://img.shields.io/badge/recoil-f26b00?style=for-the-badge&logo=recoil&logoColor=white">
 
-<img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=whit">
+<img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white">
 
-<img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=whit">
+<img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
 
-<img src=="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=whit">
+<img src=="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white">
 
 Backend: spring, Spring Boot AWS, NGINX, Spring security, mysql, 
 
