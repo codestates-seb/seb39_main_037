@@ -37,7 +37,7 @@ Front: ts, recoil, styled-components, eslint ,prettier ( 그림으로만 표현�
 
 Backend: spring, Spring Boot AWS, NGINX, Spring security, mysql, 
 
-<div>
+
 <img src="[https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white](https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)" >
 
 <img src="[https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white](https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)">
@@ -50,9 +50,6 @@ Backend: spring, Spring Boot AWS, NGINX, Spring security, mysql,
 
 <img src="[https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white](https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)">
 
-</div>
-
-</div>
 
 협업툴: github, notion, discord,figma
 
