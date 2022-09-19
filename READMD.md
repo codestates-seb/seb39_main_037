@@ -33,7 +33,7 @@ Front: ts, recoil, styled-components, eslint ,prettier ( 그림으로만 표현�
 
 <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
 
-<img src=="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=white">
+<img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white">
 
 Backend: spring, Spring Boot AWS, NGINX, Spring security, mysql, 
 
