@@ -16,6 +16,11 @@
 
 # 👩🏻‍💻🧑🏻‍💻 팀원 소개
 
+|임찬일(팀장, BE)|임찬일(팀장, BE)|남진혁(FE)|남진혁(FE)|
+|:-:|:-:|:-:|:-:|
+|[@Akkuchan](https://github.com/Akkuchan)|[@SEBBE39JINAKIM](https://github.com/SEBBE39JINAKIM)|[@jin92926](https://github.com/jin92926)|[@JIYEONGSTAR](https://github.com/JIYEONGSTAR)|
+
+
 ---
 
 # 💪 프로젝트 기술 스택( 추후 그림으로 집어넣기)
