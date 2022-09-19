@@ -7,13 +7,13 @@
 
 <div>
   <img src="[https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white](https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)">
-
+<br>
   <img src="[https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white](https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)">
-
+<br>
   <img src="[https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white](https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white)">
-
+<br>
   <img src="[https://img.shields.io/badge/nginx-#009639?style=for-the-badge&logo=nginx&logoColor=white](https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white)">
-
+<br>
 </div>
 
 
