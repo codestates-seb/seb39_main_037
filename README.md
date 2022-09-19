@@ -16,11 +16,6 @@
 
 # 👩🏻‍💻🧑🏻‍💻 팀원 소개
 
-|임찬일(팀장, BE)|임찬일(팀장, BE)|남진혁(FE)|남진혁(FE)|
-|:-:|:-:|:-:|:-:|
-|[@Akkuchan](https://github.com/Akkuchan)|[@SEBBE39JINAKIM](https://github.com/SEBBE39JINAKIM)|[@jin92926](https://github.com/jin92926)|[@JIYEONGSTAR](https://github.com/JIYEONGSTAR)|
-
-
 ---
 
 # 💪 프로젝트 기술 스택( 추후 그림으로 집어넣기)
@@ -42,31 +37,15 @@ Backend: spring, Spring Boot AWS, NGINX, Spring security, mysql,
 
 배포: 
 
-# 💪 Git 커밋 컨벤션
+## 💪 Git 커밋 컨벤션
 
----
-
-- Feat : 새로운 기능을 추가
-- Fix : 버그를 고친 경우
-- Design : CSS 등 사용자 UI 디자인 변경
-- Refactor : 코드 리팩토링
-
-예시
-
-
-
-
-
-
-
-## ✨Git Commit & PR Message
 
 | 태그이름 | 설명                                                  |
 | -------- | ----------------------------------------------------- |
 | feat     | 새로운 기능 추가                                      |
 | update     | 수정 추가                                      |
-| fix      | git과 관련된 버그 수정                                             |
-| design   | CSS 등 UI 수정                                 |
+| fix      | 버그를 고친 경우                                             |
+| design   | CSS 등 사용자 UI 디자인 변경                                 |
 | style    | 코드 포맷 변경, 세미 콜론 누락, 코드 수정이 없는 경우 |
 | refactor | 코드 리팩토링                                         |
 | docs     | 문서 수정 (MD 파일)                                   |
