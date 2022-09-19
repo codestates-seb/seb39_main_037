@@ -53,6 +53,7 @@ public class WebUser {
     @Column
     private Enum<UserActive> isUserActive =  UserActive.Active;//유저 데이터 바로 삭제하는 대신 비활성화 -> 일정 기간 지난 후 삭제(1~2년)
 
+    @Column
     double userLevel = 1.0d;// 유저 활동에 따른 레벨업
 
     @Column
@@ -61,10 +62,6 @@ public class WebUser {
     @Column
     String providerId;
 
-
-//    @ManyToOne
-//    @JoinColumn(name = "location_Id")
-//    private Location location;
 
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
     private List<UserBadge> userBadges = new ArrayList<>();
@@ -77,9 +74,6 @@ public class WebUser {
 
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
-
-
-
 
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();

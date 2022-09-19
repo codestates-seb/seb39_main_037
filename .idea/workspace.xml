@@ -5,7 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5520b85-0497-4cad-9a93-1a3af333a78f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/comment/service/CommentServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/naver/NaverClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/naver/SearchLocalReq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/naver/SearchLocalRes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/restaurant/controller/RestaurantController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/restaurant/dto/RestaurantDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/restaurant/dto/RestaurantResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/restaurant/entity/MemoryRestaurant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/restaurant/mapper/RestaurantMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/restaurant/repository/RestaurantRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/restaurant/service/RestaurantService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/restaurant/service/RestaurantServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/review/service/ReviewServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/thumbUp/service/ThumbUpServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/server/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/ProjectApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/ProjectApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/comment/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/comment/service/CommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/location/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/location/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/restaurant/entity/Restaurant.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/restaurant/entity/Restaurant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/review/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/review/service/ReviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/thumbUp/service/ThumbUpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/thumbUp/service/ThumbUpService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/user/controller/UserContorller.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/user/controller/UserContorller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/com/main/project/user/entity/WebUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/com/main/project/user/entity/WebUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/com/main/project/ProjectApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/com/main/project/ProjectApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,13 +95,13 @@
     <option name="showVisibilityIcons" value="true" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/GitFolder/project/server"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/GitFolder/project/server&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="ProjectApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.main.project.ProjectApplication" />

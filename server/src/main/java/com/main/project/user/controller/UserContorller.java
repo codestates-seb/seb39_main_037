@@ -58,7 +58,7 @@ public class UserContorller {
             webUser.setProfileImgName(profileImg.getOriginalFilename() + year + month + day + hour + minute + second);
             webUser.setProfileImg(profileImg.getBytes());
         }
-
+        // userRepository.save(webUser)
 //        userService.registerUser();
         // 유저 등록시 필요한 내용(유저 본명, 닉네임, 이메일, 비밀번호, 사진)을 dto로 담기(파라미터)
         //
