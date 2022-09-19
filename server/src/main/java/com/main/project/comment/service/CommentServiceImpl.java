@@ -9,24 +9,27 @@ import com.main.project.review.service.ReviewServiceImpl;
 import com.main.project.user.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CommentServiceImpl {
+
+public class CommentServiceImpl implements CommentService {
+
 
     private final CommentRepository commentRepository;
     UserService userService;
     ReviewServiceImpl reviewServiceImpl;
 
-    public CommentService(CommentRepository commentRepository, UserService userService, ReviewServiceImpl reviewServiceImpl) {
+    public CommentServiceImpl(CommentRepository commentRepository, UserService userService, ReviewServiceImpl reviewServiceImpl) {
         this.commentRepository = commentRepository;
         this.userService = userService;
         this.reviewServiceImpl = reviewServiceImpl;
     }
 
     public Comment createComment(long userId, long reviewId, Comment comment) {
-// 회원서비스에서 아이디로 회원 찾기 찾기
-//        comment.addUser(userService.findUser(userId));
+
+        comment.addUser(userService.findUser(userId));
 
         if(reviewId!=0)  {
             comment.addReview(reviewServiceImpl.findVerifiedReview(reviewId));
@@ -51,14 +54,14 @@ public class CommentServiceImpl {
         return null;
     }
 
-//    public List<Comment> findAllCommentByUserId(long userid) {
-//        List<Comment> userComments = userService.findUser(userid).getCommentList();
-//        return userComments;
-//    }
-//
-//    public List<Comment> findAllCommentByReviewId(long reviewId) {
-//        return reviewServiceImpl.findVerifiedReview(reviewId).getCommentList();
-//    }
+    public List<Comment> findAllCommentByUserId(long userId) {
+        List<Comment> userComments = userService.findUser(userId).getComments();
+        return userComments;
+    }
+
+    public List<Comment> findAllCommentByReviewId(long reviewId) {
+        return reviewServiceImpl.findVerifiedReview(reviewId).getCommentList();
+    }
 
     public void deleteComment(long commentId) {
 

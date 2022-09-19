@@ -32,8 +32,16 @@ public class Review extends BaseTimeEntity {
     @Column(nullable = false)
     private String reviewBody;
 
-    @Column
-    private int fiveStar;
+    @Column(nullable = false)
+    private int tasteStar;
+
+    @Column(nullable = false)
+    private int facilityStar;
+
+    @Column(nullable = false)
+    private int priceStar;
+
+    private double fiveStar; //평균 값
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
@@ -61,5 +69,14 @@ public class Review extends BaseTimeEntity {
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-
+    public void addWebUser(WebUser webUser){
+        this.webUser = webUser;
+    }
+    public void addRestaurant(Restaurant restaurant){
+        this.restaurant = restaurant;
+    }
+    public void addComment(Comment comment){
+        comments.add(comment);
+    }
+    public List<Comment> getCommentList(){ return comments;}
 }

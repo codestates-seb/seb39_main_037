@@ -43,6 +43,7 @@ public class WebUser {
     @Enumerated(value = EnumType.STRING)
     @Column
     private Enum<Authority> authority = Authority.REGULAR_USER;
+
     @Lob
     byte[] profileImg;
 
@@ -78,6 +79,35 @@ public class WebUser {
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
+    public enum Authority {
+        REGULAR_USER("일반 계정"),
+        ADMIN_USER("관리자 게정");
 
+
+        @Getter
+        private final String authority;
+
+
+        Authority(String authority) {
+            this.authority =authority;
+        }
+    }
+
+
+    public enum UserActive {
+
+        Active("활동 회원"),
+        UnActive("휴면 회원"),
+        Aithdrawal("탈퇴 회원");
+
+
+        @Getter
+        private final String isActive;
+
+
+        UserActive(String isActive) {
+            this.isActive =isActive;
+        }
+    }
 
 }

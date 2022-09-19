@@ -2,12 +2,10 @@ package com.main.project.review.service;
 
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
-import com.main.project.restaurant.entity.Restaurant;
-import com.main.project.restaurant.service.RestaurantService;
+import com.main.project.restaurant.service.RestaurantServiceImpl;
 import com.main.project.review.entity.Review;
 import com.main.project.review.repository.ReviewRepository;
 import com.main.project.user.service.UserService;
-import org.mapstruct.control.MappingControl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,22 +15,22 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-public class ReviewService {
+public class ReviewServiceImpl implements ReviewService{
 
     private final ReviewRepository reviewRepository;
     UserService userService;
-    RestaurantService restaurantService;
+    RestaurantServiceImpl restaurantServiceImpl;
 
-    public ReviewService(ReviewRepository reviewRepository, UserService userService, RestaurantService restaurantService) {
+    public ReviewServiceImpl(ReviewRepository reviewRepository, UserService userService, RestaurantServiceImpl restaurantServiceImpl) {
         this.reviewRepository = reviewRepository;
         this.userService = userService;
-        this.restaurantService = restaurantService;
+        this.restaurantServiceImpl = restaurantServiceImpl;
     }
 
     public Review createReview(long userId, long foodId, long restaurantId, Review review) {
 
         review.addWebUser(userService.findUser(userId));
-        review.addRestaurant(restaurantService.findRestaurant(restaurantId));
+        review.addRestaurant(restaurantServiceImpl.findRestaurant(restaurantId));
         //food 검증 로직
         verifyReview(review);
 
@@ -101,7 +99,7 @@ public class ReviewService {
         userService.findUser(review.getWebUser().getUserId());
 
 //         식당이 존재하는지 확인
-        restaurantService.findRestaurant(review.getRestaurant().getRestaurantId());
+        restaurantServiceImpl.findRestaurant(review.getRestaurant().getRestaurantId());
 
 //         음식이 존재하는지 확인 (비지니스 로직 구현)
     }

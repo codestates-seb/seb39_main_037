@@ -15,7 +15,9 @@ import java.io.IOException;
 @SpringBootApplication
 @EnableJpaAuditing
 public class ProjectApplication {
-	public static void main(String[] args) {SpringApplication.run(ProjectApplication.class, args);	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(ProjectApplication.class, args);
+	}
+
 }
-
-

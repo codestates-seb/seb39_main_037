@@ -1,33 +1,33 @@
 package com.main.project.location;
 
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public enum State{
-    seoul(2,"서울특별시"),
-    busan(51, "부산광역시"),
-    daegu(53, "대구광역시"),
-    inchen(32,"인천광역시"),
-    gwangju(62,"광주광역시"),
-    daejeon(42,"대전광역시"),
-    ulsan(52,"울산광역시"),
-    sejong(044,"세종특별자치시"),
-    gyunggi(31,"경기도"),
-    gangwon(33,"강원도"),
-    chungcheongbukdo(43,"충청북도"),
-    chungcheongnamdo(41,"충청남도"),
-    jeollabukdo(63,"전라북도"),
-    jeollanamdo(61,"전라남도"),
-    gyeongsangbukdo(54,"경상북도"),
-    gyeongsangnamdo(55,"경상남도"),
-    jeju(64,"제주특별자치도");
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-    private int stateIndex;
-    private String stateName;
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "state")
+public class State{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int stateId;
 
+    @Column
+    String stateName;
 
-    State(int stateIndex, String stateName) {
-        this.stateIndex = stateIndex;
+    @OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
+    private List<Location> locations = new ArrayList<>();
+
+    public State(int stateId, String stateName) {
+        this.stateId = stateId;
         this.stateName = stateName;
-        }
+    }
 
 }

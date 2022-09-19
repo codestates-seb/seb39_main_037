@@ -18,20 +18,17 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long locationdId;
 
-    @Column
-    private Enum<State> locationState ;
 
-    @Column
-    private String city;
+    @ManyToOne
+    @JoinColumn(name = "state_Id")
+    private State state;
 
-
-
+    @ManyToOne
+    @JoinColumn(name = "city_Id")
+    private City cities;
 
     @OneToMany(mappedBy ="foodType", cascade = CascadeType.ALL)
     private List<Restaurant> restaurants = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
-//    private List<WebUser> usersOfLocation = new ArrayList<>();
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();

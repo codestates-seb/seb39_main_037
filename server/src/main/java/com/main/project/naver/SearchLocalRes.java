@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.GeneratedValue;
 import java.util.List;
 
 @Data
@@ -22,6 +23,7 @@ public class SearchLocalRes {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+
     public static class SearchLocalItem{
         private String RestaurantName;
 //        private String homePageLink;  // 식당의 상세 정보가 제공되는 네이버 페이지의 하이퍼텍스트 link.
@@ -31,6 +33,6 @@ public class SearchLocalRes {
         private String address;  // 검색 결과 업체, 기관명의 주소를 제공한다.
         private String roadAddress;  // 검색 결과 업체, 기관명의 도로명 주소를 제공한다.
         private int mapx;  // 식당 위치 정보의 x좌표를 제공한다. 제공값-카텍 좌표계 값. 지도 API와 연동 가능.
-        private int mapy;  // 식당 위치 정보의 y좌표를 제공한다. 제공값-카텍 좌표계 값. 지도 API와 연동 가능.
+        private int mapy;  // 식당 위치 정보의 y좌표를 제공한다. 제공값-카텍 좌표계 r값. 지도 API와 연동 가능.
     }
 }

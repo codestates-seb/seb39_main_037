@@ -7,6 +7,7 @@ public enum ExceptionCode {
     WRITER_IS_NOT_MATCH(404, "작성자가 아닙니다"),
     USER_IS_NOT_MATCH(   303, "입력한 사용자와 작성자가 다릅니다."),
     COMMENT_IS_NOT_EXIST(404, "해당 댓글을 찾을 수 없습니다"),
+    RESTAURANT_NOT_FOUND(404, "해당 식당을 찾을 수 없습니다."),
     LIKE_IS_NOT_EXISTS(404, "해당 좋아요를 찾을 수 없습니다");
 
     @Getter
