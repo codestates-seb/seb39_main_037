@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class RestaurantDto { // DB에 저장할 내용
-//    private long restaurantId;
+    private long restaurantId;
     private String restaurantName;          // 식당명
     private String category;                // 푸드타입
     private String description;             // 식당 설명

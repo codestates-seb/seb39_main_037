@@ -1,4 +1,4 @@
-package com.main.project.thumbUp.service;
+package com.main.project.thumbUp.dto.service;
 
 import java.util.List;
 

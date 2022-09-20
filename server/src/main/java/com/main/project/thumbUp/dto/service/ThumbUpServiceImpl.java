@@ -1,4 +1,4 @@
-package com.main.project.thumbUp.service;
+package com.main.project.thumbUp.dto.service;
 
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;

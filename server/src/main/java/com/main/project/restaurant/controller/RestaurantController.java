@@ -25,16 +25,6 @@ public class RestaurantController {
     private final RestaurantMapper restaurantMapper;
 
 
-
-    @PostMapping("/add")
-    public RestaurantDto add(@RequestBody RestaurantDto restaurantDto) {
-
-        log.info("{}", restaurantDto);
-
-        return restaurantServiceImpl.add(restaurantDto);
-//        return new ResponseEntity<>(restaurantMapper.restaurantDtoToRestaurant(restaurant), HttpStatus.CREATED);
-    }
-
     @GetMapping("/search")
     public RestaurantDto search(@RequestParam String query) {
 

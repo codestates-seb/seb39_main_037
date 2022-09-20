@@ -27,13 +27,13 @@ public class RestaurantServiceImpl implements RestaurantService{
         searchLocalReq.setQuery(query);
 
         var searchLocalRes = naverClient.localSearch(searchLocalReq);
+        var result = new RestaurantDto();
 
         if(searchLocalRes.getTotal() > 0) {
             var localItem = searchLocalRes.getItems().stream().findFirst().get();
 
 
                 // 결과 리턴
-                var result = new RestaurantDto();
                 result.setRestaurantName(localItem.getTitle());
                 result.setCategory(localItem.getCategory());
                 result.setDescription(localItem.getDescription());
@@ -41,13 +41,15 @@ public class RestaurantServiceImpl implements RestaurantService{
                 result.setAddress(localItem.getAddress());
                 result.setReadAddress(localItem.getRoadAddress());
 
-                return result;
 
         }
-        return new RestaurantDto();
+        var restaurant = dtoToEntity(result);
+        var saveRestaurant = restaurantRepository.save(restaurant); //검색 후 바로 저장, add 메서드 내용을 search에 추가
+        return entityToDto(saveRestaurant);
+
     }
-    // db에 있는 MemoryRestaurant 에 데이터 등록
-    public RestaurantDto add(RestaurantDto restaurantDto) {
+
+    public RestaurantDto add(RestaurantDto restaurantDto) {  // 일단 지금은 사용 안하는 메서드
         var restaurant = dtoToEntity(restaurantDto);
         var saveRestaurant = restaurantRepository.save(restaurant);
         return entityToDto(saveRestaurant);
@@ -55,7 +57,7 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     private Restaurant dtoToEntity(RestaurantDto restaurantDto) {
         var restaurant = new Restaurant();
-//        restaurant.setRestaurantId(restaurantDto.getRestaurantId());
+        restaurant.setRestaurantId(restaurantDto.getRestaurantId());
         restaurant.setRestaurantName(restaurantDto.getRestaurantName());
         restaurant.setCategory(restaurantDto.getCategory());
         restaurant.setRestaurantDescription(restaurantDto.getDescription());
@@ -66,7 +68,7 @@ public class RestaurantServiceImpl implements RestaurantService{
     }
     private RestaurantDto entityToDto(Restaurant restaurant) {
         var restaurantDto = new RestaurantDto();
-//        restaurantDto.setRestaurantId(restaurant.getRestaurantId());
+        restaurantDto.setRestaurantId(restaurant.getRestaurantId());
         restaurantDto.setRestaurantName(restaurant.getRestaurantName());
         restaurantDto.setCategory(restaurant.getCategory());
         restaurantDto.setDescription(restaurant.getRestaurantDescription());
