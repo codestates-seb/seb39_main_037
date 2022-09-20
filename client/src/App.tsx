@@ -68,8 +68,6 @@ const Container = styled.div`
   margin: 0 auto;
   position: relative;
   top: 60px;
-
-  height: 1200px;
 `;
 
 export default App;
