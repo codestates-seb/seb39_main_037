@@ -21,7 +21,7 @@ export const SquareButtonForm = ({
   icon,
   widthStyle,
   paddingStyle = "5px 20px",
-  buttonColor = " #0a95ff",
+  buttonColor = " #fec20b",
   color = "white",
   disabled,
   //   fontSize,

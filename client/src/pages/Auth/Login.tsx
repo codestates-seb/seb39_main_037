@@ -61,7 +61,7 @@ const LinkToLogin = styled.div`
 `;
 const LinkStyle = styled(Link)`
   text-decoration: none;
-  color: #0074cc;
+  color: var(--green-color);
   > a {
     text-decoration: none;
   }
