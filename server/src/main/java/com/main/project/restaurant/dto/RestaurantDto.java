@@ -14,8 +14,5 @@ public class RestaurantDto { // DB에 저장할 내용
     private String description;             // 식당 설명
     private String restaurantPhone;         // 전화번호
     private String address;                 // 주소
-    private String readAddress;             // 도로명
-    private int mapx;
-    private int mapy;
 //    private String homePageLink;           홈페이지 주소
 }

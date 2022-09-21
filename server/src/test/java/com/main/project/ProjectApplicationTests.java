@@ -13,7 +13,7 @@ class ProjectApplicationTests {
 
 	@Test
 	public void searchTest() {
-		var result = restaurantServiceImpl.search("갈비집");
+		var result = restaurantServiceImpl.searchApi("갈비집");
 
 		System.out.println(result);
 

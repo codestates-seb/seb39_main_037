@@ -41,8 +41,6 @@ public class Review extends BaseTimeEntity {
     @Column(nullable = false)
     private int priceStar;
 
-    private double fiveStar; //평균 값
-
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
 
