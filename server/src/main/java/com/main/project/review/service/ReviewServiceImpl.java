@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -81,6 +82,14 @@ public class ReviewServiceImpl implements ReviewService{
 
         return reviewRepository.findAll(PageRequest.of(page, size, Sort.by("reviewId").descending()));
     }
+    public Page<Review> findRestaurantReview(long restaurantId, int page, int size) {
+
+        return reviewRepository.findByRestaurant(restaurantId, PageRequest.of(page,size,Sort.by("reviewId").descending()));
+    }
+    public Page<Review> findLocationReview(long locationId, int page, int size) {
+
+        return reviewRepository.findByLocation(locationId, PageRequest.of(page,size,Sort.by("reviewId").descending()));
+    }
 
     public void deleteReview(long reviewId) {
 
@@ -110,6 +119,13 @@ public class ReviewServiceImpl implements ReviewService{
         Review findReview = review.orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));
 
         return findReview;
+    }
+
+    @Transactional
+    public Page<Review> search(String keyword, int page, int size) { //리뷰 검색기능 구현
+
+        return reviewRepository.findByReviewTitleContaining(keyword, PageRequest.of(page,size,Sort.by("reviewId").descending()));
+
     }
 
 }

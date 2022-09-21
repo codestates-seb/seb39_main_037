@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RestaurantService {
     public RestaurantDto search(String query);
-    public RestaurantDto add(RestaurantDto restaurantDto);
+//    public RestaurantDto add(RestaurantDto restaurantDto); //add 내용을 search에 추가 - 검색하면 저장
     public List<RestaurantDto> findAll();
     public Restaurant findRestaurant(long restaurantId);
     public void delete(long restaurantId);

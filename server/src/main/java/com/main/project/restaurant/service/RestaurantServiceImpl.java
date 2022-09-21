@@ -7,6 +7,7 @@ import com.main.project.naver.SearchLocalReq;
 import com.main.project.restaurant.dto.RestaurantDto;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.repository.RestaurantRepository;
+import com.main.project.review.entity.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,7 @@ public class RestaurantServiceImpl implements RestaurantService{
         var result = new RestaurantDto();
 
         if(searchLocalRes.getTotal() > 0) {
-            var localItem = searchLocalRes.getItems().stream().findFirst().get();
-
+            var localItem = searchLocalRes.getItems().stream().findAny().get();
 
                 // 결과 리턴
                 result.setRestaurantName(localItem.getTitle());
@@ -41,18 +41,17 @@ public class RestaurantServiceImpl implements RestaurantService{
                 result.setAddress(localItem.getAddress());
                 result.setReadAddress(localItem.getRoadAddress());
 
+//            if(result.getAddress().equals(restaurantRepository.findByAddress(localItem.getAddress()))) {
+//                Optional<Restaurant> restaurant = restaurantRepository.findByAddress(result.getAddress());
+//                Restaurant restaurant1 = restaurant.get();
+//                return entityToDto(restaurant1);
+//            } //식당 중복 제거를 위한 비지니스 로직 구현
 
         }
         var restaurant = dtoToEntity(result);
         var saveRestaurant = restaurantRepository.save(restaurant); //검색 후 바로 저장, add 메서드 내용을 search에 추가
         return entityToDto(saveRestaurant);
 
-    }
-
-    public RestaurantDto add(RestaurantDto restaurantDto) {  // 일단 지금은 사용 안하는 메서드
-        var restaurant = dtoToEntity(restaurantDto);
-        var saveRestaurant = restaurantRepository.save(restaurant);
-        return entityToDto(saveRestaurant);
     }
 
     private Restaurant dtoToEntity(RestaurantDto restaurantDto) {
