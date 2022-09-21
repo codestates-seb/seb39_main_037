@@ -20,7 +20,6 @@ public class ReviewResponseDto {
     private LocalDateTime updatedAt;
     private long restaurantId;
 
-    private byte reviewImg;
 
     private long foodTypeId;
     private long foodId;

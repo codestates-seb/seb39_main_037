@@ -27,12 +27,15 @@ public class RestaurantController {
 
 
     @PostMapping("/add")
+
     public RestaurantDto add(@RequestBody RestaurantDto restaurantDto) {
 
-        log.info("{}", restaurantDto);
+
+            log.info("{}", restaurantDto);
+
 
         return restaurantServiceImpl.add(restaurantDto);
-//        return new ResponseEntity<>(restaurantMapper.restaurantDtoToRestaurant(restaurant), HttpStatus.CREATED);
+
     }
 
     @GetMapping("/search")

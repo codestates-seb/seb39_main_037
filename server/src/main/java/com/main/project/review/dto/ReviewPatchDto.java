@@ -2,6 +2,7 @@ package com.main.project.review.dto;
 
 import lombok.Getter;
 
+import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
 
 @Getter
@@ -18,8 +19,5 @@ public class ReviewPatchDto {
 
     @NotBlank(message = "별점을 선택해 주세요.")
     private int fiveStar;
-
-    private byte reviewImg;
-
 
 }

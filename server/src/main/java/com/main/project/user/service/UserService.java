@@ -9,13 +9,11 @@ import  java.util.*;
 public interface UserService {
 
 
-    public WebUser registerUser();
+    public WebUser registerUser(WebUser webUser);
 
     public WebUser editUser();
 
     public Page<WebUser> findAllUser();
-
-    WebUser registerUser(WebUser newUser);
 
     WebUser editUser(WebUser editUser);
 
@@ -33,6 +31,8 @@ public interface UserService {
     public List<ThumbUp> findUsersLikes();//회원이 등록한 좋아요 리뷰 목록 조회
 
 
+
+
 /* ------------------------------------------------------------ */
 // 관리자 전용 메서드
     public WebUser findAllUserByMonth();//월별 총 가입자 검색
@@ -42,6 +42,8 @@ public interface UserService {
     public WebUser findNewUsersByMonth();
 
     public WebUser findNewUsersByYear();
+
+    WebUser findUserByEmailForAuth(String email);
 
     // 추가가능 메서드 : 가장 많이 리뷰가 쓰여진 메뉴
 

@@ -7,6 +7,7 @@ import com.main.project.naver.SearchLocalReq;
 import com.main.project.restaurant.dto.RestaurantDto;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.repository.RestaurantRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class RestaurantServiceImpl implements RestaurantService{
     private final NaverClient naverClient;
     private final RestaurantRepository restaurantRepository;
@@ -30,7 +31,6 @@ public class RestaurantServiceImpl implements RestaurantService{
 
         if(searchLocalRes.getTotal() > 0) {
             var localItem = searchLocalRes.getItems().stream().findFirst().get();
-
 
                 // 결과 리턴
                 var result = new RestaurantDto();
