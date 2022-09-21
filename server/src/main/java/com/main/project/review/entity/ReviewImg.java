@@ -9,7 +9,9 @@ public class ReviewImg {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long reveiwImgId;
 
-    byte reviewImgFile;
+    @Lob
+    @Column
+    byte[] reviewImgFile;
 
     @ManyToOne
     @JoinColumn(name="review_Id")

@@ -2,6 +2,7 @@ package com.main.project.review.dto;
 
 import lombok.Getter;
 
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -32,8 +33,5 @@ public class ReviewPatchDto {
     @Min(value = 1, message = "별점은 최소 1점 부터 시작합니다.")
     @Max(value = 5, message = "별점은 최대 5점까지 줄 수 있습니다.")
     private int priceStar;
-
-    private byte reviewImg;
-
 
 }
