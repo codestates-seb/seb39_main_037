@@ -7,8 +7,7 @@ import javax.validation.constraints.AssertTrue;
 @Getter
 public class ThumbUpDto {
 
-    private long reviewId;
+    long thumbUpId;
+    long reviewId;
     long userId;
-    @AssertTrue
-    boolean like;
 }
