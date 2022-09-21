@@ -3,29 +3,35 @@ package com.main.project.securityConfig;
 
 import com.main.project.securityConfig.provider.FaceBookUserInfo;
 import com.main.project.securityConfig.provider.GoogleUserInfo;
+import com.main.project.securityConfig.provider.NaverUserInfo;
 import com.main.project.securityConfig.provider.OAuth2UserInfo;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
+public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 
     @Autowired
     private UserRepository userRepository;
 
-
-
 //    @Autowired
 //    private OAuth2AuthorizedClientService authorizedClientService;
-//
+
+
 //    Authentication authentication = SecurityContextHolder
 //            .getContext()
 //            .getAuthentication();
@@ -61,7 +67,11 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         } else if (userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
             System.out.println("페이스북 로그인 요청~~");
             oAuth2UserInfo = new FaceBookUserInfo(oAuth2User.getAttributes());
-        } else {
+        } else if(userRequest.getClientRegistration().getRegistrationId().equals("Naver")){
+            System.out.println("네이버 로그인 요청~~");
+            oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
+        }
+        else {
             System.out.println("지원하지 않는 로그인 방식입니다.");
         }
 
@@ -74,10 +84,11 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             webUser = userOptional.get();
             // user가 존재하면 update 해주기
             webUser.setEmail(oAuth2UserInfo.getEmail());
+            webUser.setNickName(oAuth2UserInfo.getProvider() + "_" + oAuth2UserInfo.getName()) ;
             userRepository.save(webUser);
         } else {
             // user의 패스워드가 null이기 때문에 OAuth 유저는 일반적인 로그인을 할 수 없음.
-            webUser.setNickName(oAuth2UserInfo.getProvider() + "_" + oAuth2UserInfo.getProviderId()) ;
+            webUser.setNickName(oAuth2UserInfo.getProvider() + "_" + oAuth2UserInfo.getName()) ;
             webUser.setEmail(oAuth2UserInfo.getEmail());
             webUser.setProvider(oAuth2UserInfo.getProvider());
             webUser.setProviderId(oAuth2UserInfo.getProviderId());

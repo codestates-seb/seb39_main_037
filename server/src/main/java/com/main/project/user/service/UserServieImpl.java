@@ -6,11 +6,14 @@ import com.main.project.exception.ExceptionCode;
 import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Access;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,15 +22,13 @@ public class UserServieImpl implements  UserService{
 
         UserRepository userRepository;
 
+        @Autowired
+        BCryptPasswordEncoder bCryptPasswordEncoder;
+
         public UserServieImpl(UserRepository userRepository) {
                 this.userRepository = userRepository;
         }
 
-
-        @Override
-        public WebUser registerUser() {
-                return null;
-        }
 
         @Override
         public WebUser editUser() {
@@ -42,11 +43,13 @@ public class UserServieImpl implements  UserService{
         @Override
         public WebUser registerUser(WebUser newUser) {
 
-
-        //BCryptPasswordEncoder 로 비밀번호 가져와 암호화 저장
-        //  newUser.getPassword()를 BCryptPasswordEncoder.encode()로 암호화
+                newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
+                //  newUser.getPassword()를 BCryptPasswordEncoder.encode()로 암호화
+                WebUser newpostedUser = userRepository.save(newUser);
         //중복 체크(닉네임, 이메일)
-                return null;
+
+
+                return newpostedUser;
         }
 
         @Override

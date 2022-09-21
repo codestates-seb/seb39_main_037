@@ -37,9 +37,10 @@ public class SecurityConfig {
         return http.authorizeRequests()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().disable()
-//                .cors().disable()
-                .httpBasic().disable()
+                .formLogin().disable()//시큐리티 기본제공 form login html 활성화 -> UsernamePasswordAuthenticationFilter가 설정된다.
+                // 우리가 작성한 JwtAuthenticationFilter가  UsernamePasswordAuthenticationFilter를 상속 받기에 활성화하던 안 하던 인증 절차는 진행이 된다.
+                //.cors().disable()
+                .httpBasic().disable()//http베이직 로그인 기능 비활성화
                 .apply(new CustomDsl())
                 .and()
                 .oauth2Login()
@@ -47,10 +48,7 @@ public class SecurityConfig {
                 .userService(principalOauth2UserService)
                 .and()
                 .and().build();
-
-
     }
-
 
     public class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity> {//우리가 새로운 필터를 추가할 때마다 addFilter()로 추가하다보면 securityFilterChain() 메서드의 기이가 너무 길어진다.
         // 또한 WebSecurityConfigureAdapter가 deprecated되면서 내부 클래스로 처리해야한다.

@@ -9,13 +9,11 @@ import  java.util.*;
 public interface UserService {
 
 
-    public WebUser registerUser();
+    public WebUser registerUser(WebUser webUser);
 
     public WebUser editUser();
 
     public Page<WebUser> findAllUser();
-
-    WebUser registerUser(WebUser newUser);
 
     WebUser editUser(WebUser editUser);
 

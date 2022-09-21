@@ -8,6 +8,7 @@ import com.main.project.qna.QnA;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -41,8 +42,8 @@ public class WebUser {
     private String password;
 
     @Enumerated(value = EnumType.STRING)
-    @Column
-    private Enum<Authority> authority = Authority.REGULAR_USER;
+    @Column(name = "authority")
+    private Authority authority = Authority.REGULAR_USER;
 
     @Lob
     byte[] profileImg;
@@ -51,8 +52,8 @@ public class WebUser {
     String profileImgName;
 
     @Enumerated(value = EnumType.STRING)
-    @Column
-    private Enum<UserActive> isUserActive =  UserActive.Active;//유저 데이터 바로 삭제하는 대신 비활성화 -> 일정 기간 지난 후 삭제(1~2년)
+    @Column(name = "is_Activated")
+    private UserActive isUserActive =  UserActive.Active;//유저 데이터 바로 삭제하는 대신 비활성화 -> 일정 기간 지난 후 삭제(1~2년)
 
     @Column
     double userLevel = 1.0d;// 유저 활동에 따른 레벨업
@@ -79,7 +80,8 @@ public class WebUser {
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
-    public enum Authority {
+    @Getter
+    public enum Authority implements GrantedAuthority {
         REGULAR_USER("일반 계정"),
         ADMIN_USER("관리자 게정");
 

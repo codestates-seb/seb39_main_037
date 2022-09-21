@@ -32,11 +32,11 @@ public class Restaurant extends MemoryRestaurant{
     private String RestaurantDescription;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "foodType_Id")
     private FoodType foodType;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="location_Id")
     private Location location;
 

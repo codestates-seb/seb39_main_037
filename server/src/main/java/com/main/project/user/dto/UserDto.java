@@ -36,5 +36,11 @@ public class UserDto {
     }
 
 
+    @Getter
+    @NoArgsConstructor
+    public static class responseUserDto{
+        String password;
+// 유저 계정을 삭제할 경우 계정 해지 사유를 확인하는 설문 조사도 가능할 듯
+    }
 
 }

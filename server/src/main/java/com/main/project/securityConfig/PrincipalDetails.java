@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -29,7 +30,9 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;// 아직 권한 설정 구현 안 헀으니 user 클래스에 만들면 그때 하자
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(webUser.getAuthority());
+            return null;// 아직 권한 설정 구현 안 헀으니 user 클래스에 만들면 그때 하자
     }
 
     @Override
@@ -44,7 +47,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return webUser.getIsUserActive().equals(WebUser.UserActive.Active);
     }
 
     @Override

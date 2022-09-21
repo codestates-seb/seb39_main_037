@@ -37,7 +37,6 @@ public class ReviewController {
         long restaurantId = reviewPostDto.getRestaurantId();
         Review review = reviewServiceImpl.createReview(userId, foodId, restaurantId, reviewMapper.reviewPostDtoToReview(reviewPostDto));
 
-
         return new ResponseEntity<>(reviewMapper.reviewToReviewResponseDto(review),
                 HttpStatus.CREATED);
     }

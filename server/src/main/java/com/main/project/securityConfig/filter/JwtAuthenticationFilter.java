@@ -44,7 +44,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 
             ObjectMapper om = new ObjectMapper();
-            WebUser webUser = om.readValue(request.getInputStream(), WebUser.class);//httpRequset body에 담긴 데이터(아이디, 비밀번호)를 stream으로 꺼내고 이를 SOF_User 타입으로 매핑
+            //jackson 라이브러리를 통해(readValue) httpRequest에 담긴 json을 자바 객체로 변화해주는 기능을 수행 ,  httpRequset body에 담긴 json 형식의 데이터(아이디, 비밀번호)를 stream으로 꺼내고 이를 WebUser 타입으로 매핑
+            WebUser webUser = om.readValue(request.getInputStream(), WebUser.class);
             System.out.println("request.getInputStream() 출력 : " + request.getInputStream());
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(webUser.getEmail(), webUser.getPassword());//사용자가 입력한 아이디, 주소를 가지고 토큰을 만든다.
@@ -53,7 +54,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     // Authentication은 UsernamePasswordAuthenticationToken의 조상 클래스로 UsernamePasswordAuthenticationToken내부에 Authenticationd을 구현해 놓았다.( principal, credentials;
 
             PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();//Authentication 객체에서 사용자 정보를 담은 principal을 가져오고 이를  PrincipalDetails로 변환 -> repository의 DB 데이터 호출을 통해 사용자를 검증하는데 쓰인다.
-            System.out.println("jwt를 통한 로그인 처리 완료");
+            System.out.println("아이디와 비밀번호가 확인된 유저를 위한 JWT 생성, jwt를 통한 로그인 처리 완료");
             return authentication;//PrincipalDetailsService의 loadUserByUsername()이 정상 실행되면(DB에서 유저가 있는지, 유저 정보와 일치하는지 체크) authentication을 반환한다.
             //반환된 authentication 객체는 session에 저장될 것이다.
             // attemptAuthentication()가 완료되면 아래의 successfulAuthentication가 실행되는데 여기서 JWT토큰을 만들어 클라이언트에게 응답으로 전달해준다.
