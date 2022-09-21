@@ -7,6 +7,9 @@ import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
 import com.main.project.review.service.ReviewServiceImpl;
 import com.main.project.user.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,13 +57,14 @@ public class CommentServiceImpl implements CommentService {
         return null;
     }
 
-    public List<Comment> findAllCommentByUserId(long userId) {
-        List<Comment> userComments = userService.findUser(userId).getComments();
-        return userComments;
+    public Page<Comment> findUserComment(long userId, int page, int size) {
+
+        return commentRepository.findByWebUser(userId, PageRequest.of(page,size, Sort.by("commentId").descending()));
     }
 
-    public List<Comment> findAllCommentByReviewId(long reviewId) {
-        return reviewServiceImpl.findVerifiedReview(reviewId).getCommentList();
+    public Page<Comment> findReviewComment(long reviewId, int page, int size) {
+
+        return commentRepository.findByReview(reviewId, PageRequest.of(page,size, Sort.by("commentId").descending()));
     }
 
     public void deleteComment(long commentId) {

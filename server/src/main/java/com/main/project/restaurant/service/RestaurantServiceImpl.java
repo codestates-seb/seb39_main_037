@@ -9,7 +9,11 @@ import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.repository.RestaurantRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,42 +24,42 @@ import java.util.stream.Collectors;
 public class RestaurantServiceImpl implements RestaurantService{
     private final NaverClient naverClient;
     private final RestaurantRepository restaurantRepository;
-
-    public RestaurantDto search(String query){
+    public RestaurantDto searchApi(String query){
 
         // 지역 검색 (var - 키워드는 지역 변수 타입 추론을 허용)
         var searchLocalReq = new SearchLocalReq();
         searchLocalReq.setQuery(query);
 
         var searchLocalRes = naverClient.localSearch(searchLocalReq);
+        var result = new RestaurantDto();
 
         if(searchLocalRes.getTotal() > 0) {
+
             var localItem = searchLocalRes.getItems().stream().findFirst().get();
 
                 // 결과 리턴
-                var result = new RestaurantDto();
                 result.setRestaurantName(localItem.getTitle());
                 result.setCategory(localItem.getCategory());
                 result.setDescription(localItem.getDescription());
                 result.setRestaurantPhone(localItem.getTelephone());
                 result.setAddress(localItem.getAddress());
-                result.setReadAddress(localItem.getRoadAddress());
 
-                return result;
+//            if(result.getAddress().equals(restaurantRepository.findByAddress(localItem.getAddress()))) {
+//                Optional<Restaurant> restaurant = restaurantRepository.findByAddress(result.getAddress());
+//                Restaurant restaurant1 = restaurant.get();
+//                return entityToDto(restaurant1);
+//            } //식당 중복 제거를 위한 비지니스 로직 구현
 
         }
-        return new RestaurantDto();
-    }
-    // db에 있는 MemoryRestaurant 에 데이터 등록
-    public RestaurantDto add(RestaurantDto restaurantDto) {
-        var restaurant = dtoToEntity(restaurantDto);
-        var saveRestaurant = restaurantRepository.save(restaurant);
+        var restaurant = dtoToEntity(result);
+        var saveRestaurant = restaurantRepository.save(restaurant); //검색 후 바로 저장, add 메서드 내용을 search에 추가
         return entityToDto(saveRestaurant);
+
     }
 
     private Restaurant dtoToEntity(RestaurantDto restaurantDto) {
         var restaurant = new Restaurant();
-//        restaurant.setRestaurantId(restaurantDto.getRestaurantId());
+        restaurant.setRestaurantId(restaurantDto.getRestaurantId());
         restaurant.setRestaurantName(restaurantDto.getRestaurantName());
         restaurant.setCategory(restaurantDto.getCategory());
         restaurant.setRestaurantDescription(restaurantDto.getDescription());
@@ -66,7 +70,7 @@ public class RestaurantServiceImpl implements RestaurantService{
     }
     private RestaurantDto entityToDto(Restaurant restaurant) {
         var restaurantDto = new RestaurantDto();
-//        restaurantDto.setRestaurantId(restaurant.getRestaurantId());
+        restaurantDto.setRestaurantId(restaurant.getRestaurantId());
         restaurantDto.setRestaurantName(restaurant.getRestaurantName());
         restaurantDto.setCategory(restaurant.getCategory());
         restaurantDto.setDescription(restaurant.getRestaurantDescription());
@@ -76,12 +80,9 @@ public class RestaurantServiceImpl implements RestaurantService{
         return restaurantDto;
     }
 
-    public List<RestaurantDto> findAll() {
+    public Page<Restaurant> findAll(int page, int size) {
 
-        return restaurantRepository.findAll()
-                .stream()
-                .map(restaurant -> entityToDto(restaurant))
-                .collect(Collectors.toList());
+        return restaurantRepository.findAll(PageRequest.of(page, size, Sort.by("restaurantId").descending()));
     }
     public Restaurant findRestaurant(long restaurantId) {
         Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
@@ -89,6 +90,13 @@ public class RestaurantServiceImpl implements RestaurantService{
         Restaurant foundRestaurant = restaurant.orElseThrow(() -> new BusinessLogicException(ExceptionCode.RESTAURANT_NOT_FOUND));
 
         return foundRestaurant;
+    }
+
+    @Transactional
+    public Page<Restaurant> search(String title, int page, int size) { //리뷰 검색기능 구현
+
+        return restaurantRepository.findByRestaurantNameContaining(title, PageRequest.of(page,size, Sort.by("restaurantId").descending()));
+
     }
 
     public void delete(long restaurantId) {

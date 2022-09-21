@@ -1,5 +1,6 @@
 package com.main.project.review.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.user.entity.WebUser;
 import lombok.AccessLevel;
@@ -16,7 +17,9 @@ public class ReviewResponseDto {
     private String reviewBody;
     private int view;
     private int thumbUp;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime createdAt;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime updatedAt;
     private long restaurantId;
 

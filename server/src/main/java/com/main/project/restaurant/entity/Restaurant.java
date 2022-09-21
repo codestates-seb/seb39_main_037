@@ -31,6 +31,8 @@ public class Restaurant extends MemoryRestaurant{
     @Column
     private String RestaurantDescription;
 
+    private double aveStar;
+
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "foodType_Id")
