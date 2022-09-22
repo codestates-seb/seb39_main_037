@@ -57,7 +57,7 @@ public class UserContorller {
         WebUser webUser =  mapper.userPostDtoToWebUser(postUserDto);
         // 프로필을 등록하지 않을 경우
         if(profileImg.isEmpty()){
-            ClassPathResource resource = new ClassPathResource("images/defaultImg");
+            ClassPathResource resource = new ClassPathResource("images/defaultImg.jpg");
             byte[] defaultImg = FileCopyUtils.copyToByteArray(resource.getInputStream());
             webUser.setProfileImg(defaultImg);
         }
