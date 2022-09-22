@@ -46,7 +46,7 @@ public class ReviewServiceImpl implements ReviewService{
         review.setFacilityStar(review.getFacilityStar());
         review.setPriceStar(review.getPriceStar());
 
-        badgeService.assignBadge(userId);//
+        badgeService.assignBadge(userId);//리뷰를 작성할 때마다 리뷰관련 뱃지 할당 조건을 체크하는 메서드
 
 
         return reviewRepository.save(review);

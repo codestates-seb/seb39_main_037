@@ -12,7 +12,7 @@ public enum ExceptionCode {
     LIKE_IS_NOT_EXISTS(404, "해당 좋아요를 찾을 수 없습니다"),
 
     PASSWORD_NOT_MATCH(601, "비밀번호가 맞지 않습니다 "),
-
+    FOODTYPE_DUPLICATE(701, "동일한 푸드타입이 존재합니다. "),
     Badge_ID_IS_NOT_CORRECT(701, "일치하는 뱃지가 없습니다");
 
     @Getter
