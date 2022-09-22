@@ -13,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +65,12 @@ public class WebUser {
     @Column
     String providerId;
 
+    @Column
+    LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column
+    LocalDateTime updatedAt = LocalDateTime.now();
+
 
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
     private List<UserBadge> userBadges = new ArrayList<>();
@@ -77,8 +84,9 @@ public class WebUser {
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "webUser", cascade = CascadeType.DETACH)
     private List<Review> reviews = new ArrayList<>();
+
 
     @Getter
     public enum Authority implements GrantedAuthority {
@@ -100,7 +108,7 @@ public class WebUser {
 
         Active("활동 회원"),
         UnActive("휴면 회원"),
-        Aithdrawal("탈퇴 회원");
+        Withdrawal("탈퇴 회원");
 
 
         @Getter
