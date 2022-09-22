@@ -1,16 +1,22 @@
 package com.main.project.user.controller;
 
 
+import com.main.project.badge.UserBadge;
+import com.main.project.badge.entity.Badge;
+import com.main.project.badge.service.BadgeServiceImpl;
+import com.main.project.user.dto.Multi_ResponseDTOwithPageInfo;
 import com.main.project.user.dto.UserDto;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.mapper.UserMapper;
 import com.main.project.user.service.UserServieImpl;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,12 +25,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
 public class UserContorller {
 
     private UserServieImpl userService;
+
     private UserMapper mapper;
 
     public UserContorller(UserServieImpl userService, UserMapper mapper) {
@@ -63,6 +72,107 @@ public class UserContorller {
         //
 
         return new ResponseEntity(newUser, HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/edit")
+    public ResponseEntity patchUser(@RequestBody UserDto.patchUserDto patchUserDto){
+         WebUser webUser =  mapper.userPatchDtoToWebUser(patchUserDto);
+
+         WebUser edittedUser = userService.editUser(webUser);
+
+        return new ResponseEntity<>(mapper.webUserToresponseUserDto(edittedUser), HttpStatus.OK);
+    }
+
+
+    @PatchMapping("/edit/password")
+    public ResponseEntity patchUser(@RequestBody UserDto.patchUserpasswordDto patchUserpasswordDto){
+
+        WebUser edittedUser = userService.editUserPassWord(patchUserpasswordDto);
+
+        return new ResponseEntity<>(mapper.webUserToresponseUserDto(edittedUser), HttpStatus.OK);
+    }
+
+    @GetMapping("/search/{userid}")
+    public ResponseEntity getUser(@PathVariable("userid") long userid){
+
+       WebUser webUser  = userService.findUser(userid);
+
+       return new ResponseEntity(mapper.webUserToresponseUserDto(webUser), HttpStatus.FOUND);
+    }
+
+
+    @GetMapping("/mypage")
+    public ResponseEntity getUser(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
+
+        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
+
+        return new ResponseEntity(webUserActivity, HttpStatus.FOUND);
+    }
+
+
+    @GetMapping("/mypage/review")
+    public ResponseEntity getUserReview(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
+
+        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
+
+        return new ResponseEntity(webUserActivity.getListOfReview(), HttpStatus.FOUND);
+    }
+
+
+    @GetMapping("/mypage/badge")
+    public ResponseEntity getUserBadge(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
+
+        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
+
+        return new ResponseEntity(webUserActivity.getListOfBadge(), HttpStatus.FOUND);
+    }
+
+
+    @GetMapping("/mypage/comment")
+    public ResponseEntity getUserComment(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
+
+        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
+
+        return new ResponseEntity(webUserActivity.getListOfComment(), HttpStatus.FOUND);
+    }
+
+
+    @GetMapping("/mypage/thumbup")
+    public ResponseEntity getUserThumnUps(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
+
+        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
+
+        return new ResponseEntity(webUserActivity.getListOfThumbUp(), HttpStatus.FOUND);
+    }
+
+
+    @GetMapping("/search/all/{page}")
+    public ResponseEntity getAllUser(@PathVariable("page") int page){
+
+         Page<WebUser> pageUsers = userService.findAllUser(page);
+        List<UserDto.responseWithPhotoUrlDTO> allUser =
+                pageUsers.getContent().stream().map(WebUser -> new UserDto.responseWithPhotoUrlDTO(WebUser.getUserId(), WebUser.getUserName(), WebUser.getNickName(), WebUser.getEmail(), WebUser.getCreatedAt(), WebUser.getUpdatedAt(),uriMaker(WebUser) ))
+                .collect(Collectors.toList());
+
+        return  new ResponseEntity(new Multi_ResponseDTOwithPageInfo<>(allUser, pageUsers), HttpStatus.FOUND);
+    }
+
+    @DeleteMapping("/withdrawal")
+    public ResponseEntity deleteUser(@RequestBody UserDto.deleteUserDto deleteUserDto){
+        long userId = deleteUserDto.getUserId();
+        String password = deleteUserDto.getPassword();
+        userService.deActiveUser(userId, password);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+
+    private String uriMaker(WebUser user){
+
+        return ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/users/download/photo/")
+                .path(String.valueOf(user.getProfileImg()))
+                .toUriString();
     }
 
 }

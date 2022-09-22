@@ -2,6 +2,7 @@ package com.main.project.user.service;
 
 import com.main.project.badge.entity.Badge;
 import com.main.project.thumbUp.entity.ThumbUp;
+import com.main.project.user.dto.UserDto;
 import com.main.project.user.entity.WebUser;
 import org.springframework.data.domain.Page;
 
@@ -11,24 +12,17 @@ public interface UserService {
 
     public WebUser registerUser(WebUser webUser);
 
-    public WebUser editUser();
-
-    public Page<WebUser> findAllUser();
-
     WebUser editUser(WebUser editUser);
 
-    Page<WebUser> findAllUser(int page, int size, String sortby /* 정렬기준 */);
+    WebUser editUserPassWord(UserDto.patchUserpasswordDto patchUserpasswordDto);
 
-    public WebUser findUser(long user);
+    void deActiveUser(long userid, String password);
 
-    public WebUser inActiveUser();
+    Page<WebUser> findAllUser(int page);
 
-    public Page<WebUser> findUsersByLevel();
+    WebUser findUser(long user);
 
 
-    public List<Badge> findUsersBadge();//회원이 가진 뱃지 조회
-
-    public List<ThumbUp> findUsersLikes();//회원이 등록한 좋아요 리뷰 목록 조회
 
 
 

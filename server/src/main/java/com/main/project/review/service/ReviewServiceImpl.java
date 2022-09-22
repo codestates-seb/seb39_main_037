@@ -1,5 +1,6 @@
 package com.main.project.review.service;
 
+import com.main.project.badge.service.BadgeServiceImpl;
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
 import com.main.project.restaurant.service.RestaurantServiceImpl;
@@ -22,10 +23,13 @@ public class ReviewServiceImpl implements ReviewService{
     UserService userService;
     RestaurantServiceImpl restaurantServiceImpl;
 
-    public ReviewServiceImpl(ReviewRepository reviewRepository, UserService userService, RestaurantServiceImpl restaurantServiceImpl) {
+    BadgeServiceImpl badgeService;
+
+    public ReviewServiceImpl(ReviewRepository reviewRepository, UserService userService, RestaurantServiceImpl restaurantServiceImpl, BadgeServiceImpl badgeService) {
         this.reviewRepository = reviewRepository;
         this.userService = userService;
         this.restaurantServiceImpl = restaurantServiceImpl;
+        this.badgeService = badgeService;
     }
 
     public Review createReview(long userId, long foodId, long restaurantId, Review review) {
@@ -41,6 +45,9 @@ public class ReviewServiceImpl implements ReviewService{
         review.setTasteStar(review.getTasteStar());
         review.setFacilityStar(review.getFacilityStar());
         review.setPriceStar(review.getPriceStar());
+
+        badgeService.assignBadge(userId);//
+
 
         return reviewRepository.save(review);
     }
