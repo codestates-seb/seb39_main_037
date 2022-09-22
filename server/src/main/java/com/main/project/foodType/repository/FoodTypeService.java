@@ -20,12 +20,14 @@ public class FoodTypeService {
     }
 
 
-    public FoodType makeFoodType(FoodType foodType){
-        if(!(foodTypeRepository.findByTypeName(foodType.getTypeName()).get() ==null)){//기존 타입과 중복되는지 체크
-            new BusinessLogicException(ExceptionCode.FOODTYPE_DUPLICATE);
-        }
+    public FoodType makeFoodType(String foodTypeName) throws BusinessLogicException {
+        if(foodTypeRepository.findByTypeName(foodTypeName).isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.FOODTYPE_DUPLICATE);}//기존 타입과 중복되는지 체크
 
-        return foodTypeRepository.save(foodType);
+        FoodType newfoodType = new FoodType();
+        newfoodType.setTypeName(foodTypeName);
+
+        return foodTypeRepository.save(newfoodType);
     }
 
     public FoodType editFoodType(String oldName, String newName){

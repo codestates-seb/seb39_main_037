@@ -15,7 +15,6 @@ public class FoodTypeContorller {
 
     FoodTypeService foodTypeService;
 
-    FoodTypeMapper mapper;
 
     public FoodTypeContorller(FoodTypeService foodTypeService) {
         this.foodTypeService = foodTypeService;
@@ -24,8 +23,8 @@ public class FoodTypeContorller {
 
     @PostMapping("/add")
     public ResponseEntity postFoodType(FoodTypeDto.postDto postDto){
-
-       FoodType newFoodType  = foodTypeService.makeFoodType(mapper.postDtoToFoodType(postDto));
+        String newFoodTypeName = postDto.getTypeName();
+       FoodType newFoodType  = foodTypeService.makeFoodType(newFoodTypeName);
 
         return new ResponseEntity(newFoodType, HttpStatus.CREATED);
     }

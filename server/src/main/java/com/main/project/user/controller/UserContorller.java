@@ -157,6 +157,12 @@ public class UserContorller {
         return  new ResponseEntity(new Multi_ResponseDTOwithPageInfo<>(allUser, pageUsers), HttpStatus.FOUND);
     }
 
+
+
+
+
+
+
     @DeleteMapping("/withdrawal")
     public ResponseEntity deleteUser(@RequestBody UserDto.deleteUserDto deleteUserDto){
         long userId = deleteUserDto.getUserId();
