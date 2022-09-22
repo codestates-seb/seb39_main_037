@@ -7,6 +7,10 @@ import com.main.project.naver.SearchLocalReq;
 import com.main.project.restaurant.dto.RestaurantDto;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.repository.RestaurantRepository;
+import com.main.project.review.entity.Review;
+import com.main.project.review.repository.ReviewRepository;
+import com.main.project.review.service.ReviewServiceImpl;
+import com.main.project.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,15 +19,21 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.print.DocFlavor;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class RestaurantServiceImpl implements RestaurantService{
     private final NaverClient naverClient;
     private final RestaurantRepository restaurantRepository;
+    ReviewRepository reviewRepository;
+    public RestaurantServiceImpl(NaverClient naverClient, RestaurantRepository restaurantRepository, ReviewRepository reviewRepository) {
+        this.naverClient = naverClient;
+        this.restaurantRepository = restaurantRepository;
+        this.reviewRepository = reviewRepository;
+    }
     public RestaurantDto searchApi(String query){
 
         // 지역 검색 (var - 키워드는 지역 변수 타입 추론을 허용)
@@ -101,5 +111,23 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     public void delete(long restaurantId) {
         restaurantRepository.deleteById(restaurantId);
+    }
+
+    public Restaurant addAveStar(long restaurantId){ //평균 별점 저장 로직
+        Restaurant restaurant = findRestaurant(restaurantId);
+//        if(reviewService.RestaurantReviewList(restaurantId).isEmpty()) {
+//            restaurant.setAveTaste(0);
+//            restaurant.setAveFacility(0);
+//            restaurant.setAvePrice(0);
+//        } //리뷰가 없을 경우 0리턴
+        double aveTaste = restaurantRepository.aveTasteStar(restaurantId);
+        double aveFacility = restaurantRepository.aveFacilityStar(restaurantId);
+        double avePrice = restaurantRepository.avePriceStar(restaurantId);
+
+        restaurant.setAveTaste(aveTaste);
+        restaurant.setAveFacility(aveFacility);
+        restaurant.setAvePrice(avePrice);
+
+        return restaurantRepository.save(restaurant);
     }
 }

@@ -30,8 +30,12 @@ public class Restaurant extends MemoryRestaurant{
     private String restaurantPhone;
     @Column
     private String RestaurantDescription;
-
-    private double aveStar;
+    @Column(columnDefinition = "double default 0", nullable = false)
+    private double aveTaste;
+    @Column(columnDefinition = "double default 0", nullable = false)
+    private double aveFacility;
+    @Column(columnDefinition = "double default 0", nullable = false)
+    private double avePrice;
 
 
     @ManyToOne(cascade = CascadeType.ALL)

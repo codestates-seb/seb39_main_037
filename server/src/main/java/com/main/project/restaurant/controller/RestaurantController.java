@@ -28,13 +28,13 @@ public class RestaurantController {
 
 
     @GetMapping("/api/search")
-    public RestaurantDto searchApi(@RequestParam String query) {
+    public ResponseEntity searchApi(@RequestParam String query) {
 
 
-        return restaurantServiceImpl.searchApi(query);
+        RestaurantDto restaurant = restaurantServiceImpl.searchApi(query);
+
+        return new ResponseEntity<>(restaurantMapper.restaurantDtoToRestaurant(restaurant), HttpStatus.OK); // 코드 재구현
     }
-
-//        return new ResponseEntity<>(restaurantMapper.restaurantDtoToRestaurant(restaurant), HttpStatus.OK);
 
     @GetMapping("/search/{page}") // 사용자가 이용하는 검색 서비스 구현
     public ResponseEntity search(@RequestBody String title,  @PathVariable("page") int page) {
