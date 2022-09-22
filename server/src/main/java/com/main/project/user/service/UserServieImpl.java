@@ -123,24 +123,25 @@ public class UserServieImpl implements  UserService{
                 return userRepository.findAll(PageRequest.of(page, 10, Sort.by("userId").descending()));
         }
 
-
         @Override
-        public WebUser findAllUserByMonth() {
+        public List<WebUser> findAllUserByMonth() {
                 return null;
         }
 
         @Override
-        public WebUser findAllUserByYear() {
+        public List<WebUser> findAllUserByYear() {
+
+
                 return null;
         }
 
         @Override
-        public WebUser findNewUsersByMonth() {
+        public List<WebUser> findNewUsersByMonth() {
                 return null;
         }
 
         @Override
-        public WebUser findNewUsersByYear() {
+        public List<WebUser> findNewUsersByYear() {
                 return null;
         }
 

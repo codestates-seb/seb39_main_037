@@ -71,7 +71,7 @@ public class UserContorller {
         // 유저 등록시 필요한 내용(유저 본명, 닉네임, 이메일, 비밀번호, 사진)을 dto로 담기(파라미터)
         //
 
-        return new ResponseEntity(newUser, HttpStatus.CREATED);
+        return new ResponseEntity(mapper.webUserToresponseUserDto(newUser), HttpStatus.CREATED);
     }
 
     @PatchMapping("/edit")

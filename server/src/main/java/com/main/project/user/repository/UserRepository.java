@@ -4,8 +4,8 @@ import com.main.project.user.entity.WebUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Repository
 public interface UserRepository extends JpaRepository<WebUser, Long> {
@@ -15,4 +15,8 @@ public interface UserRepository extends JpaRepository<WebUser, Long> {
     Optional<WebUser> findByProviderAndProviderId(String provider, String providerId);
 
     Optional<WebUser> findByUserId(long userid);
+
+    Optional<List<WebUser>> findAllByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
+
+
 }
