@@ -1,27 +1,16 @@
 package com.main.project.foodType;
 
-import com.main.project.food.entity.Food;
-import com.main.project.restaurant.entity.Restaurant;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.main.project.food.Food;
+import com.main.project.restaurant.Restaurant;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.*;
 
-@NoArgsConstructor
-@Entity
-@Setter
-@Getter
-@Table(name = "foodType")
 public class FoodType {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long foodTypeId;
-
-    @Column(nullable = false)
     String typeName;
 
 
