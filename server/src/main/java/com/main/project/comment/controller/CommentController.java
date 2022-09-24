@@ -90,7 +90,7 @@ public class CommentController {
 
 
     @DeleteMapping("/delete/{comment-id}")
-    public ResponseEntity deleteComment (@PathVariable("review-id") long commentId) {
+    public ResponseEntity deleteComment (@PathVariable("comment-id") long commentId) {
 
         commentService.deleteComment(commentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
