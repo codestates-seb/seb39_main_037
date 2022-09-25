@@ -4,7 +4,7 @@ import com.main.project.comment.entity.Comment;
 import com.main.project.entity.BaseTimeEntity;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.thumbUp.entity.ThumbUp;
-import com.main.project.location.Location;
+import com.main.project.location.entity.Location;
 import com.main.project.user.entity.WebUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,6 @@ import lombok.Setter;
 
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @NoArgsConstructor

@@ -1,4 +1,4 @@
-package com.main.project.location;
+package com.main.project.location.entity;
 
 
 
@@ -23,6 +23,6 @@ public class City {
         String cityName;
 
 
-        @OneToMany(mappedBy = "cities", cascade = CascadeType.ALL)
+        @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
         private List<Location> locations = new ArrayList<>();
 }

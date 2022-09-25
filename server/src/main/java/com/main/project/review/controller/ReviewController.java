@@ -1,7 +1,6 @@
 package com.main.project.review.controller;
 
 
-import com.main.project.location.Location;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.service.RestaurantServiceImpl;
 import com.main.project.review.dto.ReviewPatchDto;
@@ -17,7 +16,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

@@ -1,6 +1,7 @@
-package com.main.project.location;
+package com.main.project.location.entity;
 
 
+import com.main.project.location.entity.Location;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import java.util.List;
 public class State{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int stateId;
+    long stateId;
 
     @Column
     String stateName;

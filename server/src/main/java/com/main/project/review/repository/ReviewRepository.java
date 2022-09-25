@@ -20,4 +20,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Page<Review> findByRestaurant(long restaurantId, Pageable pageable);
     Page<Review> findByLocation(long locationId, Pageable pageable);
     Page<Review> findByReviewTitleContaining(String keyword, Pageable pageable); // containing 추가, 검색기능 구현
+    List<Review> findByRestaurant(long restaurantId);
 }
