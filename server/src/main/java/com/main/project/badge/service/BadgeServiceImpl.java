@@ -68,7 +68,8 @@ public class BadgeServiceImpl implements  BadgeService{
     }
 
     @Override
-    public Badge removeBadge() {
-        return null;
+    public void removeBadge(long userId) {
+        Badge badge = badgeRepository.findById(userId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.Badge_ID_IS_NOT_CORRECT));
+        badgeRepository.delete(badge);
     }
 }

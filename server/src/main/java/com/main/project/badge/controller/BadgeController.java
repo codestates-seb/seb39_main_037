@@ -45,16 +45,21 @@ public class BadgeController {
 //
 //    }
 
-
-
-
-
-
     @GetMapping("/all")
     public ResponseEntity getAllBadge(){
         List<Badge> badgePage = service.findAllBadges();
         return new ResponseEntity(badgePage, HttpStatus.FOUND);
     }
+
+
+    @DeleteMapping("/delete/{badgeId}")
+    public ResponseEntity deleteBadge(@PathVariable("badgeId") long badgeId){
+
+        service.removeBadge(badgeId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+
 
 
     private String uriMaker(Badge badge){

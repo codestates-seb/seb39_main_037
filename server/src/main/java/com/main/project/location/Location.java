@@ -18,7 +18,6 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long locationdId;
 
-
     @ManyToOne
     @JoinColumn(name = "state_Id")
     private State state;
