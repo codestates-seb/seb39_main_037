@@ -1,3 +1,16 @@
+cloud:
+  aws:
+    s3:
+      bucket: seb39pre37
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: 'false'
+    credentials:
+      access-key: AKIAQ4RLSA4FKYJLQ5ME
+      secret-key: XJ58VfEDKsde3AVVn7KtdZN89eldJ2FogBYcJzy
+
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

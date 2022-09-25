@@ -2,7 +2,7 @@ package com.main.project.restaurant.entity;
 
 
 import com.main.project.foodType.FoodType;
-import com.main.project.location.Location;
+import com.main.project.location.entity.Location;
 import com.main.project.review.entity.Review;
 import lombok.*;
 
@@ -30,8 +30,12 @@ public class Restaurant extends MemoryRestaurant{
     private String restaurantPhone;
     @Column
     private String RestaurantDescription;
-
-    private double aveStar;
+    @Column(columnDefinition = "double default 0", nullable = false)
+    private double aveTaste;
+    @Column(columnDefinition = "double default 0", nullable = false)
+    private double aveFacility;
+    @Column(columnDefinition = "double default 0", nullable = false)
+    private double avePrice;
 
 
     @ManyToOne(cascade = CascadeType.ALL)

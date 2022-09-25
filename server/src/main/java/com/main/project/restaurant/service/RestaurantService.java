@@ -12,4 +12,5 @@ public interface RestaurantService {
     public Page<Restaurant> findAll(int page, int size);
     public Restaurant findRestaurant(long restaurantId);
     public void delete(long restaurantId);
+    public Restaurant addAveStar(long restaurantId);  //평균 별점 저장 로직
 }

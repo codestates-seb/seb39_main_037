@@ -97,6 +97,10 @@ public class ReviewServiceImpl implements ReviewService{
 
         return reviewRepository.findByLocation(locationId, PageRequest.of(page,size,Sort.by("reviewId").descending()));
     }
+    public List<Review> RestaurantReviewList(long restaurantId){  // 평균 값 저장을 위해 생턴
+        return reviewRepository.findByRestaurant(restaurantId);
+
+    }
 
     public void deleteReview(long reviewId) {
 
