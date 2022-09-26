@@ -7,8 +7,8 @@ cloud:
     stack:
       auto: 'false'
     credentials:
-      access-key: ddd
-      secret-key: ddddd
+      access-key: aaa
+      secret-key: aaa
 
 
 
