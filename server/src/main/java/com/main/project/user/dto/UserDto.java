@@ -7,6 +7,7 @@ import com.main.project.thumbUp.entity.ThumbUp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
@@ -65,17 +66,20 @@ public class UserDto {
 
 
     @Getter
+    @Setter
     @NoArgsConstructor
     public static class responseUserDto{
         long userId;
         private String userName;
         private String nickName;
         private String email;
+        private String imgUrl;
 
 // 유저 계정을 삭제할 경우 계정 해지 사유를 확인하는 설문 조사도 가능할 듯
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class responseUserActivityDto{
         List<Comment> ListOfComment;

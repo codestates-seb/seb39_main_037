@@ -20,6 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -124,25 +125,9 @@ public class UserServieImpl implements  UserService{
         }
 
         @Override
-        public List<WebUser> findAllUserByMonth() {
-                return null;
-        }
-
-        @Override
-        public List<WebUser> findAllUserByYear() {
-
-
-                return null;
-        }
-
-        @Override
-        public List<WebUser> findNewUsersByMonth() {
-                return null;
-        }
-
-        @Override
-        public List<WebUser> findNewUsersByYear() {
-                return null;
+        public List<WebUser> findUserBydate(LocalDate start, LocalDate end) {
+              List<WebUser> dateFilteredUsers = userRepository.findAllByCreatedAtBetween(start, end).orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
+                return dateFilteredUsers;
         }
 
         @Override
@@ -166,4 +151,9 @@ public class UserServieImpl implements  UserService{
 
         }
 
+    public WebUser findUserByFileName(String filename) {
+
+           return    userRepository.findByprofileImgName(filename).get();
+
+    }
 }

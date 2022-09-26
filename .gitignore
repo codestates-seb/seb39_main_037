@@ -30,8 +30,7 @@ out/
 *.yaml
 **/target/
 **/.idea/
-application.yml
-application-local.yml
+*.yml
 
 
 ### NetBeans ###

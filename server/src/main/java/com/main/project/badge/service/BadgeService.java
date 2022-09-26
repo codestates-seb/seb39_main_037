@@ -15,7 +15,7 @@ public interface BadgeService {
 
     public void assignBadge(long userid);// DB에 저장된 뱃지를 회원에게 할당(뱃지별 할당 조건 체크)
 
-    public Badge removeBadge();// 특정 뱃지 삭제
+    public void removeBadge(long userId);// 특정 뱃지 삭제
 
 
 

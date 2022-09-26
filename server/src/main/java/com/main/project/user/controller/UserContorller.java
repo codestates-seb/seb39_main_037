@@ -9,9 +9,13 @@ import com.main.project.user.dto.UserDto;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.mapper.UserMapper;
 import com.main.project.user.service.UserServieImpl;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
@@ -70,7 +74,12 @@ public class UserContorller {
          WebUser newUser = userService.registerUser(webUser);
         // 유저 등록시 필요한 내용(유저 본명, 닉네임, 이메일, 비밀번호, 사진)을 dto로 담기(파라미터)
         //
-
+        UserDto.responseUserDto responseUserDto = new UserDto.responseUserDto();
+        responseUserDto.setUserId(newUser.getUserId());
+        responseUserDto.setUserName(newUser.getUserName());
+        responseUserDto.setEmail(newUser.getEmail());
+        responseUserDto.setNickName(newUser.getNickName());
+        responseUserDto.setImgUrl(uriMaker(newUser));
         return new ResponseEntity(mapper.webUserToresponseUserDto(newUser), HttpStatus.CREATED);
     }
 
@@ -79,6 +88,12 @@ public class UserContorller {
          WebUser webUser =  mapper.userPatchDtoToWebUser(patchUserDto);
 
          WebUser edittedUser = userService.editUser(webUser);
+        UserDto.responseUserDto responseUserDto = new UserDto.responseUserDto();
+        responseUserDto.setUserId(edittedUser.getUserId());
+        responseUserDto.setUserName(edittedUser.getUserName());
+        responseUserDto.setEmail(edittedUser.getEmail());
+        responseUserDto.setNickName(edittedUser.getNickName());
+        responseUserDto.setImgUrl(uriMaker(edittedUser));
 
         return new ResponseEntity<>(mapper.webUserToresponseUserDto(edittedUser), HttpStatus.OK);
     }
@@ -88,6 +103,13 @@ public class UserContorller {
     public ResponseEntity patchUser(@RequestBody UserDto.patchUserpasswordDto patchUserpasswordDto){
 
         WebUser edittedUser = userService.editUserPassWord(patchUserpasswordDto);
+
+        UserDto.responseUserDto responseUserDto = new UserDto.responseUserDto();
+        responseUserDto.setUserId(edittedUser.getUserId());
+        responseUserDto.setUserName(edittedUser.getUserName());
+        responseUserDto.setEmail(edittedUser.getEmail());
+        responseUserDto.setNickName(edittedUser.getNickName());
+        responseUserDto.setImgUrl(uriMaker(edittedUser));
 
         return new ResponseEntity<>(mapper.webUserToresponseUserDto(edittedUser), HttpStatus.OK);
     }
@@ -159,6 +181,41 @@ public class UserContorller {
 
 
 
+    @GetMapping("/download/photo/{filename}")
+    public ResponseEntity<Resource> downloadPhoto(@PathVariable("filename") String filename) throws Exception {
+
+
+        WebUser user = userService.findUserByFileName(filename);
+
+
+//        HttpHeaders header = new HttpHeaders();
+//        header.add("Content-Type", );
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("image/png"))
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "photo; filename=\"" + user.getProfileImgName()
+                                + "\"")
+                .header(HttpHeaders.CONTENT_TYPE, "image/png")
+                .body(new ByteArrayResource(user.getProfileImg()));
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -176,8 +233,8 @@ public class UserContorller {
     private String uriMaker(WebUser user){
 
         return ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/users/download/photo/")
-                .path(String.valueOf(user.getProfileImg()))
+                .path("/user/download/photo/")
+                .path(String.valueOf(user.getProfileImgName()))
                 .toUriString();
     }
 
