@@ -4,7 +4,7 @@ import com.main.project.badge.UserBadge;
 import com.main.project.comment.entity.Comment;
 import com.main.project.review.entity.Review;
 import com.main.project.thumbUp.entity.ThumbUp;
-import com.main.project.qna.QnA;
+import com.main.project.qna.entity.QnA;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
