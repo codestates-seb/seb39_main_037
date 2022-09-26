@@ -7,8 +7,7 @@ cloud:
     stack:
       auto: 'false'
     credentials:
-      access-key: AKIAQ4RLSA4FKYJLQ5ME
-      secret-key: XJ58VfEDKsde3AVVn7KtdZN89eldJ2FogBYcJzy
+
 
 
 spring:
