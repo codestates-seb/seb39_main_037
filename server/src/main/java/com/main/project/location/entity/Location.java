@@ -22,7 +22,6 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long locationId;
-
     @ManyToOne
     @JoinColumn(name = "state_Id")
     private State state;

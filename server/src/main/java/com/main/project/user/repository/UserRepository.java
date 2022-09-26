@@ -4,6 +4,7 @@ import com.main.project.user.entity.WebUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -16,7 +17,7 @@ public interface UserRepository extends JpaRepository<WebUser, Long> {
 
     Optional<WebUser> findByUserId(long userid);
 
-    Optional<List<WebUser>> findAllByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
+    Optional<List<WebUser>> findAllByCreatedAtBetween(LocalDate start, LocalDate end);
 
-
+    Optional<WebUser> findByprofileImgName(String fileName);
 }

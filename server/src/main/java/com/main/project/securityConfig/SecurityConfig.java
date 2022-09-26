@@ -33,8 +33,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf().disable();
         http.headers().frameOptions().disable();
-
+        http.cors().disable();
         return http.authorizeRequests()
+                .antMatchers("/user/search/{userid}").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().disable()//시큐리티 기본제공 form login html 활성화 -> UsernamePasswordAuthenticationFilter가 설정된다.
