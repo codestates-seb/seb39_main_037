@@ -32,7 +32,7 @@ public class ThumbUpController {
 
     }
     @PostMapping("/post")
-    public ResponseEntity postThumbUp (@Valid @RequestBody ThumbUpDto thumbUpDto) {
+    public ResponseEntity postThumbUp (@Valid @RequestBody ThumbUpDto.PostDto thumbUpDto) {
 
         boolean like = true;
         WebUser webUser = userService.findUser(thumbUpDto.getUserId());
@@ -44,7 +44,7 @@ public class ThumbUpController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity getCountThumbUp (ThumbUpDto thumbUpDto) {
+    public ResponseEntity getCountThumbUp (ThumbUpDto.PatchDto thumbUpDto) {
 
         List<String> count = thumbUpService.count(thumbUpDto.getReviewId(),thumbUpDto.getUserId());
 
@@ -55,9 +55,9 @@ public class ThumbUpController {
 
 
     @DeleteMapping("/delete/{thumbUp-id}")
-    public ResponseEntity deleteThumbUp (@PathVariable("thumbUp-id") ThumbUpDto thumbUpDto) {
+    public ResponseEntity deleteThumbUp (@PathVariable("thumbUp-id") long thumbUpId, ThumbUpDto.DeleteDto thumbUpDto) {
 
-        thumbUpService.deleteThumbUp(thumbUpDto.getThumbUpId(), thumbUpDto.getUserId());
+        thumbUpService.deleteThumbUp(thumbUpId, thumbUpDto.getUserId());
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -41,9 +41,9 @@ public class CommentServiceImpl implements CommentService {
 
     }
 
-    public Comment updateComment(long userId, Comment comment) {
+    public Comment updateComment(long commentId, long userId, Comment comment) {
 
-        Comment foundComment = commentRepository.findById(comment.getCommentId()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_IS_NOT_EXIST));
+        Comment foundComment = commentRepository.findById(commentId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_IS_NOT_EXIST));
         //작성자와 수정자가 같은지 체크
         if(userId == foundComment.getWebUser().getUserId()) {
             //수정할 사항이 있는지 확인

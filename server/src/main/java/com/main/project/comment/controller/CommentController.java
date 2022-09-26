@@ -53,11 +53,9 @@ public class CommentController {
     @PatchMapping("/edit")
     public ResponseEntity patchComment (@Valid @RequestBody CommentPatchDto commentPatchDto) {
 
-        long userId = commentPatchDto.getUserId();
         Comment comment= commentMapper.commentPatchDtoToComment(commentPatchDto);
 
-
-        Comment editComment = commentService.updateComment(userId, comment);
+        Comment editComment = commentService.updateComment(commentPatchDto.getCommentId(), commentPatchDto.getUserId(), comment);
 
         return new ResponseEntity(commentMapper.commentToCommentResponseDto(editComment), HttpStatus.OK);
     }
@@ -76,8 +74,8 @@ public class CommentController {
         return new ResponseEntity(commentMapper.commentsToCommentResponseDtos(comments), HttpStatus.OK);
     }
 
-    @GetMapping("/{user-id}/{page}")
-    public ResponseEntity getUserComment (@PathVariable("user-id") long userId,
+    @GetMapping("/user/{page}")
+    public ResponseEntity getUserComment (@Valid @RequestBody long userId,
                                           @PathVariable("page") int page) {
         WebUser user = userService.findUser(userId);
 

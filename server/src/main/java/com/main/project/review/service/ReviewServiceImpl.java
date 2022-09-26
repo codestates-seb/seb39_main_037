@@ -52,12 +52,12 @@ public class ReviewServiceImpl implements ReviewService{
         return reviewRepository.save(review);
     }
 
-    public Review updateReview(long reviewId, Review review) {
+    public Review updateReview(long reviewId, long userId, Review review) {
 
         //수정할 리뷰가 존재하는지 체크
         Review foundReview = findVerifiedReview(reviewId);
         //작성자와 회원이 동일한지 체크
-        if(reviewId == foundReview.getWebUser().getUserId()){
+        if(userId == foundReview.getWebUser().getUserId()){
             //수정할 사항(제목, 내용, 별점)이 존재하는지 체크
 
             Optional.ofNullable(review.getReviewTitle())

@@ -22,6 +22,7 @@ public class QnaDto {
     @NoArgsConstructor
     public static class PatchDto {
         long userId;
+        long qnaId;
         @NotBlank(message = "제목을 입력해 주세요.")
         String questionTitle;
         @NotBlank(message = "내용을 입력해 주세요.")

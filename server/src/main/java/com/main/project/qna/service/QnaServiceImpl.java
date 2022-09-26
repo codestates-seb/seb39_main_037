@@ -31,9 +31,9 @@ public class QnaServiceImpl implements QnaService{
 
         return qnaRepository.save(qna);
     }
-    public QnA updateQna(long qnaId, QnA qna) {
+    public QnA updateQna(long qnaId, long userId, QnA qna) {
         QnA foundQna = findQna(qnaId);
-        if (qnaId == foundQna.getQnaUser().getUserId()) {
+        if (userId == foundQna.getQnaUser().getUserId()) {
             Optional.ofNullable(qna.getQuestionTitle())
                     .ifPresent(foundQna::setQuestionTitle);
             Optional.ofNullable(qna.getQuestionBody())

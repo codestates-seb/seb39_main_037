@@ -41,7 +41,7 @@ public class QnaController {
     public ResponseEntity patchQna (@Valid @RequestBody QnaDto.PatchDto patchDto) {
 
         QnA editQna = qnaMapper.qnaPatchDtoToQna(patchDto);
-        QnA qna = qnaService.updateQna(patchDto.getUserId(), editQna);
+        QnA qna = qnaService.updateQna(patchDto.getQnaId(), patchDto.getUserId(), editQna);
 
         return new ResponseEntity<>(qnaMapper.qnaToQnaResponseDto(qna),
                 HttpStatus.OK);

@@ -1,6 +1,8 @@
 package com.main.project.review.controller;
 
 
+import com.main.project.location.entity.Location;
+import com.main.project.location.service.LocationService;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.service.RestaurantServiceImpl;
 import com.main.project.review.dto.ReviewPatchDto;
@@ -28,12 +30,14 @@ public class ReviewController {
     private final ReviewMapper reviewMapper;
     RestaurantServiceImpl restaurantService;
     private final ReviewRepository reviewRepository;
+    LocationService locationService;
 
-    public ReviewController(ReviewServiceImpl reviewServiceImpl, ReviewMapper reviewMapper, RestaurantServiceImpl restaurantService, ReviewRepository reviewRepository) {
+    public ReviewController(ReviewServiceImpl reviewServiceImpl, ReviewMapper reviewMapper, RestaurantServiceImpl restaurantService, ReviewRepository reviewRepository, LocationService locationService) {
         this.reviewServiceImpl = reviewServiceImpl;
         this.reviewMapper = reviewMapper;
         this.restaurantService = restaurantService;
         this.reviewRepository = reviewRepository;
+        this.locationService = locationService;
     }
 
     @PostMapping("/post")
@@ -52,7 +56,7 @@ public class ReviewController {
     public ResponseEntity patchReview (@Valid @RequestBody ReviewPatchDto reviewPatchDto) {
 
         Review editReview = reviewMapper.reviewPatchDtoToReview(reviewPatchDto);
-        Review review = reviewServiceImpl.updateReview(reviewPatchDto.getUserId(),editReview);
+        Review review = reviewServiceImpl.updateReview(reviewPatchDto.getReviewId(),reviewPatchDto.getUserId(),editReview);
         System.out.println(reviewMapper.reviewToReviewResponseDto(review).toString());
 
         return new ResponseEntity<>(reviewMapper.reviewToReviewResponseDto(review),
@@ -79,8 +83,8 @@ public class ReviewController {
         return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(reviews),
                 HttpStatus.OK);
     }
-    @GetMapping("/{restaurant-id}/{page}")
-    public ResponseEntity getAllRestaurantReview (@PathVariable("restaurant-id") long restaurantId,
+    @GetMapping("/restaurant/{page}")
+    public ResponseEntity getAllRestaurantReview (@Valid @RequestBody long restaurantId,
                                         @PathVariable("page") int page) {
 
         Restaurant restaurant = restaurantService.findRestaurant(restaurantId);
@@ -92,11 +96,11 @@ public class ReviewController {
         return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(reviews),
                 HttpStatus.OK);
     }
-    @GetMapping("/{location-id}/{page}")
-    public ResponseEntity getAllLocationReview (@PathVariable("location-id") long locationId,
+    @GetMapping("/location/{page}")
+    public ResponseEntity getAllLocationReview (@Valid @RequestBody long locationId,
                                         @PathVariable("page") int page) {
 
-//        Location location = locationService.findLocation(locationId);
+        Location location = locationService.findLocation(locationId);
 
         int size =10;
         Page<Review> pageReview = reviewServiceImpl.findLocationReview(locationId,page - 1, size);
