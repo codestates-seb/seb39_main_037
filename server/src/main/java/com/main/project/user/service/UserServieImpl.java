@@ -151,4 +151,9 @@ public class UserServieImpl implements  UserService{
 
         }
 
+    public WebUser findUserByFileName(String filename) {
+
+           return    userRepository.findByprofileImgName(filename).get();
+
+    }
 }
