@@ -23,9 +23,18 @@ bin/
 *.iml
 *.ipr
 out/
-*.yml
+application.yml
+application-server.yml
 !**/src/main/**/out/
 !**/src/test/**/out/
+
+**/logs/
+*.log
+*.zip
+*.yaml
+**/target/
+**/.idea/
+
 
 ### NetBeans ###
 /nbproject/private/
