@@ -23,7 +23,7 @@ bin/
 *.iml
 *.ipr
 out/
-
+server/src/main/resources/application.yml
 **/logs/
 *.log
 *.zip
