@@ -7,6 +7,7 @@ import com.main.project.comment.mapper.CommentMapper;
 import com.main.project.comment.service.CommentService;
 import com.main.project.review.entity.Review;
 import com.main.project.review.service.ReviewServiceImpl;
+import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.service.UserService;
 import com.main.project.user.service.UserServieImpl;
@@ -73,18 +74,16 @@ public class CommentController {
 
         return new ResponseEntity(commentMapper.commentsToCommentResponseDtos(comments), HttpStatus.OK);
     }
+    @GetMapping("/mypage/{user-id}")
+    public ResponseEntity getAllUserComment (@PathVariable("user-id") long userId) {
 
-//    @GetMapping("/user/{user-id}/{page}")
-//    public ResponseEntity getUserComment (@PathVariable("user-id") long userId,
-//                                          @PathVariable("page") int page) {
-//        WebUser user = userService.findUser(userId);
-//
-//        int size =10;
-//        Page<Comment> pageComment = commentService.findUserComment(userId,page - 1, size);
-//        List<Comment> comments = pageComment.getContent();
-//
-//        return new ResponseEntity(commentMapper.commentsToCommentResponseDtos(comments), HttpStatus.OK);
-//    } 회원 컨트롤러에 마이페이지 댓글 기능과 동일
+        WebUser user = userService.findUser(userId);
+
+        List<Comment> comments = commentService.findUserComment(user);
+
+        return new ResponseEntity<>(commentMapper.commentsToCommentResponseDtos(comments),
+                HttpStatus.OK);
+    }
 
 
     @DeleteMapping("/delete/{comment-id}")
@@ -93,4 +92,5 @@ public class CommentController {
         commentService.deleteComment(commentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }
