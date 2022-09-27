@@ -132,40 +132,40 @@ public class UserContorller {
     }
 
 
-    @GetMapping("/mypage/review")
-    public ResponseEntity getUserReview(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
-
-        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
-
-        return new ResponseEntity(webUserActivity.getListOfReview(), HttpStatus.FOUND);
-    }
-
-
-    @GetMapping("/mypage/badge")
-    public ResponseEntity getUserBadge(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
-
-        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
-
-        return new ResponseEntity(webUserActivity.getListOfBadge(), HttpStatus.FOUND);
-    }
-
-
-    @GetMapping("/mypage/comment")
-    public ResponseEntity getUserComment(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
-
-        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
-
-        return new ResponseEntity(webUserActivity.getListOfComment(), HttpStatus.FOUND);
-    }
-
-
-    @GetMapping("/mypage/thumbup")
-    public ResponseEntity getUserThumnUps(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
-
-        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
-
-        return new ResponseEntity(webUserActivity.getListOfThumbUp(), HttpStatus.FOUND);
-    }
+//    @GetMapping("/mypage/review")
+//    public ResponseEntity getUserReview(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
+//
+//        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
+//
+//        return new ResponseEntity(webUserActivity.getListOfReview(), HttpStatus.FOUND);
+//    }
+//
+//
+//    @GetMapping("/mypage/badge")
+//    public ResponseEntity getUserBadge(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
+//
+//        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
+//
+//        return new ResponseEntity(webUserActivity.getListOfBadge(), HttpStatus.FOUND);
+//    }
+//
+//
+//    @GetMapping("/mypage/comment")
+//    public ResponseEntity getUserComment(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
+//
+//        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
+//
+//        return new ResponseEntity(webUserActivity.getListOfComment(), HttpStatus.FOUND);
+//    }
+//
+//
+//    @GetMapping("/mypage/thumbup")
+//    public ResponseEntity getUserThumnUps(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
+//
+//        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
+//
+//        return new ResponseEntity(webUserActivity.getListOfThumbUp(), HttpStatus.FOUND);
+//    }
 
 
     @GetMapping("/search/all/{page}")

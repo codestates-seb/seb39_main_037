@@ -8,6 +8,7 @@ import com.main.project.location.entity.Location;
 import com.main.project.restaurant.service.RestaurantServiceImpl;
 import com.main.project.review.entity.Review;
 import com.main.project.review.repository.ReviewRepository;
+import com.main.project.user.entity.WebUser;
 import com.main.project.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -103,6 +104,9 @@ public class ReviewServiceImpl implements ReviewService{
         return reviewRepository.findByRestaurant(restaurantId);
 
     }
+    public List<Review> findUserReview(WebUser user) {
+        return reviewRepository.findByWebUser(user);
+    }
 
     public void deleteReview(long reviewId) {
 
@@ -138,7 +142,6 @@ public class ReviewServiceImpl implements ReviewService{
     public List<Review> search(String keyword) { //리뷰 검색기능 구현
 
         return reviewRepository.findByReviewTitleContaining(keyword);
-
     }
 
 }

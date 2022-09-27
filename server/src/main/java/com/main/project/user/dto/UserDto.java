@@ -91,11 +91,6 @@ public class UserDto {
 
 
 
-
-
-
-
-
     @AllArgsConstructor
     @Getter
     public static class responseWithPhotoUrlDTO{

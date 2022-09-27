@@ -1,6 +1,10 @@
 package com.main.project.thumbUp.controller;
 
+import com.main.project.restaurant.entity.Restaurant;
+import com.main.project.review.entity.Review;
 import com.main.project.thumbUp.dto.ThumbUpDto;
+import com.main.project.thumbUp.entity.ThumbUp;
+import com.main.project.thumbUp.mapper.ThumbUpMapper;
 import com.main.project.thumbUp.service.ThumbUpService;
 import com.main.project.thumbUp.service.ThumbUpServiceImpl;
 import com.main.project.user.entity.WebUser;
@@ -23,13 +27,14 @@ import java.util.Objects;
 public class ThumbUpController {
 
     private final ThumbUpServiceImpl thumbUpService;
+    private final ThumbUpMapper thumbUpMapper;
     UserServieImpl userService;
 
 
-    public ThumbUpController(ThumbUpServiceImpl thumbUpService, UserServieImpl userService) {
+    public ThumbUpController(ThumbUpServiceImpl thumbUpService, UserServieImpl userService, ThumbUpMapper thumbUpMapper) {
         this.thumbUpService = thumbUpService;
         this.userService = userService;
-
+        this.thumbUpMapper = thumbUpMapper;
     }
     @PostMapping("/post/{review-id}")
     public ResponseEntity postThumbUp (@PathVariable("review-id") long reviewId,
@@ -44,6 +49,17 @@ public class ThumbUpController {
 
         return result ?
                 new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/mypage/{user-id}")
+    public ResponseEntity getAllUserLike (@PathVariable("user-id") long userId) {
+
+        WebUser user = userService.findUser(userId);
+
+        List<ThumbUp> thumbUps = thumbUpService.findUserLike(user);
+
+        return new ResponseEntity<>(thumbUpMapper.thumbUpsToThumbUpResponseDtos(thumbUps),
+                HttpStatus.OK);
     }
 
 

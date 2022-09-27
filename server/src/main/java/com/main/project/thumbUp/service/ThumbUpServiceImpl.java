@@ -1,13 +1,10 @@
 package com.main.project.thumbUp.service;
 
-import com.main.project.exception.BusinessLogicException;
-import com.main.project.exception.ExceptionCode;
 import com.main.project.review.entity.Review;
 import com.main.project.review.repository.ReviewRepository;
 import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.thumbUp.repository.ThumbUpRepository;
 import com.main.project.user.entity.WebUser;
-import com.main.project.user.repository.UserRepository;
 import com.main.project.user.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,5 +72,8 @@ public class ThumbUpServiceImpl implements ThumbUpService{
 //  좋아요 중복 체크
     private boolean isNotAlreadyLike(WebUser user, Review review) {
         return thumbUpRepository.findByWebUserAndReview(user, review).isEmpty();
+    }
+    public List<ThumbUp> findUserLike(WebUser user) {
+        return thumbUpRepository.findByWebUser(user);
     }
 }

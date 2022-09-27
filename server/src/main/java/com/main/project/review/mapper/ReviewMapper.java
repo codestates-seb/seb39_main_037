@@ -31,7 +31,7 @@ public interface ReviewMapper {
         reviewResponseDto.setUpdatedAt(review.getUpdatedAt());
         reviewResponseDto.setRestaurant(review.getRestaurant());
 //        reviewResponseDto.setFoodType(review.getRestaurant().getFoodType());
-        reviewResponseDto.setUser(review.getWebUser());
+        reviewResponseDto.setUserId(review.getWebUser().getUserId());
 
         return reviewResponseDto;
     }

@@ -13,6 +13,8 @@ import com.main.project.review.repository.ReviewRepository;
 import com.main.project.review.service.ReviewServiceImpl;
 import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.thumbUp.service.ThumbUpService;
+import com.main.project.user.entity.WebUser;
+import com.main.project.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,14 +36,16 @@ public class ReviewController {
     private final ReviewRepository reviewRepository;
     LocationService locationService;
     ThumbUpService thumbUpService;
+    UserService userService;
 
-    public ReviewController(ReviewServiceImpl reviewServiceImpl, ReviewMapper reviewMapper, RestaurantServiceImpl restaurantService, ReviewRepository reviewRepository, LocationService locationService, ThumbUpService thumbUpService) {
+    public ReviewController(ReviewServiceImpl reviewServiceImpl, ReviewMapper reviewMapper, RestaurantServiceImpl restaurantService, ReviewRepository reviewRepository, LocationService locationService, ThumbUpService thumbUpService, UserService userService) {
         this.reviewServiceImpl = reviewServiceImpl;
         this.reviewMapper = reviewMapper;
         this.restaurantService = restaurantService;
         this.reviewRepository = reviewRepository;
         this.locationService = locationService;
         this.thumbUpService = thumbUpService;
+        this.userService = userService;
     }
 
     @PostMapping("/post")
@@ -106,6 +110,17 @@ public class ReviewController {
         List<Review> reviews = reviewServiceImpl.findLocationReview(locationId);
 
         return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(reviews),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/mypage/{user-id}")
+    public ResponseEntity getAllUserLike (@PathVariable("user-id") long userId) {
+
+        WebUser user = userService.findUser(userId);
+
+        List<Review> thumbUps = reviewServiceImpl.findUserReview(user);
+
+        return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(thumbUps),
                 HttpStatus.OK);
     }
 
