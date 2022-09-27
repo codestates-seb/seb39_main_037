@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class S3UploadService2 {
+public class S3Service {
 
 
     @Autowired
@@ -30,7 +30,7 @@ public class S3UploadService2 {
     private String bucketName;
 
 
-
+    /* S3 버킷의 reviewimg 디렉토리에 이미지를 저장한다. */
     public String uploadMutipartFile(MultipartFile multipartFile, String dirName) throws IOException {
             File file = convertMultiPartFileToFile(multipartFile).orElseThrow(() -> new IllegalArgumentException("멀티파트파일을 파일로 전환하는데 실패 "));//사진파일을 받아 s3넣기 전에 file로 변환
 
@@ -38,9 +38,7 @@ public class S3UploadService2 {
     }
 
 
-
-
-
+    /* S3 버킷의 reviewimg 디렉토리에 이미지를 저장한다. */
     public String upload(File uploadFile, String filePath, String saveFileName) {
         String path = filePath + "/" + saveFileName;
         amazonS3Client.putObject(new PutObjectRequest(bucketName, path, uploadFile)
@@ -49,21 +47,34 @@ public class S3UploadService2 {
         return amazonS3Client.getUrl(bucketName, path).toString();
     }
 
-
-    public byte[] download(String fileName){
-
-        S3Object  object = amazonS3Client.getObject(bucketName, fileName);
-        S3ObjectInputStream objectContent = object.getObjectContent();
-        try{
-            return IOUtils.toByteArray(objectContent);
-        }catch (IOException e){
-            throw   new RuntimeException(e);
-        }
-
-
+    /* S3 버킷의 reviewimg 디렉토리에 있는 이미지 파일을 가져올 수 있도록 url을 제공.*/
+    public String findeImgUrl(String filename){
+        String path = "reviewimg" + "/" + filename;
+        return amazonS3Client.getUrl(bucketName, path).toString();
     }
 
 
+
+//    public byte[] download(String fileName){
+//
+//        S3Object  object = amazonS3Client.getObject(bucketName, fileName);
+//        S3ObjectInputStream objectContent = object.getObjectContent();
+//        try{
+//            return IOUtils.toByteArray(objectContent);
+//        }catch (IOException e){
+//            throw   new RuntimeException(e);
+//        }
+//
+//    }
+    
+    /* S3 버킷의 reviewimg 디렉토리에 있는 이미지 파일을 지운다.*/
+    public String deleteFile(String fileName){
+        amazonS3Client.deleteObject(bucketName, fileName);
+        return "filedeleted";
+
+    }
+
+    /* request에서 이미지파일을 받아와 File 타입으로 변환하는 메서드 */
     public Optional<File> convertMultiPartFileToFile (MultipartFile file) throws IOException{
 
         File convFile = new File(file.getOriginalFilename());
