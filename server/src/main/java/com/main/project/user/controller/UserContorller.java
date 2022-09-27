@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin("*")
 public class UserContorller {
 
     private UserServieImpl userService;
@@ -46,7 +47,7 @@ public class UserContorller {
     }
 
     @PostMapping("/post")
-    public ResponseEntity postUser(@RequestPart UserDto.postUserDto postUserDto, @RequestPart MultipartFile profileImg) throws IOException, URISyntaxException {
+    public ResponseEntity postUser(@RequestBody UserDto.postUserDto postUserDto/*, @RequestPart MultipartFile profileImg*/) throws IOException, URISyntaxException {
 
 
         LocalDateTime time = LocalDateTime.now();
@@ -60,16 +61,16 @@ public class UserContorller {
 
         WebUser webUser =  mapper.userPostDtoToWebUser(postUserDto);
         // 프로필을 등록하지 않을 경우
-        if(profileImg.isEmpty()){
-            ClassPathResource resource = new ClassPathResource("images/defaultImg.jpg");
-            byte[] defaultImg = FileCopyUtils.copyToByteArray(resource.getInputStream());
-            webUser.setProfileImg(defaultImg);
-        }
+//        if(profileImg.isEmpty()){
+//            ClassPathResource resource = new ClassPathResource("images/defaultImg.jpg");
+//            byte[] defaultImg = FileCopyUtils.copyToByteArray(resource.getInputStream());
+//            webUser.setProfileImg(defaultImg);
+//        }
         //프로필 사진이 있을 경우
-        else {
-            webUser.setProfileImgName(profileImg.getOriginalFilename() + year + month + day + hour + minute + second);
-            webUser.setProfileImg(profileImg.getBytes());
-        }
+//        else {
+//            webUser.setProfileImgName(profileImg.getOriginalFilename() + year + month + day + hour + minute + second);
+//            webUser.setProfileImg(profileImg.getBytes());
+//        }
 
          WebUser newUser = userService.registerUser(webUser);
         // 유저 등록시 필요한 내용(유저 본명, 닉네임, 이메일, 비밀번호, 사진)을 dto로 담기(파라미터)
@@ -79,7 +80,7 @@ public class UserContorller {
         responseUserDto.setUserName(newUser.getUserName());
         responseUserDto.setEmail(newUser.getEmail());
         responseUserDto.setNickName(newUser.getNickName());
-        responseUserDto.setImgUrl(uriMaker(newUser));
+//        responseUserDto.setImgUrl(uriMaker(newUser));
         return new ResponseEntity(mapper.webUserToresponseUserDto(newUser), HttpStatus.CREATED);
     }
 
@@ -93,7 +94,7 @@ public class UserContorller {
         responseUserDto.setUserName(edittedUser.getUserName());
         responseUserDto.setEmail(edittedUser.getEmail());
         responseUserDto.setNickName(edittedUser.getNickName());
-        responseUserDto.setImgUrl(uriMaker(edittedUser));
+
 
         return new ResponseEntity<>(mapper.webUserToresponseUserDto(edittedUser), HttpStatus.OK);
     }
@@ -109,7 +110,7 @@ public class UserContorller {
         responseUserDto.setUserName(edittedUser.getUserName());
         responseUserDto.setEmail(edittedUser.getEmail());
         responseUserDto.setNickName(edittedUser.getNickName());
-        responseUserDto.setImgUrl(uriMaker(edittedUser));
+
 
         return new ResponseEntity<>(mapper.webUserToresponseUserDto(edittedUser), HttpStatus.OK);
     }
@@ -178,6 +179,10 @@ public class UserContorller {
 
         return  new ResponseEntity(new Multi_ResponseDTOwithPageInfo<>(allUser, pageUsers), HttpStatus.FOUND);
     }
+
+
+
+
 
 
 

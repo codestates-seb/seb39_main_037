@@ -73,7 +73,8 @@ public class UserDto {
         private String userName;
         private String nickName;
         private String email;
-        private String imgUrl;
+        private String profile;
+
 
 // 유저 계정을 삭제할 경우 계정 해지 사유를 확인하는 설문 조사도 가능할 듯
     }

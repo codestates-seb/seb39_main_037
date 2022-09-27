@@ -30,8 +30,9 @@ server/src/main/resources/application.yml
 *.yaml
 **/target/
 **/.idea/
-application.yml
-application-local.yml
+**/application.yml
+**/application-local.yml
+**/application-server.yml
 
 
 ### NetBeans ###
