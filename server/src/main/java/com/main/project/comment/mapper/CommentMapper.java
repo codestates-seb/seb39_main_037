@@ -14,6 +14,16 @@ import java.util.List;
 public interface CommentMapper {
     Comment commentPostDtoToComment(CommentPostDto commentPostDTO);
     Comment commentPatchDtoToComment(CommentPatchDto commentPatchDto);
-    CommentResponseDto commentToCommentResponseDto(Comment comment);
     List<CommentResponseDto> commentsToCommentResponseDtos(List<Comment> comments);
+
+    default public CommentResponseDto commentToCommentResponseDto(Comment comment){
+        CommentResponseDto commentResponseDto = new CommentResponseDto();
+        commentResponseDto.setCommentId(comment.getCommentId());
+        commentResponseDto.setCommentBody(comment.getCommentBody());
+        commentResponseDto.setCreatedAt(comment.getCreatedAt());
+        commentResponseDto.setUpdatedAt(comment.getUpdatedAt());
+        commentResponseDto.setUserId(comment.getWebUser().getUserId());
+
+        return commentResponseDto;
+    }
 }

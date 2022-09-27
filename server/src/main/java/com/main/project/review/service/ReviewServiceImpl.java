@@ -3,9 +3,12 @@ package com.main.project.review.service;
 import com.main.project.badge.service.BadgeServiceImpl;
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
+import com.main.project.foodType.FoodType;
+import com.main.project.location.entity.Location;
 import com.main.project.restaurant.service.RestaurantServiceImpl;
 import com.main.project.review.entity.Review;
 import com.main.project.review.repository.ReviewRepository;
+import com.main.project.user.entity.WebUser;
 import com.main.project.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,11 +35,11 @@ public class ReviewServiceImpl implements ReviewService{
         this.badgeService = badgeService;
     }
 
-    public Review createReview(long userId, long foodId, long restaurantId, Review review) {
+    public Review createReview(long userId, long restaurantId, Review review) {
 
         review.addWebUser(userService.findUser(userId));
         review.addRestaurant(restaurantServiceImpl.findRestaurant(restaurantId));
-        //food 검증 로직
+//        review.addFoodType(new FoodType()); //foodtype service 생기면 수정하기
         verifyReview(review);
 
         review.setReviewTitle(review.getReviewTitle());
@@ -89,17 +92,20 @@ public class ReviewServiceImpl implements ReviewService{
 
         return reviewRepository.findAll(PageRequest.of(page, size, Sort.by("reviewId").descending()));
     }
-    public Page<Review> findRestaurantReview(long restaurantId, int page, int size) {
+    public List<Review> findRestaurantReview(long restaurantId) {
 
-        return reviewRepository.findByRestaurant(restaurantId, PageRequest.of(page,size,Sort.by("reviewId").descending()));
+        return reviewRepository.findByRestaurant(restaurantId);
     }
-    public Page<Review> findLocationReview(long locationId, int page, int size) {
+    public List<Review> findLocationReview(long locationId) {
 
-        return reviewRepository.findByLocation(locationId, PageRequest.of(page,size,Sort.by("reviewId").descending()));
+        return reviewRepository.findByLocation(locationId);
     }
     public List<Review> RestaurantReviewList(long restaurantId){  // 평균 값 저장을 위해 생턴
         return reviewRepository.findByRestaurant(restaurantId);
 
+    }
+    public List<Review> findUserReview(WebUser user) {
+        return reviewRepository.findByWebUser(user);
     }
 
     public void deleteReview(long reviewId) {
@@ -133,10 +139,9 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Transactional
-    public Page<Review> search(String keyword, int page, int size) { //리뷰 검색기능 구현
+    public List<Review> search(String keyword) { //리뷰 검색기능 구현
 
-        return reviewRepository.findByReviewTitleContaining(keyword, PageRequest.of(page,size,Sort.by("reviewId").descending()));
-
+        return reviewRepository.findByReviewTitleContaining(keyword);
     }
 
 }

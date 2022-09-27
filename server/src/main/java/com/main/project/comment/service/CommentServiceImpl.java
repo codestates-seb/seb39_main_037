@@ -6,6 +6,7 @@ import com.main.project.comment.repository.CommentRepository;
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
 import com.main.project.review.service.ReviewServiceImpl;
+import com.main.project.user.entity.WebUser;
 import com.main.project.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -57,9 +58,9 @@ public class CommentServiceImpl implements CommentService {
         return null;
     }
 
-    public Page<Comment> findUserComment(long userId, int page, int size) {
+    public List<Comment> findUserComment(WebUser user) {
 
-        return commentRepository.findByWebUser(userId, PageRequest.of(page,size, Sort.by("commentId").descending()));
+        return commentRepository.findByWebUser(user);
     }
 
     public Page<Comment> findReviewComment(long reviewId, int page, int size) {

@@ -11,6 +11,10 @@ import com.main.project.review.entity.Review;
 import com.main.project.review.mapper.ReviewMapper;
 import com.main.project.review.repository.ReviewRepository;
 import com.main.project.review.service.ReviewServiceImpl;
+import com.main.project.thumbUp.entity.ThumbUp;
+import com.main.project.thumbUp.service.ThumbUpService;
+import com.main.project.user.entity.WebUser;
+import com.main.project.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,22 +35,26 @@ public class ReviewController {
     RestaurantServiceImpl restaurantService;
     private final ReviewRepository reviewRepository;
     LocationService locationService;
+    ThumbUpService thumbUpService;
+    UserService userService;
 
-    public ReviewController(ReviewServiceImpl reviewServiceImpl, ReviewMapper reviewMapper, RestaurantServiceImpl restaurantService, ReviewRepository reviewRepository, LocationService locationService) {
+    public ReviewController(ReviewServiceImpl reviewServiceImpl, ReviewMapper reviewMapper, RestaurantServiceImpl restaurantService, ReviewRepository reviewRepository, LocationService locationService, ThumbUpService thumbUpService, UserService userService) {
         this.reviewServiceImpl = reviewServiceImpl;
         this.reviewMapper = reviewMapper;
         this.restaurantService = restaurantService;
         this.reviewRepository = reviewRepository;
         this.locationService = locationService;
+        this.thumbUpService = thumbUpService;
+        this.userService = userService;
     }
 
     @PostMapping("/post")
     public ResponseEntity postReview (@Valid @RequestBody ReviewPostDto reviewPostDto) {
 
         long userId = reviewPostDto.getUserId();
-        long foodId = reviewPostDto.getFoodId();
+//        long foodTypeId = reviewPostDto.getFoodTypeId();
         long restaurantId = reviewPostDto.getRestaurantId();
-        Review review = reviewServiceImpl.createReview(userId, foodId, restaurantId, reviewMapper.reviewPostDtoToReview(reviewPostDto));
+        Review review = reviewServiceImpl.createReview(userId, restaurantId, reviewMapper.reviewPostDtoToReview(reviewPostDto));
 
         return new ResponseEntity<>(reviewMapper.reviewToReviewResponseDto(review),
                 HttpStatus.CREATED);
@@ -68,6 +76,7 @@ public class ReviewController {
 
         Review review = reviewServiceImpl.findReview(reviewId);
         reviewServiceImpl.updateView(reviewId);
+        thumbUpService.count(reviewId);
 
         return new ResponseEntity<>(reviewMapper.reviewToReviewResponseDto(review),
                 HttpStatus.OK);
@@ -83,30 +92,35 @@ public class ReviewController {
         return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(reviews),
                 HttpStatus.OK);
     }
-    @GetMapping("/restaurant/{page}")
-    public ResponseEntity getAllRestaurantReview (@Valid @RequestBody long restaurantId,
-                                        @PathVariable("page") int page) {
+    @GetMapping("/restaurant/{restaurant-id}")
+    public ResponseEntity getAllRestaurantReview (@PathVariable("restaurant-id") long restaurantId) {
 
         Restaurant restaurant = restaurantService.findRestaurant(restaurantId);
 
-        int size =10;
-        Page<Review> pageReview = reviewServiceImpl.findRestaurantReview(restaurantId,page - 1, size);
-        List<Review> reviews = pageReview.getContent();
+        List<Review> reviews = reviewServiceImpl.findRestaurantReview(restaurantId);
 
         return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(reviews),
                 HttpStatus.OK);
     }
-    @GetMapping("/location/{page}")
-    public ResponseEntity getAllLocationReview (@Valid @RequestBody long locationId,
-                                        @PathVariable("page") int page) {
+    @GetMapping("/location/{location-id}")
+    public ResponseEntity getAllLocationReview (@PathVariable("location-id") long locationId) {
 
         Location location = locationService.findLocation(locationId);
 
-        int size =10;
-        Page<Review> pageReview = reviewServiceImpl.findLocationReview(locationId,page - 1, size);
-        List<Review> reviews = pageReview.getContent();
+        List<Review> reviews = reviewServiceImpl.findLocationReview(locationId);
 
         return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(reviews),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/mypage/{user-id}")
+    public ResponseEntity getAllUserLike (@PathVariable("user-id") long userId) {
+
+        WebUser user = userService.findUser(userId);
+
+        List<Review> thumbUps = reviewServiceImpl.findUserReview(user);
+
+        return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(thumbUps),
                 HttpStatus.OK);
     }
 
@@ -120,11 +134,9 @@ public class ReviewController {
     }
 
 
-    @GetMapping("/search/{page}") // 리뷰 검색기능 구현
-    public ResponseEntity search(@RequestBody String keyword,  @PathVariable("page") int page) {
-        int size =10;
-        Page<Review> pageReview = reviewServiceImpl.search(keyword, page - 1, size);
-        List<Review> reviews = pageReview.getContent();
+    @GetMapping("/search") // 리뷰 검색기능 구현
+    public ResponseEntity search(@RequestBody String keyword) {
+        List<Review> reviews = reviewServiceImpl.search(keyword);
 
         return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(reviews),
                 HttpStatus.OK);

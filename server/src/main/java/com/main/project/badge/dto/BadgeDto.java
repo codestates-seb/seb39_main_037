@@ -3,6 +3,7 @@ package com.main.project.badge.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 public class BadgeDto {
@@ -19,7 +20,8 @@ public class BadgeDto {
 
     }
 
-    @AllArgsConstructor
+    @NoArgsConstructor
+    @Setter
     @Getter
     public static class responseDto{
 

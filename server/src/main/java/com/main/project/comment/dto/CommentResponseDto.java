@@ -10,17 +10,11 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Getter
-@AllArgsConstructor
+@Setter
 public class CommentResponseDto {
     long commentId;
     String commentBody;
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
-    @Setter
-    private long userId;
-
-    public void setUser(Comment user) {
-        this.userId = user.getWebUser().getUserId();
-    }
-
+    long userId;
 }

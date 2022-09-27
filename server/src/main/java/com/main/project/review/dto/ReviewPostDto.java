@@ -17,24 +17,24 @@ public class ReviewPostDto {
     @NotBlank(message = "내용을 입력해 주세요.")
     private String reviewBody;
 
-    @NotBlank(message = "맛 별점을 입력해 주세요.")
-    @Min(value = 1, message = "별점은 최소 1점 부터 시작합니다.")
-    @Max(value = 5, message = "별점은 최대 5점까지 줄 수 있습니다.")
-    private int tasteStar;
 
-    @NotBlank(message = "시설 별점을 입력해 주세요.")
     @Min(value = 1, message = "별점은 최소 1점 부터 시작합니다.")
     @Max(value = 5, message = "별점은 최대 5점까지 줄 수 있습니다.")
-    private int facilityStar;
+    private Integer tasteStar;
 
-    @NotBlank(message = "가격 별점을 입력해 주세요.")
+
     @Min(value = 1, message = "별점은 최소 1점 부터 시작합니다.")
     @Max(value = 5, message = "별점은 최대 5점까지 줄 수 있습니다.")
-    private int priceStar;
+    private Integer facilityStar;
+
+
+    @Min(value = 1, message = "별점은 최소 1점 부터 시작합니다.")
+    @Max(value = 5, message = "별점은 최대 5점까지 줄 수 있습니다.")
+    private Integer priceStar;
 
     private long userId;
     private long restaurantId;
-    private long foodId;
+//    private long foodTypeId;
     private long locationId;
 
 }

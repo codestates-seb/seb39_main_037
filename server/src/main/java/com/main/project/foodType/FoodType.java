@@ -2,6 +2,7 @@ package com.main.project.foodType;
 
 import com.main.project.food.entity.Food;
 import com.main.project.restaurant.entity.Restaurant;
+import com.main.project.review.entity.Review;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

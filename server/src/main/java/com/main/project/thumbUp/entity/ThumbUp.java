@@ -4,6 +4,7 @@ package com.main.project.thumbUp.entity;
 
 import com.main.project.review.entity.Review;
 import com.main.project.user.entity.WebUser;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @Entity
@@ -18,6 +20,7 @@ import javax.persistence.*;
 public class ThumbUp {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) //SQLException thumbup id 오류가 떠서 타입을 IDENTITY에서 AUTO로 바꿈
     private long thumbUpId;
 
     @ManyToOne

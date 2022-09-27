@@ -3,8 +3,10 @@ package com.main.project.badge.controller;
 import com.main.project.badge.dto.BadgeDto;
 import com.main.project.badge.entity.Badge;
 import com.main.project.badge.mapper.BadgeMapper;
+import com.main.project.badge.repository.BadgeRepository;
 import com.main.project.badge.service.BadgeServiceImpl;
 import com.main.project.user.entity.WebUser;
+import com.main.project.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +24,14 @@ public class BadgeController {
 
     BadgeServiceImpl  service;
     BadgeMapper mapper;
+    UserService userService;
+    BadgeRepository badgeRepository;
 
-    public BadgeController(BadgeServiceImpl service, BadgeMapper mapper) {
+    public BadgeController(BadgeServiceImpl service, BadgeMapper mapper,UserService userService, BadgeRepository badgeRepository) {
         this.service = service;
         this.mapper = mapper;
+        this.userService = userService;
+        this.badgeRepository = badgeRepository;
     }
 
     @PostMapping

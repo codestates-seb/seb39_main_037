@@ -30,7 +30,10 @@ public class BadgeServiceImpl implements  BadgeService{
     }
 
     @Override
-    public Badge makeNewBadge(Badge badge) {
+    public Badge makeNewBadge(Badge badge) { // 뱃지 저장 추가(담기)
+        badge.setBadgename(badge.getBadgename());
+        badge.setBadgeDescription(badge.getBadgeDescription());
+        badge.setBadgeImg(badge.getBadgeImg());
        Badge newBadge = badgeRepository.save(badge);
         return newBadge;
     }
