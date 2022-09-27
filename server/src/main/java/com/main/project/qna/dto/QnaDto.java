@@ -3,6 +3,7 @@ package com.main.project.qna.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 public class QnaDto {
 
     @Getter
+    @Setter
     @NoArgsConstructor
     public static class PostDto{
         long userId;
@@ -19,6 +21,7 @@ public class QnaDto {
         String questionBody;
     }
     @Getter
+    @Setter
     @NoArgsConstructor
     public static class PatchDto {
         long userId;
@@ -30,6 +33,7 @@ public class QnaDto {
     }
 
     @Getter
+    @Setter
     @NoArgsConstructor
     public static class ResponseDto {
         long userId;

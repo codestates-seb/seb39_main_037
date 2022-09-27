@@ -16,6 +16,25 @@ import java.util.List;
 public interface RestaurantMapper {
     Restaurant restaurantDtoToRestaurant(RestaurantDto restaurantDto);
     RestaurantDto restaurantToRestaurantDto(Restaurant restaurant);
-    RestaurantResponseDto restaurantToRestaurantResponseDto(Restaurant restaurant);
     List<RestaurantResponseDto> restaurantsToRestaurantDtos(List<Restaurant> restaurants);
+
+    default public RestaurantResponseDto restaurantToRestaurantResponseDto(Restaurant restaurant) {
+        if ( restaurant == null ) {
+            return null;
+        }
+
+        RestaurantResponseDto restaurantResponseDto = new RestaurantResponseDto();
+
+        restaurantResponseDto.setRestaurantId( restaurant.getRestaurantId() );
+        restaurantResponseDto.setRestaurantName( restaurant.getRestaurantName() );
+        restaurantResponseDto.setCategory( restaurant.getCategory() );
+        restaurantResponseDto.setRestaurantPhone( restaurant.getRestaurantPhone() );
+        restaurantResponseDto.setAddress( restaurant.getAddress() );
+        restaurantResponseDto.setAveTaste( restaurant.getAveTaste() );
+        restaurantResponseDto.setAveFacility( restaurant.getAveFacility() );
+        restaurantResponseDto.setAvePrice( restaurant.getAvePrice() );
+        restaurantResponseDto.setReview(restaurant.getReviewList());
+
+        return restaurantResponseDto;
+    }
 }

@@ -8,6 +8,7 @@ import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.thumbUp.repository.ThumbUpRepository;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.repository.UserRepository;
+import com.main.project.user.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,18 +24,16 @@ public class ThumbUpServiceImpl implements ThumbUpService{
 
     private final ThumbUpRepository thumbUpRepository;
     ReviewRepository reviewRepository;
-    UserRepository userRepository;
+    UserService userService;
 
-    public ThumbUpServiceImpl(ThumbUpRepository thumbUpRepository, ReviewRepository reviewRepository, UserRepository userRepository) {
+    public ThumbUpServiceImpl(ThumbUpRepository thumbUpRepository, ReviewRepository reviewRepository, UserService userService) {
         this.thumbUpRepository = thumbUpRepository;
         this.reviewRepository = reviewRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
-    public boolean createThumbUp(long userId, long reviewId) {
+    public boolean createThumbUp(WebUser user, long reviewId) {
 
-        //유저 존재 확인
-        WebUser user = userRepository.findById(userId).orElseThrow();
         //리뷰 존재 확인
         Review review = reviewRepository.findById(reviewId).orElseThrow();
 
@@ -47,17 +46,17 @@ public class ThumbUpServiceImpl implements ThumbUpService{
         return false;
     }
 
-    public List<String> count(long reviewId, long userId) {
+    public List<String> count(long reviewId) {
 
         Review review = reviewRepository.findById(reviewId).orElseThrow();
-        WebUser user = userRepository.findById(userId).orElseThrow();
+        WebUser user = review.getWebUser();
 
         Integer likeCount = thumbUpRepository.countByReview(review).orElse(0);
 
         List<String> result =
                 new ArrayList<>(Arrays.asList(String.valueOf(likeCount)));
 
-        if (Objects.nonNull(user)) {
+        if (Objects.nonNull(user.getUserId())) {
             result.add(String.valueOf(isNotAlreadyLike(user, review)));
             return result;
         }
@@ -65,15 +64,12 @@ public class ThumbUpServiceImpl implements ThumbUpService{
         return result;
     }
 
-    public void deleteThumbUp(long thumbUpId, long userId) {
+    public void deleteThumbUp(WebUser user, long reviewId) {
 
-        ThumbUp thumbUp = thumbUpRepository.findById(thumbUpId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.LIKE_IS_NOT_EXISTS));
+        Review review = reviewRepository.findById(reviewId).orElseThrow();
+        ThumbUp thumbUp = thumbUpRepository.findByWebUserAndReview(user, review).orElseThrow();
 
-//      좋아요 한 유저를 확인 후 좋아요 삭제
-        if(thumbUp.getWebUser().getUserId() == userId) {thumbUpRepository.delete(thumbUp);}
-        else{
-            new BusinessLogicException(ExceptionCode.USER_IS_NOT_MATCH);
-        }
+        thumbUpRepository.delete(thumbUp);
     }
 
 //  좋아요 중복 체크

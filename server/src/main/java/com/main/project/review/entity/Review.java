@@ -2,6 +2,7 @@ package com.main.project.review.entity;
 
 import com.main.project.comment.entity.Comment;
 import com.main.project.entity.BaseTimeEntity;
+import com.main.project.foodType.FoodType;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.location.entity.Location;
@@ -33,13 +34,13 @@ public class Review extends BaseTimeEntity {
     private String reviewBody;
 
     @Column(nullable = false)
-    private int tasteStar;
+    private Integer tasteStar;
 
     @Column(nullable = false)
-    private int facilityStar;
+    private Integer facilityStar;
 
     @Column(nullable = false)
-    private int priceStar;
+    private Integer priceStar;
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
@@ -73,6 +74,7 @@ public class Review extends BaseTimeEntity {
     public void addRestaurant(Restaurant restaurant){
         this.restaurant = restaurant;
     }
+
     public void addComment(Comment comment){
         comments.add(comment);
     }

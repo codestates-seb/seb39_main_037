@@ -88,16 +88,16 @@ public class LocationController {
                 HttpStatus.OK);
     }
 
-    @DeleteMapping("/manager/state/delete")
-    public ResponseEntity deleteState (@Valid @RequestBody long stateId) {
+    @DeleteMapping("/state/{state-id}/delete")
+    public ResponseEntity deleteState (@PathVariable("state-id") long stateId) {
         // 관리자 검증하기
         locationService.deleteState(stateId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("/manager/city/delete")
-    public ResponseEntity deleteCity (@Valid @RequestBody long cityId) {
+    @DeleteMapping("/city/{city-id}/delete")
+    public ResponseEntity deleteCity (@PathVariable("city-id") long cityId) {
         // 관리자 검증하기
         locationService.deleteCity(cityId);
 

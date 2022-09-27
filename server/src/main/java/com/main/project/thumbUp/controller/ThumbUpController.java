@@ -31,34 +31,30 @@ public class ThumbUpController {
         this.userService = userService;
 
     }
-    @PostMapping("/post")
-    public ResponseEntity postThumbUp (@Valid @RequestBody ThumbUpDto.PostDto thumbUpDto) {
+    @PostMapping("/post/{review-id}")
+    public ResponseEntity postThumbUp (@PathVariable("review-id") long reviewId,
+                                       @Valid @RequestBody ThumbUpDto thumbUpDto) {
 
-        boolean like = true;
-        WebUser webUser = userService.findUser(thumbUpDto.getUserId());
-        if(Objects.nonNull(webUser))
-            like = thumbUpService.createThumbUp(thumbUpDto.getUserId(), thumbUpDto.getReviewId());
+        boolean result = false;
 
-        return like ?
+        WebUser user = userService.findUser(thumbUpDto.getUserId());
+
+        if (Objects.nonNull(user))
+            result = thumbUpService.createThumbUp(user, reviewId);
+
+        return result ?
                 new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/count")
-    public ResponseEntity getCountThumbUp (ThumbUpDto.PatchDto thumbUpDto) {
 
-        List<String> count = thumbUpService.count(thumbUpDto.getReviewId(),thumbUpDto.getUserId());
+    @DeleteMapping("/delete/{review-id}")
+    public ResponseEntity deleteThumbUp (@PathVariable("review-id") long reviewId,
+                                         ThumbUpDto thumbUpDto) {
 
-        log.info("likeCount : {} ", count);
-
-        return new ResponseEntity<>(count, HttpStatus.OK);
-    }
-
-
-    @DeleteMapping("/delete/{thumbUp-id}")
-    public ResponseEntity deleteThumbUp (@PathVariable("thumbUp-id") long thumbUpId, ThumbUpDto.DeleteDto thumbUpDto) {
-
-        thumbUpService.deleteThumbUp(thumbUpId, thumbUpDto.getUserId());
-
+        WebUser user = userService.findUser(thumbUpDto.getUserId());
+        if(user != null) {
+            thumbUpService.deleteThumbUp(user, reviewId);
+        }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

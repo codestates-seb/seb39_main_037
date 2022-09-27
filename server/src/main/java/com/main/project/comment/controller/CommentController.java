@@ -60,7 +60,7 @@ public class CommentController {
         return new ResponseEntity(commentMapper.commentToCommentResponseDto(editComment), HttpStatus.OK);
     }
 
-    @GetMapping("/{review-id}/{page}")
+    @GetMapping("/review/{review-id}/{page}")
     public ResponseEntity getReviewComment (@PathVariable("review-id") long reviewId,
                                          @PathVariable("page") int page) {
 
@@ -74,17 +74,17 @@ public class CommentController {
         return new ResponseEntity(commentMapper.commentsToCommentResponseDtos(comments), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{page}")
-    public ResponseEntity getUserComment (@Valid @RequestBody long userId,
-                                          @PathVariable("page") int page) {
-        WebUser user = userService.findUser(userId);
-
-        int size =10;
-        Page<Comment> pageComment = commentService.findUserComment(userId,page - 1, size);
-        List<Comment> comments = pageComment.getContent();
-
-        return new ResponseEntity(commentMapper.commentsToCommentResponseDtos(comments), HttpStatus.OK);
-    }
+//    @GetMapping("/user/{user-id}/{page}")
+//    public ResponseEntity getUserComment (@PathVariable("user-id") long userId,
+//                                          @PathVariable("page") int page) {
+//        WebUser user = userService.findUser(userId);
+//
+//        int size =10;
+//        Page<Comment> pageComment = commentService.findUserComment(userId,page - 1, size);
+//        List<Comment> comments = pageComment.getContent();
+//
+//        return new ResponseEntity(commentMapper.commentsToCommentResponseDtos(comments), HttpStatus.OK);
+//    } 회원 컨트롤러에 마이페이지 댓글 기능과 동일
 
 
     @DeleteMapping("/delete/{comment-id}")
