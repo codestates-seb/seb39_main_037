@@ -2,6 +2,8 @@ import { css } from "styled-components";
 
 const variables = css`
   --main-yellow: #fec20b;
+  /* --yellow-background: #fff7de; */
+  --yellow-background: #fff8e0;
   --footer-background: #232629;
   --footer-color: #9199a1;
   --google-background: #ffffff;
