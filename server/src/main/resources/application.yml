@@ -7,8 +7,8 @@ cloud:
     stack:
       auto: 'false'
     credentials:
-      access-key: aaa
-      secret-key: aaa
+      access-key: AKIAQ4RLSA4FEQKLW35A
+      secret-key: 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
 
 
 
@@ -26,6 +26,10 @@ spring:
     hibernate:
       ddl-auto: update # (1) ??? ?? ??
     show-sql: true      # (2) SQL ?? ??
+  servlet:
+    multipart:
+      maxFileSize: 10MB
+      maxRequestSize: 10MB
 
   security:
     oauth2:
