@@ -3,13 +3,14 @@ import { Checkbox, OutlinedInput } from "@mui/material";
 import { Modal } from "Components/Common/Modal/Modal";
 import { ModalContent } from "Components/Common/Modal/ModalContent";
 import { SquareButtonForm } from "Components/Common/SquareButtonForm";
+import { useAuth } from "Hooks/Api/Auth/index";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 interface IAccountProps {
   title: string;
-  id?: number;
+  name?: string;
   nickName?: string;
   email?: string;
   password?: string;
@@ -17,11 +18,12 @@ interface IAccountProps {
 
 const AccountForm = ({
   title,
-  id,
+  name = "",
   nickName = "",
   email = "",
   password = "",
 }: IAccountProps) => {
+  const { postSignUp, postLogin } = useAuth();
   const navigate = useNavigate();
   const isSignup = title === "회원가입"; // title이 회원가입 IsLogin 이 true
   const isLogin = title === "로그인"; // title이 로그인이면 IsLogin 이 true
@@ -30,12 +32,13 @@ const AccountForm = ({
   const [checked, setChecked] = useState<boolean>(false);
   const [isOpenAgreeModal, setIsOpenAgreeModal] = useState<boolean>(false);
   const [form, setForm] = useState({
-    idForm: id,
+    nameForm: name,
     nickNameForm: nickName,
     emailForm: email,
     passwordForm: password,
   }); // form 을 저장할 state들
-  const { idForm, nickNameForm, emailForm, passwordForm } = form; // 구조분해할당
+  const { nameForm, nickNameForm, emailForm, passwordForm } = form; // 구조분해할당
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -44,26 +47,31 @@ const AccountForm = ({
   const handleSubmit = () => {
     if (isSignup) {
       if (window.confirm("회원가입하시겠습니까?")) {
-        navigate("/login");
+        postSignUp({
+          userName: nameForm,
+          nickName: nickNameForm,
+          email: emailForm,
+          password: passwordForm,
+        });
+        // navigate("/login");
       }
     } else if (isLogin) {
       if (window.confirm("로그인하시겠습니까?")) {
-        navigate("/");
+        postLogin({ email: emailForm, password: passwordForm });
       }
     }
   };
 
   return (
     <AccountFormWrapper>
-      {" "}
       {isSignup && (
         <>
           <InputLabel>
-            <span>아이디를 입력하세요</span>
+            <span>이름을 입력하세요</span>
             <InputField
               type="text"
-              name="idFrom"
-              value={idForm}
+              name="nameForm"
+              value={nameForm}
               onChange={onChange}
               size="small"
               inputProps={{
@@ -119,11 +127,11 @@ const AccountForm = ({
       {isLogin && (
         <>
           <InputLabel>
-            <span>아이디를 입력하세요</span>
+            <span>이메일을 입력하세요</span>
             <InputField
-              type="text"
-              name="idFrom"
-              value={idForm}
+              type="email"
+              name="emailForm"
+              value={emailForm}
               onChange={onChange}
               size="small"
               inputProps={{
