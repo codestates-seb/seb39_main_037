@@ -119,9 +119,9 @@ public class ReviewController {
 
         WebUser user = userService.findUser(userId);
 
-        List<Review> thumbUps = reviewServiceImpl.findUserReview(user);
+        List<Review> reviews = reviewServiceImpl.findUserReview(user);
 
-        return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(thumbUps),
+        return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(reviews),
                 HttpStatus.OK);
     }
 

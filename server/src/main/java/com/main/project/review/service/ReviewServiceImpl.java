@@ -44,10 +44,10 @@ public class ReviewServiceImpl implements ReviewService{
 
         review.setReviewTitle(review.getReviewTitle());
         review.setReviewBody(review.getReviewBody());
-        review.setReviewImgs(review.getReviewImgs());
         review.setTasteStar(review.getTasteStar());
         review.setFacilityStar(review.getFacilityStar());
         review.setPriceStar(review.getPriceStar());
+        review.setReviewImgUrl(review.getReviewImgUrl());
 
         badgeService.assignBadge(userId);//리뷰를 작성할 때마다 리뷰관련 뱃지 할당 조건을 체크하는 메서드
 
@@ -67,14 +67,14 @@ public class ReviewServiceImpl implements ReviewService{
                     .ifPresent(foundReview::setReviewTitle);
             Optional.ofNullable(review.getReviewBody())
                     .ifPresent(foundReview::setReviewBody);
-            Optional.ofNullable(review.getReviewImgs())
-                    .ifPresent(foundReview::setReviewImgs);
             Optional.ofNullable(review.getTasteStar())
                     .ifPresent(foundReview::setTasteStar);
             Optional.ofNullable(review.getFacilityStar())
                     .ifPresent(foundReview::setFacilityStar);
             Optional.ofNullable(review.getPriceStar())
                     .ifPresent(foundReview::setPriceStar);
+            Optional.ofNullable(review.getReviewImgUrl())
+                    .ifPresent(foundReview::setReviewImgUrl);
 
             return reviewRepository.save(foundReview);
         }else {
