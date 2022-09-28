@@ -4,6 +4,7 @@ import com.main.project.qna.dto.QnaDto;
 import com.main.project.qna.entity.QnA;
 import com.main.project.qna.mapper.QnaMapper;
 import com.main.project.qna.service.QnaServiceImpl;
+import com.main.project.user.dto.Multi_ResponseDTOwithPageInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,10 +61,10 @@ public class QnaController {
     public ResponseEntity getAllQna (@PathVariable("page") int page) {
 
         int size =10;
-        Page<QnA> pageQna = qnaService.findAllQna(page, size);
+        Page<QnA> pageQna = qnaService.findAllQna(page-1, size);
         List<QnA> qnastions = pageQna.getContent();
 
-        return new ResponseEntity<>(qnaMapper.qnasToQnaResponseDtos(qnastions),
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(qnaMapper.qnasToQnaResponseDtos(qnastions),pageQna),
                 HttpStatus.OK);
     }
 

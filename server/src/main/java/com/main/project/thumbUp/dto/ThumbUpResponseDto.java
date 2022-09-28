@@ -12,5 +12,7 @@ public class ThumbUpResponseDto {
     String reviewTitle;
     String reviewBody;
     String restaurantName;
+    String reviewNickName;
+    String reviewPhotoUrl;
 
 }

@@ -172,7 +172,7 @@ public class UserContorller {
     @GetMapping("/search/all/{page}")
     public ResponseEntity getAllUser(@PathVariable("page") int page){
 
-         Page<WebUser> pageUsers = userService.findAllUser(page);
+         Page<WebUser> pageUsers = userService.findAllUser(page - 1);
         List<UserDto.responseWithPhotoUrlDTO> allUser =
                 pageUsers.getContent().stream().map(WebUser -> new UserDto.responseWithPhotoUrlDTO(WebUser.getUserId(), WebUser.getUserName(), WebUser.getNickName(), WebUser.getEmail(), WebUser.getCreatedAt(), WebUser.getUpdatedAt(),uriMaker(WebUser) ))
                 .collect(Collectors.toList());
