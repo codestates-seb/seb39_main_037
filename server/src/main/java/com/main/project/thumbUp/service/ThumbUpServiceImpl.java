@@ -6,6 +6,9 @@ import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.thumbUp.repository.ThumbUpRepository;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,7 +76,7 @@ public class ThumbUpServiceImpl implements ThumbUpService{
     private boolean isNotAlreadyLike(WebUser user, Review review) {
         return thumbUpRepository.findByWebUserAndReview(user, review).isEmpty();
     }
-    public List<ThumbUp> findUserLike(WebUser user) {
-        return thumbUpRepository.findByWebUser(user);
+    public Page<ThumbUp> findUserLike(WebUser user, int page) {
+        return thumbUpRepository.findByWebUser(user, PageRequest.of(page, 10, Sort.by("thumbUpId").descending()));
     }
 }

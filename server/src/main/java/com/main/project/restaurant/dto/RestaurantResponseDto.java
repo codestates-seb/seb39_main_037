@@ -21,4 +21,6 @@ public class RestaurantResponseDto {
     private double aveFacility;             // 시설 별점 평균
     private double avePrice;                // 가격 별점 평균
     private List<Review> review;
+    private int mapx;
+    private int mapy;
 }

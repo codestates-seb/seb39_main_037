@@ -27,6 +27,8 @@ public interface RestaurantMapper {
         restaurantResponseDto.setAveFacility( restaurant.getAveFacility() );
         restaurantResponseDto.setAvePrice( restaurant.getAvePrice() );
         restaurantResponseDto.setReview(restaurant.getReviewList());
+        restaurantResponseDto.setMapx(restaurant.getMapx());
+        restaurantResponseDto.setMapy(restaurant.getMapy());
 
         return restaurantResponseDto;
     }

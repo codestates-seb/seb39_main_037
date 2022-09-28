@@ -17,6 +17,7 @@ import com.main.project.user.dto.Multi_ResponseDTOwithPageInfo;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.service.UserService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -93,35 +94,38 @@ public class ReviewController {
         return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(reviewMapper.reviewsToReviewResponseDtos(reviews),pageReview),
                 HttpStatus.OK);
     }
-    @GetMapping("/restaurant/{restaurant-id}")
-    public ResponseEntity getAllRestaurantReview (@PathVariable("restaurant-id") long restaurantId) {
+    @GetMapping("/restaurant/{restaurant-id}/{page}")
+    public ResponseEntity getAllRestaurantReview (@PathVariable("restaurant-id") long restaurantId, @PathVariable("page") int page) {
 
         Restaurant restaurant = restaurantService.findRestaurant(restaurantId);
 
-        List<Review> reviews = reviewServiceImpl.findRestaurantReview(restaurantId);
+        Page<Review> pageReview = reviewServiceImpl.findRestaurantReview(restaurantId, page - 1);
+        List<Review> reviews = pageReview.getContent();
 
-        return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(reviews),
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(reviewMapper.reviewsToReviewResponseDtos(reviews),pageReview),
                 HttpStatus.OK);
     }
-    @GetMapping("/location/{location-id}")
-    public ResponseEntity getAllLocationReview (@PathVariable("location-id") long locationId) {
+    @GetMapping("/location/{location-id}/{page}")
+    public ResponseEntity getAllLocationReview (@PathVariable("location-id") long locationId, @PathVariable("page") int page) {
 
         Location location = locationService.findLocation(locationId);
 
-        List<Review> reviews = reviewServiceImpl.findLocationReview(locationId);
+        Page<Review> pageReview = reviewServiceImpl.findLocationReview(locationId, page - 1);
+        List<Review> reviews = pageReview.getContent();
 
-        return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(reviews),
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(reviewMapper.reviewsToReviewResponseDtos(reviews),pageReview),
                 HttpStatus.OK);
     }
 
-    @GetMapping("/mypage/{user-id}")
-    public ResponseEntity getAllUserLike (@PathVariable("user-id") long userId) {
+    @GetMapping("/mypage/{user-id}/{page}")
+    public ResponseEntity getAllUserLike (@PathVariable("user-id") long userId, @PathVariable("page") int page) {
 
         WebUser user = userService.findUser(userId);
 
-        List<Review> reviews = reviewServiceImpl.findUserReview(user);
+        Page<Review> pageReview = reviewServiceImpl.findUserReview(user, page - 1);
+        List<Review> reviews = pageReview.getContent();
 
-        return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(reviews),
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(reviewMapper.reviewsToReviewResponseDtos(reviews),pageReview),
                 HttpStatus.OK);
     }
 
@@ -135,11 +139,13 @@ public class ReviewController {
     }
 
 
-    @GetMapping("/search") // 리뷰 검색기능 구현
-    public ResponseEntity search(@RequestBody String keyword) {
-        List<Review> reviews = reviewServiceImpl.search(keyword);
+    @GetMapping("/search/{page}") // 리뷰 검색기능 구현
+    public ResponseEntity search(@RequestBody String keyword, @PathVariable("page") int page) {
 
-        return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(reviews),
+        Page<Review> pageReview = reviewServiceImpl.search(keyword, page - 1);
+        List<Review> reviews = pageReview.getContent();
+
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(reviewMapper.reviewsToReviewResponseDtos(reviews),pageReview),
                 HttpStatus.OK);
     }
 

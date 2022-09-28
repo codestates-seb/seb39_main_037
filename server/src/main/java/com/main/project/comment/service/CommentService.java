@@ -9,7 +9,7 @@ import java.util.List;
 public interface CommentService {
     public Comment createComment(long userId, long reviewId, Comment comment);
     public Comment updateComment(long commentId, long userId, Comment comment);
-    public List<Comment> findUserComment(WebUser user);
+    public Page<Comment> findUserComment(WebUser user, int page);
     public Page<Comment> findReviewComment(long reviewId, int page, int size);
     public void deleteComment(long commentId);
 }

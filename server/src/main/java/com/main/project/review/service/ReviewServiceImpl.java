@@ -92,20 +92,20 @@ public class ReviewServiceImpl implements ReviewService{
 
         return reviewRepository.findAll(PageRequest.of(page, size, Sort.by("reviewId").descending()));
     }
-    public List<Review> findRestaurantReview(long restaurantId) {
+    public Page<Review> findRestaurantReview(long restaurantId, int page) {
 
-        return reviewRepository.findByRestaurant(restaurantId);
+        return reviewRepository.findByRestaurant(restaurantId, PageRequest.of(page, 10, Sort.by("reviewId").descending()));
     }
-    public List<Review> findLocationReview(long locationId) {
+    public Page<Review> findLocationReview(long locationId, int page) {
 
-        return reviewRepository.findByLocation(locationId);
+        return reviewRepository.findByLocation(locationId, PageRequest.of(page, 10, Sort.by("reviewId").descending()));
     }
-    public List<Review> RestaurantReviewList(long restaurantId){  // 평균 값 저장을 위해 생턴
-        return reviewRepository.findByRestaurant(restaurantId);
+    public Page<Review> RestaurantReviewList(long restaurantId, int page){  // 평균 값 저장을 위해 생턴
+        return reviewRepository.findByRestaurant(restaurantId, PageRequest.of(page, 10, Sort.by("reviewId").descending()));
 
     }
-    public List<Review> findUserReview(WebUser user) {
-        return reviewRepository.findByWebUser(user);
+    public Page<Review> findUserReview(WebUser user, int page) {
+        return reviewRepository.findByWebUser(user, PageRequest.of(page, 10, Sort.by("reviewId").descending()));
     }
 
     public void deleteReview(long reviewId) {
@@ -139,9 +139,9 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Transactional
-    public List<Review> search(String keyword) { //리뷰 검색기능 구현
+    public Page<Review> search(String keyword, int page) { //리뷰 검색기능 구현
 
-        return reviewRepository.findByReviewTitleContaining(keyword);
+        return reviewRepository.findByReviewTitleContaining(keyword, PageRequest.of(page, 10, Sort.by("reviewId").descending()));
     }
 
 }

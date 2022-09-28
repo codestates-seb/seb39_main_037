@@ -7,9 +7,11 @@ import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.thumbUp.mapper.ThumbUpMapper;
 import com.main.project.thumbUp.service.ThumbUpService;
 import com.main.project.thumbUp.service.ThumbUpServiceImpl;
+import com.main.project.user.dto.Multi_ResponseDTOwithPageInfo;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.service.UserServieImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -51,14 +53,15 @@ public class ThumbUpController {
                 new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/mypage/{user-id}")
-    public ResponseEntity getAllUserLike (@PathVariable("user-id") long userId) {
+    @GetMapping("/mypage/{user-id}/{page}")
+    public ResponseEntity getAllUserLike (@PathVariable("user-id") long userId, @PathVariable("page") int page) {
 
         WebUser user = userService.findUser(userId);
 
-        List<ThumbUp> thumbUps = thumbUpService.findUserLike(user);
+        Page<ThumbUp> pageThumbUp = thumbUpService.findUserLike(user, page - 1);
+        List<ThumbUp> thumbUps = pageThumbUp.getContent();
 
-        return new ResponseEntity<>(thumbUpMapper.thumbUpsToThumbUpResponseDtos(thumbUps),
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(thumbUpMapper.thumbUpsToThumbUpResponseDtos(thumbUps), pageThumbUp),
                 HttpStatus.OK);
     }
 

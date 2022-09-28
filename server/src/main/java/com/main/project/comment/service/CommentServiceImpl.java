@@ -58,9 +58,9 @@ public class CommentServiceImpl implements CommentService {
         return null;
     }
 
-    public List<Comment> findUserComment(WebUser user) {
+    public Page<Comment> findUserComment(WebUser user, int page) {
 
-        return commentRepository.findByWebUser(user);
+        return commentRepository.findByWebUser(user, PageRequest.of(page, 10, Sort.by("commentId").descending()));
     }
 
     public Page<Comment> findReviewComment(long reviewId, int page, int size) {

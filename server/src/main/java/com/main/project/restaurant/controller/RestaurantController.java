@@ -4,6 +4,7 @@ import com.main.project.restaurant.dto.RestaurantDto;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.mapper.RestaurantMapper;
 import com.main.project.restaurant.service.RestaurantServiceImpl;
+import com.main.project.user.dto.Multi_ResponseDTOwithPageInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -33,21 +34,20 @@ public class RestaurantController {
         return new ResponseEntity<>(restaurantMapper.restaurantDtoToRestaurant(restaurant), HttpStatus.OK); // 코드 재구현
     }
 
-    @GetMapping("/search") // 사용자가 이용하는 검색 서비스 구현
-    public ResponseEntity search(@RequestBody String title) {
-        List<Restaurant> restaurants = restaurantServiceImpl.search(title);
-
-        return new ResponseEntity<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.OK);
+    @GetMapping("/search/{page}") // 사용자가 이용하는 검색 서비스 구현
+    public ResponseEntity search(@RequestBody String title, @PathVariable("page") int page) {
+        Page<Restaurant> pageRestaurant = restaurantServiceImpl.search(title, page - 1);
+        List<Restaurant> restaurants = pageRestaurant.getContent();
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants),pageRestaurant), HttpStatus.OK);
     }
 
     @GetMapping("/all/{page}")
     public ResponseEntity findAll(@PathVariable("page") int page) {
 
-        int size =10;
-        Page<Restaurant> pageRestaurant = restaurantServiceImpl.findAll(page - 1, size);
+        Page<Restaurant> pageRestaurant = restaurantServiceImpl.findAll(page - 1, 10);
         List<Restaurant> restaurants = pageRestaurant.getContent();
 
-        return new ResponseEntity<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.OK);
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants),pageRestaurant), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{restaurant-id}")
