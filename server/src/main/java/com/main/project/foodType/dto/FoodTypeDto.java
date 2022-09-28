@@ -1,4 +1,4 @@
-package com.main.project.foodType;
+package com.main.project.foodType.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

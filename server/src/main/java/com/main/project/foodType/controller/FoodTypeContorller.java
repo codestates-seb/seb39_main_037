@@ -1,8 +1,10 @@
-package com.main.project.foodType;
+package com.main.project.foodType.controller;
 
 
 import com.main.project.food.entity.Food;
-import com.main.project.foodType.repository.FoodTypeService;
+import com.main.project.foodType.FoodType;
+import com.main.project.foodType.dto.FoodTypeDto;
+import com.main.project.foodType.service.FoodTypeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +24,7 @@ public class FoodTypeContorller {
 
 
     @PostMapping("/add")
-    public ResponseEntity postFoodType(FoodTypeDto.postDto postDto){
+    public ResponseEntity postFoodType(@RequestBody FoodTypeDto.postDto postDto){
         String newFoodTypeName = postDto.getTypeName();
        FoodType newFoodType  = foodTypeService.makeFoodType(newFoodTypeName);
 

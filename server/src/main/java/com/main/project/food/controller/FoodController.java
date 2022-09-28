@@ -1,11 +1,13 @@
 package com.main.project.food.controller;
 
 
+import com.main.project.food.dto.FoodDto;
 import com.main.project.food.entity.Food;
+import com.main.project.food.mapper.FoodMapper;
 import com.main.project.food.service.FoodServiceImple;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.*;
@@ -14,19 +16,32 @@ import java.util.*;
 public class FoodController {
 
     FoodServiceImple foodService;
+    FoodMapper foodMapper;
 
-    public FoodController(FoodServiceImple foodService) {
+    public FoodController(FoodServiceImple foodService, FoodMapper foodMapper) {
         this.foodService = foodService;
+        this.foodMapper = foodMapper;
     }
 
-    @GetMapping("/post")
-    public Food test1() {
-      return  foodService.posttest();
+    @PostMapping("/post")
+    public ResponseEntity postFood(@RequestBody FoodDto.PostDto postDto){
+
+        Food newAddedFood = foodService.addFood(postDto);
+        FoodDto.ResponseDto responseDto = foodMapper.foodToResponseDto(newAddedFood);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
-    @GetMapping("/test")
-    public List<Food> test(){
-        List<Food> test1 = foodService.random3Foods();
-      return test1;
+
+
+
+
+    @GetMapping("/random")
+    public List<Food> getFoods(@RequestBody FoodDto.GetDto getDto){
+
+
+
+        List<Food> threeRandomFood = foodService.random3Foods(getDto.getFoodType());
+      return threeRandomFood;
     }
 }

@@ -16,6 +16,9 @@ public enum ExceptionCode {
     FOODTYPE_DUPLICATE(702, "동일한 푸드타입이 존재합니다. "),
     Badge_ID_IS_NOT_CORRECT(701, "일치하는 뱃지가 없습니다"),
     ID_NOT_FOUND(402, "해당 코드 아이디를 찾을 수 없습니다"),
+
+    FOOD_NOT_EXIST(901, "해당 푸드는 존재하지 않습니다. "),
+    DUPLICATE_FOOD(902, "동일한 푸드가 존재합니다."),
     LOCATION_NOT_FOUND(402, "지역이 존재하지 않습니다.");
 
     @Getter

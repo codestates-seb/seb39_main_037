@@ -1,9 +1,10 @@
-package com.main.project.foodType.repository;
+package com.main.project.foodType.service;
 
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
 import com.main.project.food.entity.Food;
 import com.main.project.foodType.FoodType;
+import com.main.project.foodType.repository.FoodTypeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
