@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { post } from "Utils/api";
+import { post, setAuthTokenHeader } from "Utils/api";
 
 interface IPostLogin {
   email: string;
@@ -28,14 +28,14 @@ export const useAuth = () => {
       email,
       password,
     }).then((r: any) => {
-      console.log(r);
+      navigate("/login", { state: { email: r.data.email } });
     });
     return { res };
   };
 
   const postLogin = async ({ email, password }: IPostLogin) => {
     const res = await post(`/login`, { email, password }).then((r: any) =>
-      console.log(r),
+      setAuthTokenHeader(r.headers.authorization),
     );
     return { res };
   };

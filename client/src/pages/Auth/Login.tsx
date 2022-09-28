@@ -1,10 +1,12 @@
 import { Facebook, GitHub, Google } from "@mui/icons-material";
 import AccountForm from "Components/Common/AccountForm";
 import { SquareButtonForm as ButtonForm } from "Components/Common/SquareButtonForm";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const Login = () => {
+  const location = useLocation();
+  const { email } = location.state || "";
   return (
     <LoginForm>
       <div>로고</div>
@@ -29,7 +31,7 @@ const Login = () => {
         title=" Login with FaceBook"
         icon={<Facebook />}
       />
-      <AccountForm title="로그인" />
+      <AccountForm title="로그인" email={email} />
       <LinkToLogin>
         <>
           <LinkStyle to="/account-recovery">비밀번호 찾기</LinkStyle>
