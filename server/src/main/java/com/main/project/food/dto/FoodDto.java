@@ -1,6 +1,7 @@
 package com.main.project.food.dto;
 
 import com.main.project.foodType.FoodType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -61,6 +62,19 @@ public class FoodDto {
         private String foodName;
 
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class random3ResponseDto {
+
+        private String foodName;
+        private String foodTypeName;
+    }
+
+
+
 
 
 

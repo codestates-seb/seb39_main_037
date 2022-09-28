@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/select/dish")
 public class FoodController {
@@ -54,13 +56,16 @@ public class FoodController {
 
 
     @GetMapping("/randoms")
-    public List getFoods(@RequestBody FoodDto.GetMultiDto getMultiDto){
+    public ResponseEntity getFoods(@RequestBody FoodDto.GetMultiDto getMultiDto){
 
           List filterTypes = List.of(getMultiDto.getFoodTypes());
 
         List<Food> threeRandomFood = foodService.random3FoodsByManyFilter(filterTypes);
 
-        return threeRandomFood;
+        List<FoodDto.random3ResponseDto> responseDtos =  threeRandomFood.stream().map(Food -> new FoodDto.random3ResponseDto(Food.getFoodName(),Food.getFoodType().getTypeName())).collect(Collectors.toList());
+
+
+        return new ResponseEntity(responseDtos, HttpStatus.FOUND );
 
     }
 
