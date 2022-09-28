@@ -1,5 +1,7 @@
+import RecoveryForm from "Components/Common/RecoveryForm";
+
 const AccountRecovery = () => {
-  return <div>AccountRecovery</div>;
+  return <RecoveryForm title="이메일복구" />;
 };
 
 export default AccountRecovery;

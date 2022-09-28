@@ -1,5 +1,7 @@
+import RecoveryForm from "Components/Common/RecoveryForm";
+
 const EmailVerify = () => {
-  return <div>EmailVerify</div>;
+  return <RecoveryForm title="인증확인" />;
 };
 
 export default EmailVerify;

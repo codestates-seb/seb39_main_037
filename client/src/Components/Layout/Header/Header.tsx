@@ -58,10 +58,11 @@ const NavContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--main-yellow);
+  background-color: #ffffff;
   height: 60px;
   width: 100%;
   z-index: 5000;
+  border-bottom: 3px solid var(--main-yellow);
 `;
 
 const LogoIconDiv = styled.div`

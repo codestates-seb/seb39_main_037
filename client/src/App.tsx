@@ -1,3 +1,4 @@
+import ToTopButton from "Components/Common/ToTopButton";
 import Footer from "Components/Layout/Footer/Footer";
 import Header from "Components/Layout/Header/Header";
 import Admin from "pages/Admin/Admin";
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </Container>
+      <ToTopButton />
       <Footer />
     </BrowserRouter>
   );
