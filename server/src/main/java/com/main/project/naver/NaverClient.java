@@ -14,9 +14,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class NaverClient {
     // yml 파일 사용하는데 @Value 어노테이션을 사용하며
     // 내부에 "${}"형태로 yaml에 설정한 대로 기입
+
     @Value("${naver.client.id}")
     private String naverClientId;
-
 
     @Value("${naver.client.secret}")
     private String naverSecret;

@@ -39,11 +39,8 @@ public class S3Controller {
     @DeleteMapping("/delete/{filname}")
     public String deleteFile(@PathVariable("filename") String fileName){
         return s3Service.deleteFile(fileName);
+
     }
-
-
-
-
 
 //    public static byte[] compressBytes(byte[] data){
 //        Deflater deflater = new Deflater();
