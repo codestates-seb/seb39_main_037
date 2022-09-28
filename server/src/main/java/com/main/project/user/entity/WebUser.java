@@ -35,7 +35,7 @@ public class WebUser {
     @Column
     private String nickName;
 
-    @Column
+    @Column(unique = true)
     @Email
     private String email;
 

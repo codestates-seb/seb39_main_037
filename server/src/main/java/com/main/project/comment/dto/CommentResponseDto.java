@@ -16,5 +16,11 @@ public class CommentResponseDto {
     String commentBody;
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
+    String nickName;
     long userId;
+    long restaurantId;
+    String restaurantName;
+    String reviewNickName;
+    String reviewPhotoUrl;
+    String reviewTitle;
 }

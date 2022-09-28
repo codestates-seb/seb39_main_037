@@ -103,9 +103,9 @@ public class RestaurantServiceImpl implements RestaurantService{
     }
 
     @Transactional
-    public Page<Restaurant> search(String title, int page, int size) { //리뷰 검색기능 구현
+    public List<Restaurant> search(String title) { //리뷰 검색기능 구현
 
-        return restaurantRepository.findByRestaurantNameContaining(title, PageRequest.of(page,size, Sort.by("restaurantId").descending()));
+        return restaurantRepository.findByRestaurantNameContaining(title);
 
     }
 

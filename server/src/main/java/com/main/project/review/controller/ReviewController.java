@@ -13,6 +13,7 @@ import com.main.project.review.repository.ReviewRepository;
 import com.main.project.review.service.ReviewServiceImpl;
 import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.thumbUp.service.ThumbUpService;
+import com.main.project.user.dto.Multi_ResponseDTOwithPageInfo;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.service.UserService;
 import org.springframework.data.domain.Page;
@@ -89,7 +90,7 @@ public class ReviewController {
         Page<Review> pageReview = reviewServiceImpl.findAllReview(page - 1, size);
         List<Review> reviews = pageReview.getContent();
 
-        return new ResponseEntity<>(reviewMapper.reviewsToReviewResponseDtos(reviews),
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(reviewMapper.reviewsToReviewResponseDtos(reviews),pageReview),
                 HttpStatus.OK);
     }
     @GetMapping("/restaurant/{restaurant-id}")
