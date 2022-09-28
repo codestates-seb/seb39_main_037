@@ -4,6 +4,7 @@ import com.main.project.foodType.FoodType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.*;
 
 public class FoodDto {
 
@@ -16,8 +17,17 @@ public class FoodDto {
     public static class PostDto{
 
         private String foodName;
-
         private String foodTypeName;
+
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class PatchDto{
+
+        private String oldFoodName;
+        private String newFoodName;
 
     }
 
@@ -30,6 +40,16 @@ public class FoodDto {
     }
 
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class GetMultiDto{
+
+        private String[] foodTypes;
+
+    }
+
+
 
 
 
@@ -39,8 +59,6 @@ public class FoodDto {
     public static class ResponseDto {
 
         private String foodName;
-
-        private FoodType foodType;
 
     }
 

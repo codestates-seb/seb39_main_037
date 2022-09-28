@@ -11,4 +11,6 @@ public interface FoodService {
 
 
     Food addFood(FoodDto.PostDto postDto);
+
+    Food editFoodInfo(String oldFoodName, String newFoodName);
 }

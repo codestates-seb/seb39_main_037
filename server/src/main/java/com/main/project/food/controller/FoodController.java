@@ -1,6 +1,7 @@
 package com.main.project.food.controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.project.food.dto.FoodDto;
 import com.main.project.food.entity.Food;
 import com.main.project.food.mapper.FoodMapper;
@@ -32,16 +33,39 @@ public class FoodController {
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
+    @PatchMapping("/patch")
+    public ResponseEntity patchFood(@RequestBody FoodDto.PatchDto patchDto){
 
+        Food nameEdittedFood = foodService.editFoodInfo(patchDto.getOldFoodName(), patchDto.getNewFoodName());
+
+        return new ResponseEntity<>(nameEdittedFood, HttpStatus.OK);
+    }
 
 
 
     @GetMapping("/random")
     public List<Food> getFoods(@RequestBody FoodDto.GetDto getDto){
 
-
-
         List<Food> threeRandomFood = foodService.random3Foods(getDto.getFoodType());
+
       return threeRandomFood;
     }
+
+
+
+    @GetMapping("/randoms")
+    public List getFoods(@RequestBody FoodDto.GetMultiDto getMultiDto){
+
+          List filterTypes = List.of(getMultiDto.getFoodTypes());
+
+        List<Food> threeRandomFood = foodService.random3FoodsByManyFilter(filterTypes);
+
+        return threeRandomFood;
+
+    }
+
+
+
+
+
 }

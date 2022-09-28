@@ -2,7 +2,7 @@ package com.main.project.foodType.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import lombok.Setter;
 
 @NoArgsConstructor
 public class FoodTypeDto {
@@ -10,15 +10,26 @@ public class FoodTypeDto {
 
     @Getter
     @NoArgsConstructor
-    public static class postDto{
+    public static class PostDto {
         String typeName;
     }
 
     @Getter
     @NoArgsConstructor
-    public static class patchDto{
+    public static class PatchDto {
         String oldTypeName;
         String newTypeName;
+
+    }
+
+
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class ResponseDto{
+        String foodTypeId;
+        String typeName;
 
     }
 
