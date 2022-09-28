@@ -54,7 +54,6 @@ const Header = () => {
 };
 
 const NavContainer = styled.header`
-  width: 100vw;
   position: fixed;
   display: flex;
   align-items: center;
