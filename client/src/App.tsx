@@ -70,6 +70,9 @@ const Container = styled.div`
   margin: 0 auto;
   position: relative;
   top: 60px;
+  /* height: auto;
+  min-height: 100%;
+  padding-bottom: 300px; */
 `;
 
 export default App;
