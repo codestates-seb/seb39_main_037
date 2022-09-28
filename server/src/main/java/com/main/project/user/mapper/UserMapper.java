@@ -4,6 +4,8 @@ import com.main.project.user.dto.UserDto;
 import com.main.project.user.entity.WebUser;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 

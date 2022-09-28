@@ -66,7 +66,7 @@ public class S3Service {
 //        }
 //
 //    }
-    
+
     /* S3 버킷의 reviewimg 디렉토리에 있는 이미지 파일을 지운다.*/
     public String deleteFile(String fileName){
         amazonS3Client.deleteObject(bucketName, fileName);

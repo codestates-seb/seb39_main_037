@@ -4,9 +4,6 @@ import com.main.project.restaurant.dto.RestaurantDto;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.mapper.RestaurantMapper;
 import com.main.project.restaurant.service.RestaurantServiceImpl;
-import com.main.project.review.entity.Review;
-import com.main.project.review.mapper.ReviewMapper;
-import com.main.project.review.service.ReviewServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -36,13 +33,11 @@ public class RestaurantController {
         return new ResponseEntity<>(restaurantMapper.restaurantDtoToRestaurant(restaurant), HttpStatus.OK); // 코드 재구현
     }
 
-    @GetMapping("/search/{page}") // 사용자가 이용하는 검색 서비스 구현
-    public ResponseEntity search(@RequestBody String title,  @PathVariable("page") int page) {
-        int size =10;
-        Page<Restaurant> pageRestaurant = restaurantServiceImpl.search(title, page - 1, size);
-        List<Restaurant> restaurants = pageRestaurant.getContent();
+    @GetMapping("/search") // 사용자가 이용하는 검색 서비스 구현
+    public ResponseEntity search(@RequestBody String title) {
+        List<Restaurant> restaurants = restaurantServiceImpl.search(title);
 
-        return new ResponseEntity<>(restaurantMapper.restaurantsToRestaurantDtos(restaurants), HttpStatus.OK);
+        return new ResponseEntity<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.OK);
     }
 
     @GetMapping("/all/{page}")
@@ -52,7 +47,7 @@ public class RestaurantController {
         Page<Restaurant> pageRestaurant = restaurantServiceImpl.findAll(page - 1, size);
         List<Restaurant> restaurants = pageRestaurant.getContent();
 
-        return new ResponseEntity<>(restaurantMapper.restaurantsToRestaurantDtos(restaurants), HttpStatus.OK);
+        return new ResponseEntity<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{restaurant-id}")

@@ -1,3 +1,4 @@
+
 package com.main.project.S3;
 
 
@@ -20,50 +21,23 @@ public class S3Controller {
     }
 
     @PostMapping("/post")
-    public String uploadImage(@RequestPart MultipartFile multipartFile) throws IOException{
+    public String uploadImage(@RequestPart MultipartFile multipartFile) throws IOException {
 
-      String storedS3ImgUrl =   s3Service.uploadMutipartFile(multipartFile,"reviewimg" );
+        String storedS3ImgUrl = s3Service.uploadMutipartFile(multipartFile, "reviewimg");
 
-      return storedS3ImgUrl;
+        return storedS3ImgUrl;
     }
 
     @GetMapping("/get/{filename}")
-    public String getImageUrl(@PathVariable String filename){
+    public String getImageUrl(@PathVariable String filename) {
 
-       return s3Service.findeImgUrl(filename);
+        return s3Service.findeImgUrl(filename);
     }
-
-
 
 
     @DeleteMapping("/delete/{filname}")
-    public String deleteFile(@PathVariable("filename") String fileName){
+    public String deleteFile(@PathVariable("filename") String fileName) {
         return s3Service.deleteFile(fileName);
 
     }
-
-//    public static byte[] compressBytes(byte[] data){
-//        Deflater deflater = new Deflater();
-//        deflater.setInput(data);
-//        deflater.finish();
-//
-//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-//        byte[] buffer = new byte[1024];
-//        while (!deflater.finished()){
-//            int count = deflater.deflate(buffer);
-//            outputStream.write(buffer,0,count);
-//        }
-//
-//        try{
-//            outputStream.close();
-//        }catch (IOException e){
-//
-//        }
-//        return outputStream.toByteArray();
-//
-//    }
-
-
-
-
 }

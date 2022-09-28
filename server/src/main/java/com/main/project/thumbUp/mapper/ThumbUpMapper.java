@@ -23,6 +23,7 @@ public interface ThumbUpMapper {
         thumbUpResponseDto.setReviewTitle(thumbUp.getReview().getReviewTitle());
         thumbUpResponseDto.setReviewBody(thumbUp.getReview().getReviewBody());
         thumbUpResponseDto.setRestaurantName(thumbUp.getReview().getRestaurant().getRestaurantName());
+        thumbUpResponseDto.setReviewNickName(thumbUp.getReview().getWebUser().getNickName());
 
             return thumbUpResponseDto;
         }

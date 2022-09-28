@@ -24,5 +24,5 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     @Modifying
     @Query("SELECT avg(priceStar) FROM Review")
     double avePriceStar (long restaurantId);
-    Page<Restaurant> findByRestaurantNameContaining(String title, Pageable pageable); // 사용자가 검색했을때 나오는 식당 값
+    List<Restaurant> findByRestaurantNameContaining(String title); // 사용자가 검색했을때 나오는 식당 값
 }

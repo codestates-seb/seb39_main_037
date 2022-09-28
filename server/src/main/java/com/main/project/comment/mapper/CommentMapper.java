@@ -22,7 +22,12 @@ public interface CommentMapper {
         commentResponseDto.setCommentBody(comment.getCommentBody());
         commentResponseDto.setCreatedAt(comment.getCreatedAt());
         commentResponseDto.setUpdatedAt(comment.getUpdatedAt());
+        commentResponseDto.setNickName(comment.getWebUser().getNickName());
         commentResponseDto.setUserId(comment.getWebUser().getUserId());
+        commentResponseDto.setRestaurantId(comment.getReview().getRestaurant().getRestaurantId());
+        commentResponseDto.setRestaurantName(comment.getReview().getRestaurant().getRestaurantName());
+        commentResponseDto.setReviewNickName(comment.getReview().getWebUser().getNickName());
+        commentResponseDto.setReviewTitle(comment.getReview().getReviewTitle());
 
         return commentResponseDto;
     }
