@@ -19,22 +19,22 @@ public interface UserService {
 
     Page<WebUser> findAllUser(int page);
 
-    WebUser findUser(long user);
+    WebUser checkUserByUserId(long user);
+
+    UserDto.responseUserActivityDto findMyUserActivity(UserDto.getMyUserActivityDetailsDto myUserDto);
 
 
 
-
-
-
-/* ------------------------------------------------------------ */
-// 관리자 전용 메서드
 
     List<WebUser> findUserBydate(LocalDate start, LocalDate end);
-    WebUser findUserByEmailForAuth(String email);
+    WebUser findUserByEmail(String email);
 
-    // 추가가능 메서드 : 가장 많이 리뷰가 쓰여진 메뉴
+    WebUser findUserByFileName(String filename);
 
-    /* ------------------------------------------------------------ */
+    boolean isPassWordMatch(String dtoPassWord, WebUser toCheckUser);
+
+    void checkIsUserDeActive(WebUser deActiveUser);
+
 
 
 

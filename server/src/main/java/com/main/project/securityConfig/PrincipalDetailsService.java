@@ -25,7 +25,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 
         try {
 //            WebUser webUser =  new WebUser();
-            WebUser TologinWebUser =  userService.findUserByEmailForAuth(email);
+            WebUser TologinWebUser =  userService.findUserByEmail(email);
                     //아이디(username)이 들어오면(우리는 이메일로 로그인하므로)이메일을 받아 db에서 객체를 검색
             System.out.println("검색완료 ");
             return new PrincipalDetails(TologinWebUser);

@@ -1,6 +1,7 @@
 package com.main.project.securityConfig;
 
 
+
 import com.main.project.securityConfig.filter.JwtAuthenticationFilter;
 import com.main.project.securityConfig.filter.JwtAuthorizationFilter;
 import com.main.project.user.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
@@ -34,10 +36,12 @@ public class SecurityConfig {
         http.csrf().disable();
         http.headers().frameOptions().disable();
         http.cors().disable();
+
         return http.authorizeRequests()
                 .antMatchers("/user/search/{userid}").authenticated()
                 .anyRequest().permitAll()
                 .and()
+
                 .formLogin().disable()//시큐리티 기본제공 form login html 활성화 -> UsernamePasswordAuthenticationFilter가 설정된다.
                 // 우리가 작성한 JwtAuthenticationFilter가  UsernamePasswordAuthenticationFilter를 상속 받기에 활성화하던 안 하던 인증 절차는 진행이 된다.
                 //.cors().disable()
@@ -49,6 +53,7 @@ public class SecurityConfig {
 //                .and()
                 .apply(new CustomDsl())
                 .and()
+
                 .oauth2Login()
                 .userInfoEndpoint()
                 .userService(principalOauth2UserService)
@@ -66,8 +71,10 @@ public class SecurityConfig {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
             builder
                     .addFilter(corsFilter)
+//                    .addFilter(new CustomUserNameAuthenticationFilter())
                     .addFilter(new JwtAuthenticationFilter(authenticationManager))
                     .addFilter(new JwtAuthorizationFilter(authenticationManager, userService)); // 발급한 토큰을 다시 클라이언트한테서 받아서 인가 요청 처리할 커스텀 필터 추가
+
         }
     }
 

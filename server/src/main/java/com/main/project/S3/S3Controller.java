@@ -2,6 +2,7 @@
 package com.main.project.S3;
 
 
+import com.main.project.exception.BusinessLogicException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,23 +23,21 @@ public class S3Controller {
     }
 
     @PostMapping("/post")
-    public String uploadImage(@RequestPart MultipartFile multipartFile) throws IOException {
-
-        String storedS3ImgUrl = s3Service.uploadMutipartFile(multipartFile, "reviewimg");
+    public String uploadImage(@RequestPart MultipartFile multipartFile) throws Exception {
 
 
-        return storedS3ImgUrl;
+        return s3Service.uploadMutipartFile(multipartFile, "reviewimg");
     }
 
     @GetMapping("/get/{filename}")
-    public String getImageUrl(@PathVariable String filename) {
+    public String getImageUrl(@PathVariable("filename") String filename) {
 
         return s3Service.findeImgUrl(filename);
     }
 
 
-    @DeleteMapping("/delete/{filname}")
-    public String deleteFile(@PathVariable("filename") String fileName) {
+    @DeleteMapping("/delete/{filename}")
+    public String deleteFile(@PathVariable("filename") String fileName) throws BusinessLogicException {
         return s3Service.deleteFile(fileName);
 
     }

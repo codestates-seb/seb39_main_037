@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/location")
+@RequestMapping("/location")
 @Validated
 @CrossOrigin("*")
 public class LocationController {
@@ -69,13 +69,13 @@ public class LocationController {
                 HttpStatus.CREATED);
     }
 
-    @PostMapping("/manager/post")
+    @PostMapping("/manager/add")
     public ResponseEntity postLocation (@Valid @RequestBody PostDto.LocationPostDto locationPostDto) {
         // 관리자 검증하기
         long stateId = locationPostDto.getStateId();
         long cityId = locationPostDto.getCityId();
 
-        Location location = locationService.createLocation(locationMapper.locationPostDtoToLocation(locationPostDto));
+        Location location = locationService.createLocation(locationPostDto);
 
         return new ResponseEntity<>(locationMapper.locationToLocationResponseDto(location),
                 HttpStatus.CREATED);

@@ -33,7 +33,7 @@ public class CommentServiceImpl implements CommentService {
 
     public Comment createComment(long userId, long reviewId, Comment comment) {
 
-        comment.addUser(userService.findUser(userId));
+        comment.addUser(userService.checkUserByUserId(userId));
 
         if(reviewId!=0)  {
             comment.addReview(reviewServiceImpl.findVerifiedReview(reviewId));

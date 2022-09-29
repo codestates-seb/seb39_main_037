@@ -1,11 +1,8 @@
 package com.main.project.thumbUp.controller;
 
-import com.main.project.restaurant.entity.Restaurant;
-import com.main.project.review.entity.Review;
 import com.main.project.thumbUp.dto.ThumbUpDto;
 import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.thumbUp.mapper.ThumbUpMapper;
-import com.main.project.thumbUp.service.ThumbUpService;
 import com.main.project.thumbUp.service.ThumbUpServiceImpl;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.service.UserServieImpl;
@@ -42,7 +39,7 @@ public class ThumbUpController {
 
         boolean result = false;
 
-        WebUser user = userService.findUser(thumbUpDto.getUserId());
+        WebUser user = userService.checkUserByUserId(thumbUpDto.getUserId());
 
         if (Objects.nonNull(user))
             result = thumbUpService.createThumbUp(user, reviewId);
@@ -54,7 +51,7 @@ public class ThumbUpController {
     @GetMapping("/mypage/{user-id}")
     public ResponseEntity getAllUserLike (@PathVariable("user-id") long userId) {
 
-        WebUser user = userService.findUser(userId);
+        WebUser user = userService.checkUserByUserId(userId);
 
         List<ThumbUp> thumbUps = thumbUpService.findUserLike(user);
 
@@ -67,7 +64,7 @@ public class ThumbUpController {
     public ResponseEntity deleteThumbUp (@PathVariable("review-id") long reviewId,
                                          ThumbUpDto thumbUpDto) {
 
-        WebUser user = userService.findUser(thumbUpDto.getUserId());
+        WebUser user = userService.checkUserByUserId(thumbUpDto.getUserId());
         if(user != null) {
             thumbUpService.deleteThumbUp(user, reviewId);
         }

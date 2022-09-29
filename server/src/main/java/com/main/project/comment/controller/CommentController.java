@@ -7,9 +7,7 @@ import com.main.project.comment.mapper.CommentMapper;
 import com.main.project.comment.service.CommentService;
 import com.main.project.review.entity.Review;
 import com.main.project.review.service.ReviewServiceImpl;
-import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.user.entity.WebUser;
-import com.main.project.user.service.UserService;
 import com.main.project.user.service.UserServieImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -77,7 +75,7 @@ public class CommentController {
     @GetMapping("/mypage/{user-id}")
     public ResponseEntity getAllUserComment (@PathVariable("user-id") long userId) {
 
-        WebUser user = userService.findUser(userId);
+        WebUser user = userService.checkUserByUserId(userId);
 
         List<Comment> comments = commentService.findUserComment(user);
 

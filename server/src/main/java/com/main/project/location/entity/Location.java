@@ -16,7 +16,6 @@ import java.util.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "location")
 public class Location {
 
     @Id

@@ -116,7 +116,7 @@ public class ReviewController {
     @GetMapping("/mypage/{user-id}")
     public ResponseEntity getAllUserLike (@PathVariable("user-id") long userId) {
 
-        WebUser user = userService.findUser(userId);
+        WebUser user = userService.checkUserByUserId(userId);
 
         List<Review> thumbUps = reviewServiceImpl.findUserReview(user);
 

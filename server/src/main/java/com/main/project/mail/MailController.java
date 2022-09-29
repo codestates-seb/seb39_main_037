@@ -25,4 +25,7 @@ public class MailController {
 
         return "메일이 전송되었습니다.";
     }
+
+
+
 }

@@ -2,6 +2,7 @@ package com.main.project.location.service;
 
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
+import com.main.project.location.dto.PostDto;
 import com.main.project.location.entity.City;
 import com.main.project.location.entity.Location;
 import com.main.project.location.entity.State;
@@ -38,15 +39,24 @@ public class LocationServiceImpl implements LocationService{
         state.setStateName(state.getStateName());
         return stateRepository.save(state);
     }
+
     public City createCity(City city) { // 관리자 권한 확인 필요
         city.setCityName(city.getCityName());
         return cityRepository.save(city);
     }
-    public Location createLocation(Location location){ // 관리자 권한 확인 필요
-        location.setState(location.getState());
-        location.setCity(location.getCity());
-        verifyLocation(location);
-        return locationRepository.save(location);
+    public Location createLocation(PostDto.LocationPostDto locationPostDto){ // 관리자 권한 확인 필요
+            Location newLocation = new Location();
+        newLocation.setState(stateRepository.findById(locationPostDto.getStateId())
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.STATE_NOT_FOUND)));
+        newLocation.setCity(cityRepository.findById(locationPostDto.getCityId())
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.CITY_NOT_FOUND)));
+
+
+
+//        location.setState(location.getState());
+//        location.setCity(location.getCity());
+//        verifyLocation(newLocation);
+        return locationRepository.save(newLocation);
     }
 
     public Location findLocation(long locationId) {
