@@ -41,15 +41,19 @@
     "@typescript-eslint/explicit-module-boundary-types": 0, // ts 함수의 인수, 리턴 타입 정의
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/no-empty-function": 0,
+    "@typescript-eslint/no-unused-vars": 0,
     "no-param-reassign": 0, // 매게 변수 재할당 금지 (toolkit reducer 한정)
     "react/function-component-definition": [
       2,
       { "namedComponents": "arrow-function" } // 함수형 컴포넌트 형식 정의
     ],
     "react/jsx-no-useless-fragment": 0, // 불필요한 fragment
+    "prefer-promise-reject-errors": 0,
     "jsx-a11y/click-events-have-key-events": 0,
     "jsx-a11y/no-static-element-interactions": 0,
-    "no-unused-vars": 0
+    "no-unused-vars": 0,
+    "consistent-return": 0,
+    "react/jsx-props-no-spreading": 0
   },
   "settings": {
     "import/resolver": {
