@@ -27,4 +27,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Page<Review> findByLocation(long locationId, Pageable pageable);
     Page<Review> findByReviewTitleContaining(String keyword, Pageable pageable); // containing 추가, 검색기능 구현
     Page<Review> findByWebUser(WebUser user, Pageable pageable);
+//    @Query("SELECT AVG(tasteStar) as avgTaste from Review r where r.restaurant.id = :restaurantId")
+//    double findByAvgTasteByRestaurant(long restaurantId);
 }

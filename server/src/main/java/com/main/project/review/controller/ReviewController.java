@@ -149,3 +149,16 @@ public class ReviewController {
     }
 
 }
+//private void updateStamp(Order order) {
+//        Member member = memberService.findMember(order.getMember().getMemberId());
+//        int stampCount =
+//                order.getOrderCoffees().stream()
+//                        .map(orderCoffee -> orderCoffee.getQuantity())
+//                        .mapToInt(quantity -> quantity)
+//                        .sum();
+//        Stamp stamp = member.getStamp();
+//        stamp.setStampCount(stamp.getStampCount() + stampCount);
+//        member.setStamp(stamp);
+//
+//        memberService.updateMember(member);
+//    }  평점 로직 찾고

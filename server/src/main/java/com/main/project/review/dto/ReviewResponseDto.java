@@ -30,6 +30,9 @@ public class ReviewResponseDto {
     private String reviewImgUrl;
     private long restaurantId;
     private String restaurantName;
+    private Integer tasteStar;
+    private Integer facilityStar;
+    private Integer priceStar;
 
 
     private long foodTypeId;

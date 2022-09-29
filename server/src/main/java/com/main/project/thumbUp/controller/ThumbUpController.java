@@ -67,14 +67,10 @@ public class ThumbUpController {
     }
 
 
-    @DeleteMapping("/delete/{review-id}")
-    public ResponseEntity deleteThumbUp (@PathVariable("review-id") long reviewId,
-                                         ThumbUpDto thumbUpDto) {
-
-        WebUser user = userService.findUser(thumbUpDto.getUserId());
-        if(user != null) {
-            thumbUpService.deleteThumbUp(user, reviewId);
-        }
+    @DeleteMapping("/delete/{thumbUp-id}")
+    public ResponseEntity deleteThumbUp (@PathVariable("thumbUp-id") long thumbUpId, @Valid @RequestBody ThumbUpDto thumbUpDto) {
+        long userId = thumbUpDto.getUserId();
+        thumbUpService.deleteThumbUp(thumbUpId, userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

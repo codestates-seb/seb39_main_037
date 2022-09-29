@@ -1,10 +1,10 @@
 package com.main.project.restaurant.controller;
 
+import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
 import com.main.project.restaurant.dto.RestaurantDto;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.mapper.RestaurantMapper;
 import com.main.project.restaurant.service.RestaurantServiceImpl;
-import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -44,7 +44,7 @@ public class RestaurantController {
     @GetMapping("{restaurant-id}") // 사용자가 이용하는 검색 서비스 구현
     public ResponseEntity findRestaurant(@PathVariable("restaurant-id") long restaurantId) {
         Restaurant restaurant = restaurantServiceImpl.findRestaurant(restaurantId);
-        return new ResponseEntity<>(restaurantMapper.restaurantToRestaurantDto(restaurant), HttpStatus.OK);
+        return new ResponseEntity<>(restaurantMapper.restaurantToRestaurantResponseDto(restaurant), HttpStatus.OK);
     }
 
     @GetMapping("/all/{page}")

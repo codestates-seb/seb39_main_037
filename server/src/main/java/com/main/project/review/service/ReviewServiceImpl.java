@@ -36,7 +36,6 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     public Review createReview(long userId, long restaurantId, Review review) {
-
         review.addWebUser(userService.findUser(userId));
         review.addRestaurant(restaurantServiceImpl.findRestaurant(restaurantId));
 //        review.addFoodType(new FoodType()); //foodtype service 생기면 수정하기

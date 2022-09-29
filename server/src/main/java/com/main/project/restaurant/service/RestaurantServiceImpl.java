@@ -50,8 +50,8 @@ public class RestaurantServiceImpl implements RestaurantService{
                 // 결과 리턴
                 result.setRestaurantName(localItem.getTitle());
                 result.setCategory(localItem.getCategory());
-                result.setDescription(localItem.getDescription());
-                result.setRestaurantPhone(localItem.getTelephone());
+//                result.setDescription(localItem.getDescription());
+//                result.setRestaurantPhone(localItem.getTelephone());
                 result.setAddress(localItem.getAddress());
                 result.setMapx(localItem.getMapx());
                 result.setMapy(localItem.getMapy());
@@ -74,8 +74,8 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurant.setRestaurantId(restaurantDto.getRestaurantId());
         restaurant.setRestaurantName(restaurantDto.getRestaurantName());
         restaurant.setCategory(restaurantDto.getCategory());
-        restaurant.setRestaurantDescription(restaurantDto.getDescription());
-        restaurant.setRestaurantPhone(restaurantDto.getRestaurantPhone());
+//        restaurant.setRestaurantDescription(restaurantDto.getDescription());
+//        restaurant.setRestaurantPhone(restaurantDto.getRestaurantPhone());
         restaurant.setAddress(restaurantDto.getAddress());
         restaurant.setMapx(restaurantDto.getMapx());
         restaurant.setMapy(restaurantDto.getMapy());
@@ -119,21 +119,21 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurantRepository.deleteById(restaurantId);
     }
 
-    public Restaurant addAveStar(long restaurantId){ //평균 별점 저장 로직
-        Restaurant restaurant = findRestaurant(restaurantId);
-//        if(reviewService.RestaurantReviewList(restaurantId).isEmpty()) {
-//            restaurant.setAveTaste(0);
-//            restaurant.setAveFacility(0);
-//            restaurant.setAvePrice(0);
-//        } //리뷰가 없을 경우 0리턴
-        double aveTaste = restaurantRepository.aveTasteStar(restaurantId);
-        double aveFacility = restaurantRepository.aveFacilityStar(restaurantId);
-        double avePrice = restaurantRepository.avePriceStar(restaurantId);
-
-        restaurant.setAveTaste(aveTaste);
-        restaurant.setAveFacility(aveFacility);
-        restaurant.setAvePrice(avePrice);
-
-        return restaurantRepository.save(restaurant);
-    }
+//    public Restaurant addAveStar(long restaurantId){ //평균 별점 저장 로직
+//        Restaurant restaurant = findRestaurant(restaurantId);
+////        if(reviewService.RestaurantReviewList(restaurantId).isEmpty()) {
+////            restaurant.setAveTaste(0);
+////            restaurant.setAveFacility(0);
+////            restaurant.setAvePrice(0);
+////        } //리뷰가 없을 경우 0리턴
+//        double aveTaste = restaurantRepository.aveTasteStar(restaurantId);
+//        double aveFacility = restaurantRepository.aveFacilityStar(restaurantId);
+//        double avePrice = restaurantRepository.avePriceStar(restaurantId);
+//
+//        restaurant.setAveTaste(aveTaste);
+//        restaurant.setAveFacility(aveFacility);
+//        restaurant.setAvePrice(avePrice);
+//
+//        return restaurantRepository.save(restaurant);
+//    }
 }

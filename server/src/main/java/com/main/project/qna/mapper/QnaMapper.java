@@ -17,9 +17,6 @@ public interface QnaMapper {
     List<QnaDto.ResponseDto> qnasToQnaResponseDtos(List<QnA> qnas);
 
     default public QnaDto.ResponseDto qnaToQnaResponseDto(QnA qna) {
-        if ( qna == null ) {
-            return null;
-        }
 
         QnaDto.ResponseDto responseDto = new QnaDto.ResponseDto();
 

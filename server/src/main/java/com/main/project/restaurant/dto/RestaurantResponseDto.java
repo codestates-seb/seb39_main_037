@@ -1,12 +1,11 @@
 package com.main.project.restaurant.dto;
 
-import com.main.project.review.entity.Review;
-import lombok.Getter;
-import lombok.Setter;
 
-import javax.persistence.Column;
+import lombok.*;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class RestaurantResponseDto {
@@ -20,7 +19,6 @@ public class RestaurantResponseDto {
     private double aveTaste;                // 맛 별점 평균
     private double aveFacility;             // 시설 별점 평균
     private double avePrice;                // 가격 별점 평균
-    private List<Review> review;
     private int mapx;
     private int mapy;
 }

@@ -68,9 +68,8 @@ public class CommentController {
 
 
         Review review = reviewService.findReview(reviewId);
-
         int size =10;
-        Page<Comment> pageComment = commentService.findReviewComment(reviewId,page - 1, size);
+        Page<Comment> pageComment = commentService.findReviewComment(review,page - 1, size);
         List<Comment> comments = pageComment.getContent();
 
         return new ResponseEntity(commentMapper.commentsToCommentResponseDtos(comments), HttpStatus.OK);

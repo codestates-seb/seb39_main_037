@@ -17,6 +17,7 @@ public interface CommentMapper {
     List<CommentResponseDto> commentsToCommentResponseDtos(List<Comment> comments);
 
     default public CommentResponseDto commentToCommentResponseDto(Comment comment){
+
         CommentResponseDto commentResponseDto = new CommentResponseDto();
         commentResponseDto.setCommentId(comment.getCommentId());
         commentResponseDto.setCommentBody(comment.getCommentBody());
