@@ -1,5 +1,6 @@
 package com.main.project.foodType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.main.project.food.entity.Food;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.review.entity.Review;
@@ -25,7 +26,7 @@ public class FoodType {
     @Column(nullable = false)
     String typeName;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "foodType", cascade = CascadeType.ALL)
     List<Food> foodList = new ArrayList<>();
 

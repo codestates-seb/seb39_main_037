@@ -12,10 +12,13 @@ public enum ExceptionCode {
     LIKE_IS_NOT_EXISTS(404, "해당 좋아요를 찾을 수 없습니다"),
 
     PASSWORD_NOT_MATCH(601, "비밀번호가 맞지 않습니다 "),
-    FOODTYPE_NOT_EXIST(701, "동일한 푸드타입이 존재합니다. "),
+    FOODTYPE_NOT_EXIST(701, "해당 푸드타입이 존재하지 않습니다. "),
     FOODTYPE_DUPLICATE(702, "동일한 푸드타입이 존재합니다. "),
     Badge_ID_IS_NOT_CORRECT(701, "일치하는 뱃지가 없습니다"),
     ID_NOT_FOUND(402, "해당 코드 아이디를 찾을 수 없습니다"),
+
+    FOOD_NOT_EXIST(901, "해당 푸드는 존재하지 않습니다. "),
+    DUPLICATE_FOOD(902, "동일한 푸드가 존재합니다."),
     LOCATION_NOT_FOUND(402, "지역이 존재하지 않습니다.");
 
     @Getter

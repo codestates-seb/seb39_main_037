@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class JwtAuthorizationFilter extends BasicAuthenticationFilter {//로그인을 통한 토큰 발급했으니 그 토큰을 가지고 인가 요청을 검증하는 필터 커스텀
+public class    JwtAuthorizationFilter extends BasicAuthenticationFilter {//로그인을 통한 토큰 발급했으니 그 토큰을 가지고 인가 요청을 검증하는 필터 커스텀
 
     private UserService userService;
 

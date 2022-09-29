@@ -1,4 +1,4 @@
-package com.main.project.user.dto;
+package com.main.project.entity;
 
 
 import com.main.project.entity.PageInfo;

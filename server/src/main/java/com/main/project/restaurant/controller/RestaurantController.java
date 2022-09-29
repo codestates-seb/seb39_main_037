@@ -4,7 +4,7 @@ import com.main.project.restaurant.dto.RestaurantDto;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.mapper.RestaurantMapper;
 import com.main.project.restaurant.service.RestaurantServiceImpl;
-import com.main.project.user.dto.Multi_ResponseDTOwithPageInfo;
+import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

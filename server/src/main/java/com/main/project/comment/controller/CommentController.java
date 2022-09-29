@@ -8,7 +8,7 @@ import com.main.project.comment.service.CommentService;
 import com.main.project.review.entity.Review;
 import com.main.project.review.service.ReviewServiceImpl;
 import com.main.project.thumbUp.entity.ThumbUp;
-import com.main.project.user.dto.Multi_ResponseDTOwithPageInfo;
+import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.service.UserService;
 import com.main.project.user.service.UserServieImpl;

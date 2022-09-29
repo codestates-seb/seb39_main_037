@@ -1,5 +1,6 @@
 package com.main.project.thumbUp.controller;
 
+import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.review.entity.Review;
 import com.main.project.thumbUp.dto.ThumbUpDto;
@@ -7,7 +8,7 @@ import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.thumbUp.mapper.ThumbUpMapper;
 import com.main.project.thumbUp.service.ThumbUpService;
 import com.main.project.thumbUp.service.ThumbUpServiceImpl;
-import com.main.project.user.dto.Multi_ResponseDTOwithPageInfo;
+
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.service.UserServieImpl;
 import lombok.extern.slf4j.Slf4j;

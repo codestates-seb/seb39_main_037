@@ -17,7 +17,6 @@ public class ReviewPostDto {
     @NotBlank(message = "내용을 입력해 주세요.")
     private String reviewBody;
 
-
     @Min(value = 1, message = "별점은 최소 1점 부터 시작합니다.")
     @Max(value = 5, message = "별점은 최대 5점까지 줄 수 있습니다.")
     private Integer tasteStar;
@@ -38,5 +37,7 @@ public class ReviewPostDto {
     private long restaurantId;
 //    private long foodTypeId;
     private long locationId;
+
+
 
 }

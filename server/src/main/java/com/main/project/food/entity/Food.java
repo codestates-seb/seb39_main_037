@@ -1,5 +1,6 @@
 package com.main.project.food.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.main.project.foodType.FoodType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

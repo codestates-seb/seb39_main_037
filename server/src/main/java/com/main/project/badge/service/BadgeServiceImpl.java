@@ -56,9 +56,11 @@ public class BadgeServiceImpl implements  BadgeService{
         int howManyReviews = foundUser.getReviews().size();
 
         switch(howManyReviews){
+
             case 1: reviewBadgeAssign(foundUser,1);//뱃지 번호 1번은 첫 리뷰 작성시 주는 뱃지
             case 10: reviewBadgeAssign(foundUser,2);//뱃지 번호 2번은 10번째 리뷰 작성시 주는 뱃지
             case 50: reviewBadgeAssign(foundUser,3);//뱃지 번호 3번은 50번째 리뷰 작성시 주는 뱃지
+
         }
 
     }
