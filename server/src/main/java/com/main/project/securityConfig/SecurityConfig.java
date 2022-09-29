@@ -42,6 +42,11 @@ public class SecurityConfig {
                 // 우리가 작성한 JwtAuthenticationFilter가  UsernamePasswordAuthenticationFilter를 상속 받기에 활성화하던 안 하던 인증 절차는 진행이 된다.
                 //.cors().disable()
                 .httpBasic().disable()//http베이직 로그인 기능 비활성화
+//                .formLogin() //로그인 폼은  https://tmdrl5779.tistory.com/72
+//                .loginPage("/auth/loginForm") //로그인 페이지를 우리가 만든 페이지로 등록한다.
+//                .loginProcessingUrl("/auth/loginProc")//스프링 시큐리티가 해당 주소로 요청오는 로그인을 가로채서 대신 로그인해줌(서비스의 loadUserByName로 알아서)
+//                .defaultSuccessUrl("/") //정상일떄
+//                .and()
                 .apply(new CustomDsl())
                 .and()
                 .oauth2Login()
@@ -49,6 +54,7 @@ public class SecurityConfig {
                 .userService(principalOauth2UserService)
                 .and()
                 .and().build();
+
     }
 
     public class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity> {//우리가 새로운 필터를 추가할 때마다 addFilter()로 추가하다보면 securityFilterChain() 메서드의 기이가 너무 길어진다.

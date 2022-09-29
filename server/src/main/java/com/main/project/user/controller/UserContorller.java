@@ -1,33 +1,23 @@
 package com.main.project.user.controller;
 
 
-import com.main.project.badge.UserBadge;
-import com.main.project.badge.entity.Badge;
-import com.main.project.badge.service.BadgeServiceImpl;
-import com.main.project.user.dto.Multi_ResponseDTOwithPageInfo;
+import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
 import com.main.project.user.dto.UserDto;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.mapper.UserMapper;
 import com.main.project.user.service.UserServieImpl;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;

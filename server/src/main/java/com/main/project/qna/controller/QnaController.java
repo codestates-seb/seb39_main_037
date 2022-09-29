@@ -4,7 +4,7 @@ import com.main.project.qna.dto.QnaDto;
 import com.main.project.qna.entity.QnA;
 import com.main.project.qna.mapper.QnaMapper;
 import com.main.project.qna.service.QnaServiceImpl;
-import com.main.project.user.dto.Multi_ResponseDTOwithPageInfo;
+import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

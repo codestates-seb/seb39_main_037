@@ -13,8 +13,6 @@ import java.util.*;
 public class CorsConfig {
 
 
-
-
     @Bean
     public CorsFilter corsFilter() {
         System.out.println("Cors 필터 시작");
