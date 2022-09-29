@@ -41,6 +41,12 @@ public class RestaurantController {
         return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants),pageRestaurant), HttpStatus.OK);
     }
 
+    @GetMapping("{restaurant-id}") // 사용자가 이용하는 검색 서비스 구현
+    public ResponseEntity findRestaurant(@PathVariable("restaurant-id") long restaurantId) {
+        Restaurant restaurant = restaurantServiceImpl.findRestaurant(restaurantId);
+        return new ResponseEntity<>(restaurantMapper.restaurantToRestaurantDto(restaurant), HttpStatus.OK);
+    }
+
     @GetMapping("/all/{page}")
     public ResponseEntity findAll(@PathVariable("page") int page) {
 
