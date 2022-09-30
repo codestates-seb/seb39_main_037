@@ -35,7 +35,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/search/{page}") // 사용자가 이용하는 검색 서비스 구현
-    public ResponseEntity search(@RequestBody String title, @PathVariable("page") int page) {
+    public ResponseEntity search(@RequestParam String title, @PathVariable("page") int page) {
         Page<Restaurant> pageRestaurant = restaurantServiceImpl.search(title, page - 1);
         List<Restaurant> restaurants = pageRestaurant.getContent();
         return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants),pageRestaurant), HttpStatus.OK);

@@ -56,6 +56,7 @@ public class ReviewController {
 //        long foodTypeId = reviewPostDto.getFoodTypeId();
         long restaurantId = reviewPostDto.getRestaurantId();
         Review review = reviewServiceImpl.createReview(userId, restaurantId, reviewMapper.reviewPostDtoToReview(reviewPostDto));
+        restaurantService.aveStar(review);
 
         return new ResponseEntity<>(reviewMapper.reviewToReviewResponseDto(review),
                 HttpStatus.CREATED);
@@ -139,9 +140,9 @@ public class ReviewController {
 
 
     @GetMapping("/search/{page}") // 리뷰 검색기능 구현
-    public ResponseEntity search(@RequestBody String keyword, @PathVariable("page") int page) {
+    public ResponseEntity search(@RequestParam String title, @PathVariable("page") int page) {
 
-        Page<Review> pageReview = reviewServiceImpl.search(keyword, page - 1);
+        Page<Review> pageReview = reviewServiceImpl.search(title, page - 1);
         List<Review> reviews = pageReview.getContent();
 
         return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(reviewMapper.reviewsToReviewResponseDtos(reviews),pageReview),
@@ -149,16 +150,3 @@ public class ReviewController {
     }
 
 }
-//private void updateStamp(Order order) {
-//        Member member = memberService.findMember(order.getMember().getMemberId());
-//        int stampCount =
-//                order.getOrderCoffees().stream()
-//                        .map(orderCoffee -> orderCoffee.getQuantity())
-//                        .mapToInt(quantity -> quantity)
-//                        .sum();
-//        Stamp stamp = member.getStamp();
-//        stamp.setStampCount(stamp.getStampCount() + stampCount);
-//        member.setStamp(stamp);
-//
-//        memberService.updateMember(member);
-//    }  평점 로직 찾고

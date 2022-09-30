@@ -68,6 +68,34 @@ public class RestaurantServiceImpl implements RestaurantService{
         return entityToDto(saveRestaurant);
 
     }
+//public List<RestaurantDto> searchApi(String query){ //테스트 진행
+//
+//    // 지역 검색 (var - 키워드는 지역 변수 타입 추론을 허용)
+//    var searchLocalReq = new SearchLocalReq();
+//    searchLocalReq.setQuery(query);
+//
+//    var searchLocalRes = naverClient.localSearch(searchLocalReq);
+//    var result = new RestaurantDto();
+//
+//    if(searchLocalRes.getTotal() > 0) {
+//
+//        var localItem = searchLocalRes.getItems().stream().findFirst().get();
+//
+//        // 결과 리턴
+//        result.setRestaurantName(localItem.getTitle());
+//        result.setCategory(localItem.getCategory());
+////                result.setDescription(localItem.getDescription());
+////                result.setRestaurantPhone(localItem.getTelephone());
+//        result.setAddress(localItem.getAddress());
+//        result.setMapx(localItem.getMapx());
+//        result.setMapy(localItem.getMapy());
+//
+//    }
+//    var restaurant = dtoToEntity(result);
+//    var saveRestaurant = restaurantRepository.save(restaurant); //검색 후 바로 저장, add 메서드 내용을 search에 추가
+//    return entityToDto(saveRestaurant);
+//
+//}
 
     private Restaurant dtoToEntity(RestaurantDto restaurantDto) {
         var restaurant = new Restaurant();
@@ -119,21 +147,29 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurantRepository.deleteById(restaurantId);
     }
 
-//    public Restaurant addAveStar(long restaurantId){ //평균 별점 저장 로직
-//        Restaurant restaurant = findRestaurant(restaurantId);
-////        if(reviewService.RestaurantReviewList(restaurantId).isEmpty()) {
-////            restaurant.setAveTaste(0);
-////            restaurant.setAveFacility(0);
-////            restaurant.setAvePrice(0);
-////        } //리뷰가 없을 경우 0리턴
-//        double aveTaste = restaurantRepository.aveTasteStar(restaurantId);
-//        double aveFacility = restaurantRepository.aveFacilityStar(restaurantId);
-//        double avePrice = restaurantRepository.avePriceStar(restaurantId);
-//
-//        restaurant.setAveTaste(aveTaste);
-//        restaurant.setAveFacility(aveFacility);
-//        restaurant.setAvePrice(avePrice);
-//
-//        return restaurantRepository.save(restaurant);
-//    }
+    public Restaurant aveStar(Review review) { //리뷰 별점 평균을 식당 데이터에 저장하는 로직
+        Restaurant restaurant = findRestaurant(review.getRestaurant().getRestaurantId());
+        double avgTasteStar = restaurant.getReviewList().stream()
+                .map(review1 -> review.getTasteStar())
+                .mapToInt(tasteStar -> tasteStar)
+                .average()
+                .getAsDouble();
+        restaurant.setAveTaste(avgTasteStar);
+
+        double avgFacilityStar = restaurant.getReviewList().stream()
+                .map(review1 -> review.getFacilityStar())
+                .mapToInt(facilityStar -> facilityStar)
+                .average()
+                .getAsDouble();
+        restaurant.setAveFacility(avgFacilityStar);
+        double avgPriceStar = restaurant.getReviewList().stream()
+                .map(review1 -> review.getPriceStar())
+                .mapToInt(priceStar -> priceStar)
+                .average()
+                .getAsDouble();
+        restaurant.setAveTaste(avgTasteStar);
+
+        return restaurantRepository.save(restaurant);
+    }
+
 }
