@@ -29,9 +29,10 @@ public class RestaurantController {
     public ResponseEntity searchApi(@RequestParam String query) {
 
 
-        RestaurantDto restaurant = restaurantServiceImpl.searchApi(query);
+        Page<Restaurant> restaurant = restaurantServiceImpl.searchApi(query);
+        List<Restaurant> restaurants = restaurant.getContent();
 
-        return new ResponseEntity<>(restaurantMapper.restaurantDtoToRestaurant(restaurant), HttpStatus.OK); // 코드 재구현
+        return new ResponseEntity<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.OK);
     }
 
     @GetMapping("/search/{page}") // 사용자가 이용하는 검색 서비스 구현

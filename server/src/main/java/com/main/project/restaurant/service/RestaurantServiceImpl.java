@@ -34,7 +34,7 @@ public class RestaurantServiceImpl implements RestaurantService{
         this.restaurantRepository = restaurantRepository;
         this.reviewRepository = reviewRepository;
     }
-    public RestaurantDto searchApi(String query){
+    public Page<Restaurant> searchApi(String query){
 
         // 지역 검색 (var - 키워드는 지역 변수 타입 추론을 허용)
         var searchLocalReq = new SearchLocalReq();
@@ -45,57 +45,24 @@ public class RestaurantServiceImpl implements RestaurantService{
 
         if(searchLocalRes.getTotal() > 0) {
 
-            var localItem = searchLocalRes.getItems().stream().findFirst().get();
+            var localItem = searchLocalRes.getItems();
+            for(var test: localItem){
+                result.setRestaurantName(test.getTitle());
+                result.setCategory(test.getCategory());
+                result.setAddress(test.getAddress());
+                result.setMapx(test.getMapx());
+                result.setMapy(test.getMapy());
+                var restaurant = dtoToEntity(result);
+                restaurantRepository.save(restaurant);
+            }
 
-                // 결과 리턴
-                result.setRestaurantName(localItem.getTitle());
-                result.setCategory(localItem.getCategory());
-//                result.setDescription(localItem.getDescription());
-//                result.setRestaurantPhone(localItem.getTelephone());
-                result.setAddress(localItem.getAddress());
-                result.setMapx(localItem.getMapx());
-                result.setMapy(localItem.getMapy());
-
-//            if(result.getAddress().equals(restaurantRepository.findByAddress(localItem.getAddress()))) {
-//                Optional<Restaurant> restaurant = restaurantRepository.findByAddress(result.getAddress());
-//                Restaurant restaurant1 = restaurant.get();
-//                return entityToDto(restaurant1);
-//            } //식당 중복 제거를 위한 비지니스 로직 구현
 
         }
-        var restaurant = dtoToEntity(result);
-        var saveRestaurant = restaurantRepository.save(restaurant); //검색 후 바로 저장, add 메서드 내용을 search에 추가
-        return entityToDto(saveRestaurant);
+//        var restaurant = dtoToEntity(result);
+//        var saveRestaurant = restaurantRepository.save(restaurant); //검색 후 바로 저장, add 메서드 내용을 search에 추가
+        return findAll(0,5);
 
     }
-//public List<RestaurantDto> searchApi(String query){ //테스트 진행
-//
-//    // 지역 검색 (var - 키워드는 지역 변수 타입 추론을 허용)
-//    var searchLocalReq = new SearchLocalReq();
-//    searchLocalReq.setQuery(query);
-//
-//    var searchLocalRes = naverClient.localSearch(searchLocalReq);
-//    var result = new RestaurantDto();
-//
-//    if(searchLocalRes.getTotal() > 0) {
-//
-//        var localItem = searchLocalRes.getItems().stream().findFirst().get();
-//
-//        // 결과 리턴
-//        result.setRestaurantName(localItem.getTitle());
-//        result.setCategory(localItem.getCategory());
-////                result.setDescription(localItem.getDescription());
-////                result.setRestaurantPhone(localItem.getTelephone());
-//        result.setAddress(localItem.getAddress());
-//        result.setMapx(localItem.getMapx());
-//        result.setMapy(localItem.getMapy());
-//
-//    }
-//    var restaurant = dtoToEntity(result);
-//    var saveRestaurant = restaurantRepository.save(restaurant); //검색 후 바로 저장, add 메서드 내용을 search에 추가
-//    return entityToDto(saveRestaurant);
-//
-//}
 
     private Restaurant dtoToEntity(RestaurantDto restaurantDto) {
         var restaurant = new Restaurant();
