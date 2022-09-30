@@ -12,7 +12,7 @@ interface IButtonProps {
   color?: string;
   disabled?: boolean;
   onClick?: () => void;
-  //   fontSize?:string;
+  fontSize?: string;
 }
 export const SquareButtonForm = ({
   variants,
@@ -21,19 +21,19 @@ export const SquareButtonForm = ({
   icon,
   widthStyle,
   paddingStyle = "5px 20px",
-  buttonColor = " #fec20b",
+  buttonColor,
   color = "white",
   disabled,
-  //   fontSize,
+  fontSize,
   onClick,
 }: IButtonProps) => {
-  const ButtonStyle = {
+  const ButtonStyle: React.CSSProperties = {
     padding: paddingStyle,
     width: widthStyle,
-    backgroundColor: buttonColor,
+    backgroundColor: buttonColor || `var(--main-yellow)`,
     color,
-    // textTransform: "none",
-    // fontSize,
+    fontSize,
+    textTransform: "none",
   };
   return (
     <Button
