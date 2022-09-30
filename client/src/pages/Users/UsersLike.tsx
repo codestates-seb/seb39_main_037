@@ -105,7 +105,7 @@ const NavLinkCss = styled(NavLink)`
 export default UsersLike;
 
 const test = [
-  // 필요한 부분 , reviewid는 해당 리뷰면 작성한 id는? , 대표이미지 부분 url
+  // 필요한 부분 , reviewid는 해당 리뷰면 작성한 id와 닉네임? , 대표이미지 부분 url
   {
     userId: 1,
     reviewId: 2,

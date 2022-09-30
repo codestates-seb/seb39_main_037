@@ -9,7 +9,8 @@
       ],
       "noImplicitAny": true,
       "noImplicitThis": true,
-      "strictNullChecks": true,
+      //초기값 null 주는거 해제
+      "strictNullChecks": false,
       "baseUrl": "src",
       "allowJs": true,
       "skipLibCheck": true,
@@ -23,7 +24,7 @@
       "resolveJsonModule": true,
       "isolatedModules": true,
       "noEmit": true,
-      "jsx": "react-jsx"
+      "jsx": "react-jsx",
     },
     "include": [
       "src"
