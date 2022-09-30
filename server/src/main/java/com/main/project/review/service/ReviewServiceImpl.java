@@ -33,7 +33,9 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     public Review createReview(long userId, long restaurantId, Review review) {
-        review.addWebUser(userService.findUser(userId));
+
+
+        review.addWebUser(userService.checkUserByUserId(userId));
         review.addRestaurant(restaurantServiceImpl.findRestaurant(restaurantId));
 //        review.addFoodType(new FoodType()); //foodtype service 생기면 수정하기
         verifyReview(review);
@@ -118,7 +120,7 @@ public class ReviewServiceImpl implements ReviewService{
 
     private void verifyReview(Review review) {
 //         회원이 존재하는지 확인
-        userService.findUser(review.getWebUser().getUserId());
+        userService.checkUserByUserId(review.getWebUser().getUserId());
 
 //         식당이 존재하는지 확인
         restaurantServiceImpl.findRestaurant(review.getRestaurant().getRestaurantId());

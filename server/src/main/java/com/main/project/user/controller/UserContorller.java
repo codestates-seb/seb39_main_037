@@ -86,7 +86,7 @@ public class UserContorller {
         responseUserDto.setNickName(edittedUser.getNickName());
 
 
-        return new ResponseEntity<>(mapper.webUserToresponseUserDto(edittedUser), HttpStatus.OK);
+        return new ResponseEntity<>(responseUserDto, HttpStatus.OK);
     }
 
 
@@ -102,13 +102,13 @@ public class UserContorller {
         responseUserDto.setNickName(edittedUser.getNickName());
 
 
-        return new ResponseEntity<>(mapper.webUserToresponseUserDto(edittedUser), HttpStatus.OK);
+        return new ResponseEntity<>(responseUserDto, HttpStatus.OK);
     }
 
     @GetMapping("/search/{userid}")
     public ResponseEntity getUser(@PathVariable("userid") long userid){
 
-       WebUser webUser  = userService.findUser(userid);
+       WebUser webUser  = userService.checkUserByUserId(userid);
 
        return new ResponseEntity(mapper.webUserToresponseUserDto(webUser), HttpStatus.FOUND);
     }
@@ -195,22 +195,6 @@ public class UserContorller {
                 .body(new ByteArrayResource(user.getProfileImg()));
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -5,10 +5,10 @@ import com.main.project.entity.Muti_ResponseDTO;
 import com.main.project.food.dto.FoodDto;
 import com.main.project.food.entity.Food;
 import com.main.project.food.mapper.FoodMapper;
-import com.main.project.foodType.FoodType;
-import com.main.project.foodType.FoodTypeMapper;
+import com.main.project.foodType.entity.FoodType;
+import com.main.project.foodType.mapper.FoodTypeMapper;
 import com.main.project.foodType.dto.FoodTypeDto;
-import com.main.project.foodType.service.FoodTypeService;
+import com.main.project.foodType.service.FoodTypeServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +17,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/food")
+@RequestMapping("/foodtype")
 public class FoodTypeContorller {
 
-    FoodTypeService foodTypeService;
+    FoodTypeServiceImpl foodTypeServiceImpl;
     FoodTypeMapper foodTypeMapper;
     FoodMapper foodMapper;
 
-    public FoodTypeContorller(FoodTypeService foodTypeService, FoodTypeMapper foodTypeMapper, FoodMapper foodMapper) {
-        this.foodTypeService = foodTypeService;
+    public FoodTypeContorller(FoodTypeServiceImpl foodTypeServiceImpl, FoodTypeMapper foodTypeMapper, FoodMapper foodMapper) {
+        this.foodTypeServiceImpl = foodTypeServiceImpl;
         this.foodTypeMapper = foodTypeMapper;
         this.foodMapper = foodMapper;
     }
@@ -33,7 +33,7 @@ public class FoodTypeContorller {
     @PostMapping("/add")
     public ResponseEntity postFoodType(@RequestBody FoodTypeDto.PostDto postDto){
         String newFoodTypeName = postDto.getTypeName();
-       FoodType newFoodType  = foodTypeService.makeFoodType(newFoodTypeName);
+       FoodType newFoodType  = foodTypeServiceImpl.makeFoodType(newFoodTypeName);
 
         return new ResponseEntity(foodTypeMapper.FoodTypeToResponseDto(newFoodType), HttpStatus.CREATED);
     }
@@ -41,7 +41,7 @@ public class FoodTypeContorller {
     @PatchMapping("/edit")
     public ResponseEntity patchFoodType(@RequestBody FoodTypeDto.PatchDto patchDto){//기존에 등록한 푸드타입 이름 변경 api
 
-       FoodType newNamedFoodType  = foodTypeService.editFoodType(patchDto.getOldTypeName(), patchDto.getNewTypeName());
+       FoodType newNamedFoodType  = foodTypeServiceImpl.editFoodType(patchDto.getOldTypeName(), patchDto.getNewTypeName());
 
         return  new ResponseEntity<>(foodTypeMapper.FoodTypeToResponseDto(newNamedFoodType), HttpStatus.OK);
     }
@@ -49,7 +49,7 @@ public class FoodTypeContorller {
     @GetMapping("/all")
     public ResponseEntity getAllFoodtype(){//foodtype 목록 반환
 
-       List<FoodType> FoodTypeList = foodTypeService.findAllFoodType();
+       List<FoodType> FoodTypeList = foodTypeServiceImpl.findAllFoodType();
         List<FoodTypeDto.ResponseDto> responseDtos = FoodTypeList
                 .stream()
                 .map(FoodType -> foodTypeMapper.FoodTypeToResponseDto(FoodType))
@@ -61,8 +61,8 @@ public class FoodTypeContorller {
 
     @GetMapping("/all/{foodtype}")
     public ResponseEntity getAllFoodtype(@PathVariable("foodtype") String foodTypeName) {//특정 푸트타입에 속하는 푸드들을 전부 가져오는 api
-        FoodType foodType = foodTypeService.findFoodType(foodTypeName);
-        List<Food> FoodList = foodTypeService.findAllFoodByFoodType(foodType);
+        FoodType foodType = foodTypeServiceImpl.findFoodType(foodTypeName);
+        List<Food> FoodList = foodTypeServiceImpl.findAllFoodByFoodType(foodType);
         List<FoodDto.ResponseDto> responseDtos = FoodList
                 .stream()
                 .map(Food -> foodMapper.foodToResponseDto(Food))
@@ -74,8 +74,8 @@ public class FoodTypeContorller {
 
     @DeleteMapping("/delete/{foodtype}")
     public ResponseEntity deleteFoodType(@PathVariable("foodtype") String foodTypeName){
-        FoodType foodType = foodTypeService.findFoodType(foodTypeName);
-        foodTypeService.removeFoodType(foodType);
+        FoodType foodType = foodTypeServiceImpl.findFoodType(foodTypeName);
+        foodTypeServiceImpl.removeFoodType(foodType);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

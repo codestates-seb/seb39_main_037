@@ -120,7 +120,7 @@ public class ReviewController {
     @GetMapping("/mypage/{user-id}/{page}")
     public ResponseEntity getAllUserLike (@PathVariable("user-id") long userId, @PathVariable("page") int page) {
 
-        WebUser user = userService.findUser(userId);
+        WebUser user = userService.checkUserByUserId(userId);
 
         Page<Review> pageReview = reviewServiceImpl.findUserReview(user, page - 1);
         List<Review> reviews = pageReview.getContent();

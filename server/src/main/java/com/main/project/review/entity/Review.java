@@ -2,7 +2,6 @@ package com.main.project.review.entity;
 
 import com.main.project.comment.entity.Comment;
 import com.main.project.entity.BaseTimeEntity;
-import com.main.project.foodType.FoodType;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.location.entity.Location;

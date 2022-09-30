@@ -1,12 +1,10 @@
 package com.main.project.thumbUp.controller;
 
+
 import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
-import com.main.project.restaurant.entity.Restaurant;
-import com.main.project.review.entity.Review;
 import com.main.project.thumbUp.dto.ThumbUpDto;
 import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.thumbUp.mapper.ThumbUpMapper;
-import com.main.project.thumbUp.service.ThumbUpService;
 import com.main.project.thumbUp.service.ThumbUpServiceImpl;
 
 import com.main.project.user.entity.WebUser;
@@ -45,7 +43,7 @@ public class ThumbUpController {
 
         boolean result = false;
 
-        WebUser user = userService.findUser(thumbUpDto.getUserId());
+        WebUser user = userService.checkUserByUserId(thumbUpDto.getUserId());
 
         if (Objects.nonNull(user))
             result = thumbUpService.createThumbUp(user, reviewId);
@@ -57,7 +55,7 @@ public class ThumbUpController {
     @GetMapping("/mypage/{user-id}/{page}")
     public ResponseEntity getAllUserLike (@PathVariable("user-id") long userId, @PathVariable("page") int page) {
 
-        WebUser user = userService.findUser(userId);
+        WebUser user = userService.checkUserByUserId(userId);
 
         Page<ThumbUp> pageThumbUp = thumbUpService.findUserLike(user, page - 1);
         List<ThumbUp> thumbUps = pageThumbUp.getContent();
@@ -65,6 +63,7 @@ public class ThumbUpController {
         return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(thumbUpMapper.thumbUpsToThumbUpResponseDtos(thumbUps), pageThumbUp),
                 HttpStatus.OK);
     }
+
 
 
     @DeleteMapping("/delete/{thumbUp-id}")

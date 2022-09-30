@@ -13,6 +13,7 @@ import com.main.project.user.entity.WebUser;
 import com.main.project.user.entity.WithdrawalUser;
 import com.main.project.user.repository.UserRepository;
 import com.main.project.user.repository.WithdrawalUserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,12 +28,9 @@ import java.util.Optional;
 @Service
 public class UserServieImpl implements  UserService{
 
-
         private BadgeServiceImpl badgeService;
         UserRepository userRepository;
-
         WithdrawalUserRepository withdrawalUserRepository;
-
         @Autowired
         BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -56,7 +54,7 @@ public class UserServieImpl implements  UserService{
         @Override
         public WebUser editUser(WebUser editUser) {
                 //이메일로 유저가 있는지 체크
-                WebUser webUser = userRepository.findByEmail(editUser.getEmail()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
+                WebUser webUser = getWebUser(editUser);
                 // 새로운 webUser 객체 생성
                 Optional.ofNullable(editUser.getNickName())
                         .ifPresent(webUser::setNickName);
@@ -65,35 +63,39 @@ public class UserServieImpl implements  UserService{
                 Optional.ofNullable(editUser.getEmail())
                         .ifPresent(webUser::setEmail);
 
-                WebUser eddittedUser = userRepository.save(webUser);
-//                userRepository.findAll(PageRequest.of(1,10, Sort.by("userId").descending())
-                return eddittedUser;
+                return userRepository.save(webUser);
+        }
+
+        private WebUser getWebUser(WebUser editUser) {
+                return userRepository.findByEmail(editUser.getEmail()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
         }
 
 
         @Override
         public WebUser editUserPassWord(UserDto.patchUserpasswordDto patchUserpasswordDto) {
-                WebUser edittingUser =  userRepository.findById(patchUserpasswordDto.getUserId()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
+
+                WebUser edittingUser = checkUserByUserId(patchUserpasswordDto.getUserId());
+
                 //비밀번호가 맞는지 체크
-                if(bCryptPasswordEncoder.matches(patchUserpasswordDto.getOldPassWord(), edittingUser.getPassword())) {
-                        edittingUser.setPassword(patchUserpasswordDto.getNewPassword()) ;
+                if(isPassWordMatch(patchUserpasswordDto.getOldPassWord(), edittingUser)) {
+                        edittingUser.setPassword(bCryptPasswordEncoder.encode(patchUserpasswordDto.getNewPassword())) ;
+                        userRepository.save(edittingUser);
                 }
                 else{
-                        new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);
+                       throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);
                 }
                 return edittingUser;
         }
 
-        @Override
-        public WebUser findUser(long userid) {
-                return userRepository.findByUserId(userid).orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
+
+        @Override//UserId로 DB의 유저 확인
+        public WebUser checkUserByUserId(long userid) {
+                return userRepository.findById(userid).orElseThrow(()-> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
         }
 
-
-
-
+        @Override
         public UserDto.responseUserActivityDto findMyUserActivity(UserDto.getMyUserActivityDetailsDto myUserDto) {
-                WebUser webUser = userRepository.findByUserId(myUserDto.getUserId()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
+                WebUser webUser = checkUserByUserId(myUserDto.getUserId());
                 List<Comment> ListOfComment = webUser.getComments();
                 List<Review> ListOfReview =  webUser.getReviews();
                 List<ThumbUp> ListOfThumbUp = webUser.getThumbUps();
@@ -104,19 +106,20 @@ public class UserServieImpl implements  UserService{
 
         @Override
         public void deActiveUser(long userid, String password) {
-                WebUser deActiveUser =  userRepository.findById(userid).orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
-                if(bCryptPasswordEncoder.matches(password, deActiveUser.getPassword())) {
+                WebUser deActiveUser = checkUserByUserId(userid);
+
+                checkIsUserDeActive(deActiveUser);
+
+                if(isPassWordMatch(password, deActiveUser)) {
                         deActiveUser.setIsUserActive(WebUser.UserActive.Withdrawal);//유저 상태 휴면으로 변경 -> 리팩토링 필요할 듯,
                         WithdrawalUser withdrawalUser = new WithdrawalUser();
                         withdrawalUser.setWebUser(deActiveUser);
                         withdrawalUserRepository.save(withdrawalUser);
-
                 }
-                else{
-                        new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);
-                }
+                else{ throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);}
 
         }
+
 
         @Override
         public Page<WebUser> findAllUser(int page) {
@@ -126,21 +129,20 @@ public class UserServieImpl implements  UserService{
 
         @Override
         public List<WebUser> findUserBydate(LocalDate start, LocalDate end) {
-              List<WebUser> dateFilteredUsers = userRepository.findAllByCreatedAtBetween(start, end).orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
-                return dateFilteredUsers;
+                return userRepository.findAllByCreatedAtBetween(start, end)
+                        .orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
         }
 
         @Override
-        public WebUser findUserByEmailForAuth(String email) {
-                Optional<WebUser> checkedUser = userRepository.findByEmail(email);
-                WebUser foundUser = checkedUser.orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_IS_NOT_EXIST));
+        public WebUser findUserByEmail(String email) {
+                return userRepository.findByEmail(email)
+                        .orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
 
-                return foundUser;
         }
 
         public void assignBadge(long userID) {//첫 리뷰작성 후 기념 뱃지 제공
 
-                WebUser foundUser = findUser(userID);
+                WebUser foundUser = this.checkUserByUserId(userID);
                 int howManyReviews = foundUser.getReviews().size();
 
                 if (howManyReviews == 1) {
@@ -151,9 +153,19 @@ public class UserServieImpl implements  UserService{
 
         }
 
-    public WebUser findUserByFileName(String filename) {
+        @Override
+         public WebUser findUserByFileName(String filename) {
+           return    userRepository.findByprofileImgName(filename).orElseThrow(() -> new BusinessLogicException(ExceptionCode.FILE_IS_NOT_EXIST));
+         }
 
-           return    userRepository.findByprofileImgName(filename).get();
-
-    }
+        @Override
+        public boolean isPassWordMatch(String dtoPassWord, WebUser toCheckUser) {
+                return bCryptPasswordEncoder.matches(dtoPassWord, toCheckUser.getPassword());
+        }
+        @Override
+        public void checkIsUserDeActive(WebUser deActiveUser) {
+                if(deActiveUser.getIsUserActive()==WebUser.UserActive.Withdrawal){
+                        throw new BusinessLogicException(ExceptionCode.ALREADY_DEACTICATED_USER);
+                }
+        }
 }
