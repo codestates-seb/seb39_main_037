@@ -2,6 +2,11 @@ package com.main.project.restaurant.service;
 
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
+import com.main.project.foodType.service.FoodTypeServiceImpl;
+import com.main.project.location.entity.City;
+import com.main.project.location.entity.Location;
+import com.main.project.location.entity.State;
+import com.main.project.location.service.LocationServiceImpl;
 import com.main.project.naver.NaverClient;
 import com.main.project.naver.SearchLocalReq;
 import com.main.project.restaurant.dto.RestaurantDto;
@@ -29,10 +34,14 @@ public class RestaurantServiceImpl implements RestaurantService{
     private final NaverClient naverClient;
     private final RestaurantRepository restaurantRepository;
     ReviewRepository reviewRepository;
-    public RestaurantServiceImpl(NaverClient naverClient, RestaurantRepository restaurantRepository, ReviewRepository reviewRepository) {
+    LocationServiceImpl locationService;
+    FoodTypeServiceImpl foodTypeService;
+    public RestaurantServiceImpl(NaverClient naverClient, RestaurantRepository restaurantRepository, ReviewRepository reviewRepository, LocationServiceImpl locationService, FoodTypeServiceImpl foodTypeService) {
         this.naverClient = naverClient;
         this.restaurantRepository = restaurantRepository;
         this.reviewRepository = reviewRepository;
+        this.locationService = locationService;
+        this.foodTypeService = foodTypeService;
     }
     public Page<Restaurant> searchApi(String query){
 
@@ -58,8 +67,6 @@ public class RestaurantServiceImpl implements RestaurantService{
 
 
         }
-//        var restaurant = dtoToEntity(result);
-//        var saveRestaurant = restaurantRepository.save(restaurant); //검색 후 바로 저장, add 메서드 내용을 search에 추가
         return findAll(0,5);
 
     }
@@ -69,26 +76,29 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurant.setRestaurantId(restaurantDto.getRestaurantId());
         restaurant.setRestaurantName(restaurantDto.getRestaurantName());
         restaurant.setCategory(restaurantDto.getCategory());
-//        restaurant.setRestaurantDescription(restaurantDto.getDescription());
-//        restaurant.setRestaurantPhone(restaurantDto.getRestaurantPhone());
         restaurant.setAddress(restaurantDto.getAddress());
         restaurant.setMapx(restaurantDto.getMapx());
         restaurant.setMapy(restaurantDto.getMapy());
 
         return restaurant;
     }
-    private RestaurantDto entityToDto(Restaurant restaurant) {
-        var restaurantDto = new RestaurantDto();
-        restaurantDto.setRestaurantId(restaurant.getRestaurantId());
-        restaurantDto.setRestaurantName(restaurant.getRestaurantName());
-        restaurantDto.setCategory(restaurant.getCategory());
-        restaurantDto.setDescription(restaurant.getRestaurantDescription());
-        restaurantDto.setRestaurantPhone(restaurant.getRestaurantPhone());
-        restaurantDto.setAddress(restaurant.getAddress());
-        restaurantDto.setMapx(restaurant.getMapx());
-        restaurantDto.setMapy(restaurant.getMapy());
+    public Restaurant updateRestaurant(long restaurantId, String foodTypeName) { // 타입 등록시 지역 자동 추가
+        Restaurant findRestaurant = findRestaurant(restaurantId);
+//        Optional.ofNullable(restaurant.getFoodType())
+//                .ifPresent(findRestaurant::setFoodType);
+        findRestaurant.addFoodType(foodTypeService.findFoodType(foodTypeName));
+        if(!findRestaurant.getAddress().isEmpty()){
+            String[] arr = findRestaurant.getAddress().split(" ");
+            String addState = arr[0];
+            String addCity = arr[1];
+            State state = locationService.foundState(addState);
+            City city = locationService.foundCity(addCity);
+            Location location = locationService.findByLocation(state, city);
+            findRestaurant.setLocation(location);
+        }
 
-        return restaurantDto;
+
+        return restaurantRepository.save(findRestaurant);
     }
 
     public Page<Restaurant> findAll(int page, int size) {

@@ -13,4 +13,5 @@ public interface RestaurantService {
     public Page<Restaurant> findAll(int page, int size);
     public Restaurant findRestaurant(long restaurantId);
     public void delete(long restaurantId);
+    public Restaurant updateRestaurant(long restaurantId, String foodTypeName);
 }

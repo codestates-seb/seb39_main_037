@@ -18,5 +18,8 @@ public interface LocationService {
     public Location findLocation(long locationId);
     public void deleteState(long stateId);  //관리자용
     public void deleteCity(long cityId);    //관리자용
+    public State foundState(String stateName);
+    public City foundCity(String cityName);
+    public Location findByLocation(State state, City city);
 
 }

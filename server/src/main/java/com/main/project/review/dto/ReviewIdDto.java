@@ -8,13 +8,13 @@ public class ReviewIdDto {
     @Getter
     @Setter
     @AllArgsConstructor
-    public static class locationDto {
+    public static class locationIdDto {
         long locationId;
     }
     @Getter
     @Setter
     @AllArgsConstructor
-    public static class restaurantDto {
+    public static class restaurantIdDto {
         long restaurantId;
     }
 }

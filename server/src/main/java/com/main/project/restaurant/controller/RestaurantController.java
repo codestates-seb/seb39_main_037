@@ -2,6 +2,7 @@ package com.main.project.restaurant.controller;
 
 import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
 import com.main.project.restaurant.dto.RestaurantDto;
+import com.main.project.restaurant.dto.RestaurantPatchDto;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.mapper.RestaurantMapper;
 import com.main.project.restaurant.service.RestaurantServiceImpl;
@@ -12,11 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/v1/restaurant")
+@RequestMapping("/restaurant")
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class RestaurantController {
@@ -33,6 +35,12 @@ public class RestaurantController {
         List<Restaurant> restaurants = restaurant.getContent();
 
         return new ResponseEntity<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.OK);
+    }
+    @PatchMapping("/manager")
+    public ResponseEntity patchRestaurant(@Valid @RequestBody RestaurantPatchDto restaurantPatchDto){
+        Restaurant restaurant = restaurantServiceImpl.updateRestaurant(restaurantPatchDto.getRestaurantId(), restaurantPatchDto.getFoodTypeName());
+
+        return new ResponseEntity<>(restaurantMapper.restaurantToRestaurantPatchResponseDto(restaurant), HttpStatus.OK);
     }
 
     @GetMapping("/search/{page}") // 사용자가 이용하는 검색 서비스 구현
