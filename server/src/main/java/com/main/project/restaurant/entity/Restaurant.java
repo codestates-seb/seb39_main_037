@@ -1,7 +1,7 @@
 package com.main.project.restaurant.entity;
 
 
-import com.main.project.foodType.FoodType;
+import com.main.project.foodType.entity.FoodType;
 import com.main.project.location.entity.Location;
 import com.main.project.review.entity.Review;
 import lombok.*;

@@ -42,7 +42,7 @@ public class    JwtAuthorizationFilter extends BasicAuthenticationFilter {//ë¡œê
         String email = JWT.require(Algorithm.HMAC512("seb29_main37 jwt token")).build().verify(jwtToken).getClaim("username").asString();
 
         if (email != null) {
-            WebUser memberEntity = userService.findUserByEmailForAuth(email);
+            WebUser memberEntity = userService.findUserByEmail(email);
 
             PrincipalDetails principalDetails = new PrincipalDetails(memberEntity);
             Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());

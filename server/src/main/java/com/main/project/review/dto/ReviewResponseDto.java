@@ -1,18 +1,14 @@
 package com.main.project.review.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.main.project.food.entity.Food;
-import com.main.project.foodType.FoodType;
+import com.main.project.foodType.entity.FoodType;
 import com.main.project.location.entity.Location;
 import com.main.project.restaurant.entity.Restaurant;
-import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.user.entity.WebUser;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter

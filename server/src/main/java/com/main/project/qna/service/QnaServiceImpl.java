@@ -23,7 +23,7 @@ public class QnaServiceImpl implements QnaService{
     }
 
     public QnA createQna(long userId, QnA qna) {
-        qna.addWebUser(userService.findUser(userId));
+        qna.addWebUser(userService.checkUserByUserId(userId));
         verifyUser(qna);
         qna.setQuestionTitle(qna.getQuestionTitle());
         qna.setQuestionBody(qna.getQuestionBody());
@@ -60,6 +60,6 @@ public class QnaServiceImpl implements QnaService{
                 qnaRepository.delete(qna);
     }
     private void verifyUser(QnA qna) {
-        userService.findUser(qna.getQnaUser().getUserId());
+        userService.checkUserByUserId(qna.getQnaUser().getUserId());
     }
 }

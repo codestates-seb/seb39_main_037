@@ -5,7 +5,7 @@ import com.main.project.exception.ExceptionCode;
 import com.main.project.food.dto.FoodDto;
 import com.main.project.food.entity.Food;
 import com.main.project.food.repository.FoodRepository;
-import com.main.project.foodType.FoodType;
+import com.main.project.foodType.entity.FoodType;
 import com.main.project.foodType.repository.FoodTypeRepository;
 import org.springframework.stereotype.Service;
 import java.util.*;

@@ -26,7 +26,7 @@ public class FoodController {
         this.foodMapper = foodMapper;
     }
 
-    @PostMapping("/post")
+    @PostMapping("/add")
     public ResponseEntity postFood(@RequestBody FoodDto.PostDto postDto){
 
         Food newAddedFood = foodService.addFood(postDto);
@@ -35,22 +35,25 @@ public class FoodController {
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/patch")
+    @PatchMapping("/edit")
     public ResponseEntity patchFood(@RequestBody FoodDto.PatchDto patchDto){
 
-        Food nameEdittedFood = foodService.editFoodInfo(patchDto.getOldFoodName(), patchDto.getNewFoodName());
+        Food nameEditedFood = foodService.editFoodInfo(patchDto.getOldFoodName(), patchDto.getNewFoodName());
+        FoodDto.ResponseDto responseDto = foodMapper.foodToResponseDto(nameEditedFood);
 
-        return new ResponseEntity<>(nameEdittedFood, HttpStatus.OK);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
 
 
     @GetMapping("/random")
-    public List<Food> getFoods(@RequestBody FoodDto.GetDto getDto){
+    public ResponseEntity getFoods(@RequestBody FoodDto.GetDto getDto){
 
         List<Food> threeRandomFood = foodService.random3Foods(getDto.getFoodType());
+        List<FoodDto.random3ResponseDto> responseDtos =  threeRandomFood.stream().map(Food -> new FoodDto.random3ResponseDto(Food.getFoodName(),Food.getFoodType().getTypeName())).collect(Collectors.toList());
 
-      return threeRandomFood;
+
+      return  new ResponseEntity(responseDtos, HttpStatus.FOUND );
     }
 
 
