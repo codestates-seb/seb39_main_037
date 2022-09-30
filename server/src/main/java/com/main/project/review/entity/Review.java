@@ -44,6 +44,9 @@ public class Review extends BaseTimeEntity {
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
 
+    @Column
+    private String reviewImgUrl;
+
     private long foodTypeId;
 
     @ManyToOne
@@ -60,10 +63,6 @@ public class Review extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<ThumbUp> thumbUps = new ArrayList<>();
-
-    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
-    private List<ReviewImg> reviewImgs = new ArrayList<>();
-
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 

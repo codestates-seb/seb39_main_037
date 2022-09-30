@@ -32,4 +32,6 @@ public class ReviewPatchDto {
     @Max(value = 5, message = "별점은 최대 5점까지 줄 수 있습니다.")
     private Integer priceStar;
 
+    private String reviewImgUrl;
+
 }

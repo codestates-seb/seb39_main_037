@@ -36,6 +36,10 @@ public class Restaurant extends MemoryRestaurant{
     private double aveFacility;
     @Column(columnDefinition = "double default 0", nullable = false)
     private double avePrice;
+    @Column
+    private int mapx;
+    @Column
+    private int mapy;
 
 
     @ManyToOne(cascade = CascadeType.ALL)

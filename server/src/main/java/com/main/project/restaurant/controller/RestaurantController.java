@@ -1,5 +1,6 @@
 package com.main.project.restaurant.controller;
 
+import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
 import com.main.project.restaurant.dto.RestaurantDto;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.mapper.RestaurantMapper;
@@ -33,21 +34,26 @@ public class RestaurantController {
         return new ResponseEntity<>(restaurantMapper.restaurantDtoToRestaurant(restaurant), HttpStatus.OK); // 코드 재구현
     }
 
-    @GetMapping("/search") // 사용자가 이용하는 검색 서비스 구현
-    public ResponseEntity search(@RequestBody String title) {
-        List<Restaurant> restaurants = restaurantServiceImpl.search(title);
+    @GetMapping("/search/{page}") // 사용자가 이용하는 검색 서비스 구현
+    public ResponseEntity search(@RequestBody String title, @PathVariable("page") int page) {
+        Page<Restaurant> pageRestaurant = restaurantServiceImpl.search(title, page - 1);
+        List<Restaurant> restaurants = pageRestaurant.getContent();
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants),pageRestaurant), HttpStatus.OK);
+    }
 
-        return new ResponseEntity<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.OK);
+    @GetMapping("{restaurant-id}") // 사용자가 이용하는 검색 서비스 구현
+    public ResponseEntity findRestaurant(@PathVariable("restaurant-id") long restaurantId) {
+        Restaurant restaurant = restaurantServiceImpl.findRestaurant(restaurantId);
+        return new ResponseEntity<>(restaurantMapper.restaurantToRestaurantResponseDto(restaurant), HttpStatus.OK);
     }
 
     @GetMapping("/all/{page}")
     public ResponseEntity findAll(@PathVariable("page") int page) {
 
-        int size =10;
-        Page<Restaurant> pageRestaurant = restaurantServiceImpl.findAll(page - 1, size);
+        Page<Restaurant> pageRestaurant = restaurantServiceImpl.findAll(page - 1, 10);
         List<Restaurant> restaurants = pageRestaurant.getContent();
 
-        return new ResponseEntity<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.OK);
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants),pageRestaurant), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{restaurant-id}")
