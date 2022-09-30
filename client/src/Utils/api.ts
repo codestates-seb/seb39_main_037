@@ -1,8 +1,9 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
+console.log(process.env.REACT_APP_API_URL);
 // instance 생성
 const instance = axios.create({
-  baseURL: "https://foodreco.tk",
+  baseURL: process.env.REACT_APP_API_URL,
   headers: { "Access-Control-Allow-Origin": "*" },
   withCredentials: true,
 });
@@ -62,9 +63,9 @@ export const post = <T>(...args: Parameters<typeof instance.post>) => {
   return instance.post<T, T>(...args);
 };
 
-export function patch<T>(...args: Parameters<typeof instance.patch>) {
+export const patch = <T>(...args: Parameters<typeof instance.patch>) => {
   return instance.patch<T, T>(...args);
-}
+};
 
 export const del = <T>(...args: Parameters<typeof instance.delete>) => {
   return instance.delete<T, T>(...args);
