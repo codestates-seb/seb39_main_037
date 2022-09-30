@@ -27,9 +27,12 @@ public class ReviewResponseDto {
     private LocalDateTime createdAt;
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime updatedAt;
-    private String reviewPhotoUrl;  //일단 값으로만 담아둠, 사진 post 구현 안함
+    private String reviewImgUrl;
     private long restaurantId;
     private String restaurantName;
+    private Integer tasteStar;
+    private Integer facilityStar;
+    private Integer priceStar;
 
 
     private long foodTypeId;

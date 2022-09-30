@@ -1,8 +1,11 @@
 package com.main.project.restaurant.dto;
 
+import com.main.project.review.entity.Review;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,5 +17,6 @@ public class RestaurantDto { // DB에 저장할 내용
     private String description;             // 식당 설명
     private String restaurantPhone;         // 전화번호
     private String address;                 // 주소
-//    private String homePageLink;           홈페이지 주소
+    private int mapx;
+    private int mapy;
 }

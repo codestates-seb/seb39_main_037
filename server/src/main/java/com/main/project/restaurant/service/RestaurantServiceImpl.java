@@ -50,9 +50,11 @@ public class RestaurantServiceImpl implements RestaurantService{
                 // 결과 리턴
                 result.setRestaurantName(localItem.getTitle());
                 result.setCategory(localItem.getCategory());
-                result.setDescription(localItem.getDescription());
-                result.setRestaurantPhone(localItem.getTelephone());
+//                result.setDescription(localItem.getDescription());
+//                result.setRestaurantPhone(localItem.getTelephone());
                 result.setAddress(localItem.getAddress());
+                result.setMapx(localItem.getMapx());
+                result.setMapy(localItem.getMapy());
 
 //            if(result.getAddress().equals(restaurantRepository.findByAddress(localItem.getAddress()))) {
 //                Optional<Restaurant> restaurant = restaurantRepository.findByAddress(result.getAddress());
@@ -72,9 +74,11 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurant.setRestaurantId(restaurantDto.getRestaurantId());
         restaurant.setRestaurantName(restaurantDto.getRestaurantName());
         restaurant.setCategory(restaurantDto.getCategory());
-        restaurant.setRestaurantDescription(restaurantDto.getDescription());
-        restaurant.setRestaurantPhone(restaurantDto.getRestaurantPhone());
+//        restaurant.setRestaurantDescription(restaurantDto.getDescription());
+//        restaurant.setRestaurantPhone(restaurantDto.getRestaurantPhone());
         restaurant.setAddress(restaurantDto.getAddress());
+        restaurant.setMapx(restaurantDto.getMapx());
+        restaurant.setMapy(restaurantDto.getMapy());
 
         return restaurant;
     }
@@ -86,6 +90,8 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurantDto.setDescription(restaurant.getRestaurantDescription());
         restaurantDto.setRestaurantPhone(restaurant.getRestaurantPhone());
         restaurantDto.setAddress(restaurant.getAddress());
+        restaurantDto.setMapx(restaurant.getMapx());
+        restaurantDto.setMapy(restaurant.getMapy());
 
         return restaurantDto;
     }
@@ -103,9 +109,9 @@ public class RestaurantServiceImpl implements RestaurantService{
     }
 
     @Transactional
-    public List<Restaurant> search(String title) { //리뷰 검색기능 구현
+    public Page<Restaurant> search(String title, int page) { //리뷰 검색기능 구현
 
-        return restaurantRepository.findByRestaurantNameContaining(title);
+        return restaurantRepository.findByRestaurantNameContaining(title, PageRequest.of(page, 10, Sort.by("restaurantId").descending()));
 
     }
 
@@ -113,21 +119,21 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurantRepository.deleteById(restaurantId);
     }
 
-    public Restaurant addAveStar(long restaurantId){ //평균 별점 저장 로직
-        Restaurant restaurant = findRestaurant(restaurantId);
-//        if(reviewService.RestaurantReviewList(restaurantId).isEmpty()) {
-//            restaurant.setAveTaste(0);
-//            restaurant.setAveFacility(0);
-//            restaurant.setAvePrice(0);
-//        } //리뷰가 없을 경우 0리턴
-        double aveTaste = restaurantRepository.aveTasteStar(restaurantId);
-        double aveFacility = restaurantRepository.aveFacilityStar(restaurantId);
-        double avePrice = restaurantRepository.avePriceStar(restaurantId);
-
-        restaurant.setAveTaste(aveTaste);
-        restaurant.setAveFacility(aveFacility);
-        restaurant.setAvePrice(avePrice);
-
-        return restaurantRepository.save(restaurant);
-    }
+//    public Restaurant addAveStar(long restaurantId){ //평균 별점 저장 로직
+//        Restaurant restaurant = findRestaurant(restaurantId);
+////        if(reviewService.RestaurantReviewList(restaurantId).isEmpty()) {
+////            restaurant.setAveTaste(0);
+////            restaurant.setAveFacility(0);
+////            restaurant.setAvePrice(0);
+////        } //리뷰가 없을 경우 0리턴
+//        double aveTaste = restaurantRepository.aveTasteStar(restaurantId);
+//        double aveFacility = restaurantRepository.aveFacilityStar(restaurantId);
+//        double avePrice = restaurantRepository.avePriceStar(restaurantId);
+//
+//        restaurant.setAveTaste(aveTaste);
+//        restaurant.setAveFacility(aveFacility);
+//        restaurant.setAvePrice(avePrice);
+//
+//        return restaurantRepository.save(restaurant);
+//    }
 }

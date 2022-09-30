@@ -8,6 +8,7 @@ import com.main.project.comment.service.CommentService;
 import com.main.project.review.entity.Review;
 import com.main.project.review.service.ReviewServiceImpl;
 import com.main.project.thumbUp.entity.ThumbUp;
+import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.service.UserService;
 import com.main.project.user.service.UserServieImpl;
@@ -67,21 +68,21 @@ public class CommentController {
 
 
         Review review = reviewService.findReview(reviewId);
-
         int size =10;
-        Page<Comment> pageComment = commentService.findReviewComment(reviewId,page - 1, size);
+        Page<Comment> pageComment = commentService.findReviewComment(review,page - 1, size);
         List<Comment> comments = pageComment.getContent();
 
         return new ResponseEntity(commentMapper.commentsToCommentResponseDtos(comments), HttpStatus.OK);
     }
-    @GetMapping("/mypage/{user-id}")
-    public ResponseEntity getAllUserComment (@PathVariable("user-id") long userId) {
+    @GetMapping("/mypage/{user-id}/{page}")
+    public ResponseEntity getAllUserComment (@PathVariable("user-id") long userId, @PathVariable("page") int page) {
 
         WebUser user = userService.findUser(userId);
 
-        List<Comment> comments = commentService.findUserComment(user);
+        Page<Comment> pageComment = commentService.findUserComment(user, page - 1);
+        List<Comment> comments = pageComment.getContent();
 
-        return new ResponseEntity<>(commentMapper.commentsToCommentResponseDtos(comments),
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(commentMapper.commentsToCommentResponseDtos(comments), pageComment),
                 HttpStatus.OK);
     }
 
