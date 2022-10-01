@@ -2,6 +2,11 @@ package com.main.project.restaurant.service;
 
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
+import com.main.project.foodType.service.FoodTypeServiceImpl;
+import com.main.project.location.entity.City;
+import com.main.project.location.entity.Location;
+import com.main.project.location.entity.State;
+import com.main.project.location.service.LocationServiceImpl;
 import com.main.project.naver.NaverClient;
 import com.main.project.naver.SearchLocalReq;
 import com.main.project.restaurant.dto.RestaurantDto;
@@ -29,12 +34,16 @@ public class RestaurantServiceImpl implements RestaurantService{
     private final NaverClient naverClient;
     private final RestaurantRepository restaurantRepository;
     ReviewRepository reviewRepository;
-    public RestaurantServiceImpl(NaverClient naverClient, RestaurantRepository restaurantRepository, ReviewRepository reviewRepository) {
+    LocationServiceImpl locationService;
+    FoodTypeServiceImpl foodTypeService;
+    public RestaurantServiceImpl(NaverClient naverClient, RestaurantRepository restaurantRepository, ReviewRepository reviewRepository, LocationServiceImpl locationService, FoodTypeServiceImpl foodTypeService) {
         this.naverClient = naverClient;
         this.restaurantRepository = restaurantRepository;
         this.reviewRepository = reviewRepository;
+        this.locationService = locationService;
+        this.foodTypeService = foodTypeService;
     }
-    public RestaurantDto searchApi(String query){
+    public Page<Restaurant> searchApi(String query){
 
         // 지역 검색 (var - 키워드는 지역 변수 타입 추론을 허용)
         var searchLocalReq = new SearchLocalReq();
@@ -45,27 +54,20 @@ public class RestaurantServiceImpl implements RestaurantService{
 
         if(searchLocalRes.getTotal() > 0) {
 
-            var localItem = searchLocalRes.getItems().stream().findFirst().get();
+            var localItem = searchLocalRes.getItems();
+            for(var test: localItem){
+                result.setRestaurantName(test.getTitle());
+                result.setCategory(test.getCategory());
+                result.setAddress(test.getAddress());
+                result.setMapx(test.getMapx());
+                result.setMapy(test.getMapy());
+                var restaurant = dtoToEntity(result);
+                restaurantRepository.save(restaurant);
+            }
 
-                // 결과 리턴
-                result.setRestaurantName(localItem.getTitle());
-                result.setCategory(localItem.getCategory());
-//                result.setDescription(localItem.getDescription());
-//                result.setRestaurantPhone(localItem.getTelephone());
-                result.setAddress(localItem.getAddress());
-                result.setMapx(localItem.getMapx());
-                result.setMapy(localItem.getMapy());
-
-//            if(result.getAddress().equals(restaurantRepository.findByAddress(localItem.getAddress()))) {
-//                Optional<Restaurant> restaurant = restaurantRepository.findByAddress(result.getAddress());
-//                Restaurant restaurant1 = restaurant.get();
-//                return entityToDto(restaurant1);
-//            } //식당 중복 제거를 위한 비지니스 로직 구현
 
         }
-        var restaurant = dtoToEntity(result);
-        var saveRestaurant = restaurantRepository.save(restaurant); //검색 후 바로 저장, add 메서드 내용을 search에 추가
-        return entityToDto(saveRestaurant);
+        return findAll(0,5);
 
     }
 
@@ -74,26 +76,29 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurant.setRestaurantId(restaurantDto.getRestaurantId());
         restaurant.setRestaurantName(restaurantDto.getRestaurantName());
         restaurant.setCategory(restaurantDto.getCategory());
-//        restaurant.setRestaurantDescription(restaurantDto.getDescription());
-//        restaurant.setRestaurantPhone(restaurantDto.getRestaurantPhone());
         restaurant.setAddress(restaurantDto.getAddress());
         restaurant.setMapx(restaurantDto.getMapx());
         restaurant.setMapy(restaurantDto.getMapy());
 
         return restaurant;
     }
-    private RestaurantDto entityToDto(Restaurant restaurant) {
-        var restaurantDto = new RestaurantDto();
-        restaurantDto.setRestaurantId(restaurant.getRestaurantId());
-        restaurantDto.setRestaurantName(restaurant.getRestaurantName());
-        restaurantDto.setCategory(restaurant.getCategory());
-        restaurantDto.setDescription(restaurant.getRestaurantDescription());
-        restaurantDto.setRestaurantPhone(restaurant.getRestaurantPhone());
-        restaurantDto.setAddress(restaurant.getAddress());
-        restaurantDto.setMapx(restaurant.getMapx());
-        restaurantDto.setMapy(restaurant.getMapy());
+    public Restaurant updateRestaurant(long restaurantId, String foodTypeName) { // 타입 등록시 지역 자동 추가
+        Restaurant findRestaurant = findRestaurant(restaurantId);
+//        Optional.ofNullable(restaurant.getFoodType())
+//                .ifPresent(findRestaurant::setFoodType);
+        findRestaurant.addFoodType(foodTypeService.findFoodType(foodTypeName));
+        if(!findRestaurant.getAddress().isEmpty()){
+            String[] arr = findRestaurant.getAddress().split(" ");
+            String addState = arr[0];
+            String addCity = arr[1];
+            State state = locationService.foundState(addState);
+            City city = locationService.foundCity(addCity);
+            Location location = locationService.findByLocation(state, city);
+            findRestaurant.setLocation(location);
+        }
 
-        return restaurantDto;
+
+        return restaurantRepository.save(findRestaurant);
     }
 
     public Page<Restaurant> findAll(int page, int size) {
@@ -119,21 +124,29 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurantRepository.deleteById(restaurantId);
     }
 
-//    public Restaurant addAveStar(long restaurantId){ //평균 별점 저장 로직
-//        Restaurant restaurant = findRestaurant(restaurantId);
-////        if(reviewService.RestaurantReviewList(restaurantId).isEmpty()) {
-////            restaurant.setAveTaste(0);
-////            restaurant.setAveFacility(0);
-////            restaurant.setAvePrice(0);
-////        } //리뷰가 없을 경우 0리턴
-//        double aveTaste = restaurantRepository.aveTasteStar(restaurantId);
-//        double aveFacility = restaurantRepository.aveFacilityStar(restaurantId);
-//        double avePrice = restaurantRepository.avePriceStar(restaurantId);
-//
-//        restaurant.setAveTaste(aveTaste);
-//        restaurant.setAveFacility(aveFacility);
-//        restaurant.setAvePrice(avePrice);
-//
-//        return restaurantRepository.save(restaurant);
-//    }
+    public Restaurant aveStar(Review review) { //리뷰 별점 평균을 식당 데이터에 저장하는 로직
+        Restaurant restaurant = findRestaurant(review.getRestaurant().getRestaurantId());
+        double avgTasteStar = restaurant.getReviewList().stream()
+                .map(review1 -> review.getTasteStar())
+                .mapToInt(tasteStar -> tasteStar)
+                .average()
+                .getAsDouble();
+        restaurant.setAveTaste(avgTasteStar);
+
+        double avgFacilityStar = restaurant.getReviewList().stream()
+                .map(review1 -> review.getFacilityStar())
+                .mapToInt(facilityStar -> facilityStar)
+                .average()
+                .getAsDouble();
+        restaurant.setAveFacility(avgFacilityStar);
+        double avgPriceStar = restaurant.getReviewList().stream()
+                .map(review1 -> review.getPriceStar())
+                .mapToInt(priceStar -> priceStar)
+                .average()
+                .getAsDouble();
+        restaurant.setAveTaste(avgTasteStar);
+
+        return restaurantRepository.save(restaurant);
+    }
+
 }

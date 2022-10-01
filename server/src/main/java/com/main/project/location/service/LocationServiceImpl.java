@@ -93,4 +93,13 @@ public class LocationServiceImpl implements LocationService{
         // 해당 도시가 존재하는지 확인
         findCity(location.getCity().getCityId());
     }
+    public State foundState(String stateName) {
+        return stateRepository.findByStateName(stateName);
+    }
+    public City foundCity(String cityName) {
+        return cityRepository.findByCityName(cityName);
+    }
+    public Location findByLocation(State state, City city) {
+        return locationRepository.findByStateAndCity(state, city);
+    }
 }

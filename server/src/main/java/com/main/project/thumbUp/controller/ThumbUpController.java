@@ -22,7 +22,7 @@ import java.util.Objects;
 
 @Slf4j
 @RestController
-@RequestMapping("/v1/thumbUp")
+@RequestMapping("/thumbUp")
 @Validated
 @CrossOrigin("*")
 public class ThumbUpController {
