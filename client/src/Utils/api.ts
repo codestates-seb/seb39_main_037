@@ -34,7 +34,6 @@ const responseInterceptorFulfilled = (res: AxiosResponse) => {
       // post일 때는 전체 넘김
       return res;
     }
-
     return res.data;
   }
 
