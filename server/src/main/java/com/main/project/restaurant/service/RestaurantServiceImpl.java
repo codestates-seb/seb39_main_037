@@ -109,15 +109,15 @@ public class RestaurantServiceImpl implements RestaurantService{
 //        Optional.ofNullable(restaurant.getFoodType())
 //                .ifPresent(findRestaurant::setFoodType);
         findRestaurant.addFoodType(foodTypeService.findFoodType(foodTypeName));
-        if(!findRestaurant.getAddress().isEmpty()){
-            String[] arr = findRestaurant.getAddress().split(" ");
-            String addState = arr[0];
-            String addCity = arr[1];
-            State state = locationService.foundState(addState);
-            City city = locationService.foundCity(addCity);
-            Location location = locationService.findByLocation(state, city);
-            findRestaurant.setLocation(location);
-        }
+//        if(!findRestaurant.getAddress().isEmpty()){
+//            String[] arr = findRestaurant.getAddress().split(" ");
+//            String addState = arr[0];
+//            String addCity = arr[1];
+//            State state = locationService.foundState(addState);
+//            City city = locationService.foundCity(addCity);
+//            Location location = locationService.findByLocation(state, city);
+//            findRestaurant.setLocation(location);
+//        }
 
 
         return restaurantRepository.save(findRestaurant);
