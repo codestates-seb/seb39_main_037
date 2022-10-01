@@ -124,29 +124,4 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurantRepository.deleteById(restaurantId);
     }
 
-    public Restaurant aveStar(Review review) { //리뷰 별점 평균을 식당 데이터에 저장하는 로직
-        Restaurant restaurant = findRestaurant(review.getRestaurant().getRestaurantId());
-        double avgTasteStar = restaurant.getReviewList().stream()
-                .map(review1 -> review.getTasteStar())
-                .mapToInt(tasteStar -> tasteStar)
-                .average()
-                .getAsDouble();
-        restaurant.setAveTaste(avgTasteStar);
-
-        double avgFacilityStar = restaurant.getReviewList().stream()
-                .map(review1 -> review.getFacilityStar())
-                .mapToInt(facilityStar -> facilityStar)
-                .average()
-                .getAsDouble();
-        restaurant.setAveFacility(avgFacilityStar);
-        double avgPriceStar = restaurant.getReviewList().stream()
-                .map(review1 -> review.getPriceStar())
-                .mapToInt(priceStar -> priceStar)
-                .average()
-                .getAsDouble();
-        restaurant.setAveTaste(avgTasteStar);
-
-        return restaurantRepository.save(restaurant);
-    }
-
 }

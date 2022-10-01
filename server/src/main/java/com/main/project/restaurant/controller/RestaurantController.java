@@ -5,7 +5,9 @@ import com.main.project.restaurant.dto.RestaurantDto;
 import com.main.project.restaurant.dto.RestaurantPatchDto;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.mapper.RestaurantMapper;
+import com.main.project.restaurant.repository.RestaurantRepository;
 import com.main.project.restaurant.service.RestaurantServiceImpl;
+import com.main.project.review.service.ReviewServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,8 @@ public class RestaurantController {
 
     private final RestaurantServiceImpl restaurantServiceImpl;
     private final RestaurantMapper restaurantMapper;
+    private final ReviewServiceImpl reviewService;
+    private final RestaurantRepository restaurantRepository;
 
 
     @GetMapping("/api/search")
@@ -53,6 +57,14 @@ public class RestaurantController {
     @GetMapping("{restaurant-id}") // 사용자가 이용하는 검색 서비스 구현
     public ResponseEntity findRestaurant(@PathVariable("restaurant-id") long restaurantId) {
         Restaurant restaurant = restaurantServiceImpl.findRestaurant(restaurantId);
+        double aveTaste = reviewService.aveTasteStar(restaurantId);
+        restaurant.setAveTaste(Math.round(aveTaste*100)/100.0);
+        double aveFacility = reviewService.aveFacilityStar(restaurantId);
+        restaurant.setAveFacility(Math.round(aveFacility*100)/100.0);
+        double avePrice = reviewService.avePriceStar(restaurantId);
+        restaurant.setAvePrice(Math.round(avePrice*100)/100.0);
+        restaurantRepository.save(restaurant);
+        System.out.println("test ave(T,F,P) " + aveTaste + ", " + aveFacility + ", " + avePrice); //별점 평균 구현
         return new ResponseEntity<>(restaurantMapper.restaurantToRestaurantPatchResponseDto(restaurant), HttpStatus.OK);
     }
 
