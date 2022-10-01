@@ -35,9 +35,6 @@ public class ReviewPostDto {
 
     private long userId;
     private long restaurantId;
-//    private long foodTypeId;
-    private long locationId;
-
 
 
 }

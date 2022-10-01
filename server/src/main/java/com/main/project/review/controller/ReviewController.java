@@ -26,7 +26,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/review")
+@RequestMapping("/review")
 @Validated
 @CrossOrigin("*")
 public class ReviewController {

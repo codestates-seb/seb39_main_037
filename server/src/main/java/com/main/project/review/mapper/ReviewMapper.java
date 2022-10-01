@@ -18,7 +18,6 @@ public interface ReviewMapper {
     Review reviewPatchDtoToReview(ReviewPatchDto reviewPatchDto);
 
     List<ReviewResponseDto> reviewsToReviewResponseDtos(List<Review> reviews);
-//    public ReviewResponseDto reviewToReviewResponseDto(Review review);
 
     default public ReviewResponseDto reviewToReviewResponseDto(Review review) {
         ReviewResponseDto reviewResponseDto = new ReviewResponseDto();
@@ -36,9 +35,8 @@ public interface ReviewMapper {
         reviewResponseDto.setTasteStar(review.getTasteStar());
         reviewResponseDto.setFacilityStar(review.getFacilityStar());
         reviewResponseDto.setPriceStar(review.getPriceStar());
-//        reviewResponseDto.setLocationId(review.getRestaurant().getLocation().getLocationId());
-//        reviewResponseDto.setFoodTypeId(review.getRestaurant().getFoodType().getFoodTypeId());
-//        reviewResponseDto.setFoodType(review.getRestaurant().getFoodType());
+        reviewResponseDto.setLocationId(review.getRestaurant().getLocation().getLocationId());
+        reviewResponseDto.setFoodTypeId(review.getRestaurant().getFoodType().getFoodTypeId());
         reviewResponseDto.setUserId(review.getWebUser().getUserId());
 
         return reviewResponseDto;
