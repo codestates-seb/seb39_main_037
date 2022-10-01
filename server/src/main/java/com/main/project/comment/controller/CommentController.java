@@ -20,7 +20,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/comment")
+@RequestMapping("/comment")
 @Validated
 @CrossOrigin("*")
 public class CommentController {
