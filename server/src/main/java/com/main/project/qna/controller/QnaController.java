@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/qna")
+@RequestMapping("/qna")
 @Validated
 @CrossOrigin("*")
 public class QnaController {

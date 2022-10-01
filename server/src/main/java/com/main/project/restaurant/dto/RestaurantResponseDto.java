@@ -1,6 +1,7 @@
 package com.main.project.restaurant.dto;
 
 
+import com.main.project.location.entity.Location;
 import lombok.*;
 import java.util.List;
 
@@ -21,4 +22,6 @@ public class RestaurantResponseDto {
     private double avePrice;                // 가격 별점 평균
     private int mapx;
     private int mapy;
+    private long locationId;
+    String foodTypeName;
 }

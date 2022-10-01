@@ -14,11 +14,11 @@ import java.util.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "restaurant")
-public class Restaurant extends MemoryRestaurant{
+public class Restaurant {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private long restaurantId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long restaurantId;
 
     @Column
     private String restaurantName;
@@ -53,5 +53,11 @@ public class Restaurant extends MemoryRestaurant{
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
 
+    public void addFoodType(FoodType foodType){
+        this.foodType = foodType;
+    }
+    public void addLocation(Location location) {
+        this.location = location;
+    }
 
 }

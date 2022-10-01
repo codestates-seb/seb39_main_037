@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,5 +16,6 @@ import java.util.Optional;
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
-    Page<Restaurant> findByRestaurantNameContaining(String title, Pageable pageable); // 사용자가 검색했을때 나오는 식당 값
+    @Query("SELECT r fROM Restaurant r WHERE r.restaurantName LIKE %:title%")
+    Page<Restaurant> findByRestaurantNameContaining(@Param("title") String title, Pageable pageable); // 사용자가 검색했을때 나오는 식당 값
 }
