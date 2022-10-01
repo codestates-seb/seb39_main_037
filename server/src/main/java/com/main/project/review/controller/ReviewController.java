@@ -138,8 +138,8 @@ public class ReviewController {
     }
 
 
-    @GetMapping("/search/{page}") // 리뷰 검색기능 구현
-    public ResponseEntity search(@RequestBody String keyword, @PathVariable("page") int page) {
+    @GetMapping("/search/{keyword}/{page}") // 리뷰 검색기능 구현
+    public ResponseEntity search(@PathVariable("keyword") String keyword, @PathVariable("page") int page) {
 
         Page<Review> pageReview = reviewServiceImpl.search(keyword, page - 1);
         List<Review> reviews = pageReview.getContent();

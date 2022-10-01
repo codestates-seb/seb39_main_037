@@ -8,12 +8,13 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Random;
 
 @Service
 public class MailServiceImpl implements MailService{
 
     private JavaMailSender mailSender;
-
+    int randomNumber;
     @Value("${spring.mail.username}")
     private String FROM_ADDRESS;
 
@@ -22,26 +23,30 @@ public class MailServiceImpl implements MailService{
     }
 
     @Override
-    public void mailSend(MailDto.PostMailDto postMailDto) {
+    public String mailSend(MailDto.PostMailDto postMailDto) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(postMailDto.getAddress());//메일 수신자 설정
         message.setFrom(FROM_ADDRESS);//메일 발신자 설정
         message.setSubject("foodreco 회원 가입을 위한 인증번호 안내입니다.");
-        message.setText("foodreco를 가입해 주셔서 감사합니다. 인증 번호는 "+ randomNumberMaker()+ " 입니다");
+        message.setText("foodreco를 가입해 주셔서 감사합니다."+" \"<br><br>\" +  인증 번호는 [ "+ randomNumberMaker()+ " ] 입니다");
 
         mailSender.send(message);
+        return Integer.toString(randomNumber);
     }
 
 
 
 
-    public String randomNumberMaker(){
-        int[] authenticationNumber = new int[6];
-        for(int i=0; i<6; i++) {
-            authenticationNumber[i] = (int) (Math.random()*10);
-        }
+    public int randomNumberMaker(){
+        Random r = new Random();
+        randomNumber = r.nextInt(888888) + 111111;
 
-        return Arrays.toString(authenticationNumber);//int 배열을 String으로 변환
+//        int[] authenticationNumber = new int[6];
+//        for(int i=0; i<6; i++) {
+//            authenticationNumber[i] = (int) (Math.random()*10);
+//        }
+//        Arrays.toString(authenticationNumber);
+        return randomNumber;
     }
 
 

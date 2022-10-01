@@ -28,28 +28,29 @@ import java.util.Objects;
 public class ThumbUpController {
 
     private final ThumbUpServiceImpl thumbUpService;
-    private final ThumbUpMapper thumbUpMapper;
-    UserServieImpl userService;
+        private final ThumbUpMapper thumbUpMapper;
+        UserServieImpl userService;
 
 
     public ThumbUpController(ThumbUpServiceImpl thumbUpService, UserServieImpl userService, ThumbUpMapper thumbUpMapper) {
-        this.thumbUpService = thumbUpService;
-        this.userService = userService;
-        this.thumbUpMapper = thumbUpMapper;
-    }
-    @PostMapping("/post/{review-id}")
-    public ResponseEntity postThumbUp (@PathVariable("review-id") long reviewId,
-                                       @Valid @RequestBody ThumbUpDto thumbUpDto) {
+            this.thumbUpService = thumbUpService;
+            this.userService = userService;
+            this.thumbUpMapper = thumbUpMapper;
+        }
 
-        boolean result = false;
+        @PostMapping("/post/{review-id}")
+        public ResponseEntity postThumbUp (@PathVariable("review-id") long reviewId,
+        @Valid @RequestBody ThumbUpDto thumbUpDto) {
 
-        WebUser user = userService.checkUserByUserId(thumbUpDto.getUserId());
+            boolean result = false;
 
-        if (Objects.nonNull(user))
-            result = thumbUpService.createThumbUp(user, reviewId);
+            WebUser user = userService.checkUserByUserId(thumbUpDto.getUserId());
 
-        return result ?
-                new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            if (Objects.nonNull(user))
+                result = thumbUpService.createThumbUp(user, reviewId);
+
+            return result ?
+                    new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/mypage/{user-id}/{page}")

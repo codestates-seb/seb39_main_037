@@ -2,6 +2,7 @@ package com.main.project.securityConfig;
 
 
 
+import com.main.project.securityConfig.filter.CustomOauth2AutheticationFilter;
 import com.main.project.securityConfig.filter.JwtAuthenticationFilter;
 import com.main.project.securityConfig.filter.JwtAuthorizationFilter;
 import com.main.project.user.service.UserService;
@@ -13,10 +14,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+
+import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer;
+import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.boot.autoconfigure.security.oauth2.client.servlet.*;
+
+
 
 @Configuration
 @EnableWebSecurity
@@ -27,9 +36,14 @@ public class SecurityConfig {
     private final CorsFilter corsFilter;
     private final UserService userService;
 
-
     @Autowired
     private PrincipalOauth2UserService principalOauth2UserService;
+
+//    @Autowired
+//    private InMemoryOAuth2AuthorizedClientService inMemoryOAuth2AuthorizedClientService;
+//
+//    @Autowired
+//    private ClientRegistrationRepository clientRegistrationRepository;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -62,6 +76,11 @@ public class SecurityConfig {
 
     }
 
+
+
+
+
+
     public class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity> {//우리가 새로운 필터를 추가할 때마다 addFilter()로 추가하다보면 securityFilterChain() 메서드의 기이가 너무 길어진다.
         // 또한 WebSecurityConfigureAdapter가 deprecated되면서 내부 클래스로 처리해야한다.
 
@@ -69,14 +88,19 @@ public class SecurityConfig {
         @Override
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+
+
             builder
                     .addFilter(corsFilter)
-//                    .addFilter(new CustomUserNameAuthenticationFilter())
+//                    .addFilter(new CustomOauth2AutheticationFilter(, inMemoryOAuth2AuthorizedClientService))
                     .addFilter(new JwtAuthenticationFilter(authenticationManager))
                     .addFilter(new JwtAuthorizationFilter(authenticationManager, userService)); // 발급한 토큰을 다시 클라이언트한테서 받아서 인가 요청 처리할 커스텀 필터 추가
 
         }
+
+
     }
+
 
 
 
