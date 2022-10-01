@@ -6,6 +6,9 @@ import com.main.project.foodType.service.FoodTypeServiceImpl;
 import com.main.project.location.entity.City;
 import com.main.project.location.entity.Location;
 import com.main.project.location.entity.State;
+import com.main.project.location.repository.CityRepository;
+import com.main.project.location.repository.LocationRepository;
+import com.main.project.location.repository.StateRepository;
 import com.main.project.location.service.LocationServiceImpl;
 import com.main.project.naver.NaverClient;
 import com.main.project.naver.SearchLocalReq;
@@ -35,14 +38,21 @@ public class RestaurantServiceImpl implements RestaurantService{
     private final RestaurantRepository restaurantRepository;
     ReviewRepository reviewRepository;
     LocationServiceImpl locationService;
+    StateRepository stateRepository;
+
+    CityRepository cityRepository;
     FoodTypeServiceImpl foodTypeService;
-    public RestaurantServiceImpl(NaverClient naverClient, RestaurantRepository restaurantRepository, ReviewRepository reviewRepository, LocationServiceImpl locationService, FoodTypeServiceImpl foodTypeService) {
+
+    public RestaurantServiceImpl(NaverClient naverClient, RestaurantRepository restaurantRepository, ReviewRepository reviewRepository, LocationServiceImpl locationService, StateRepository stateRepository, CityRepository cityRepository, FoodTypeServiceImpl foodTypeService) {
         this.naverClient = naverClient;
         this.restaurantRepository = restaurantRepository;
         this.reviewRepository = reviewRepository;
         this.locationService = locationService;
+        this.stateRepository = stateRepository;
+        this.cityRepository = cityRepository;
         this.foodTypeService = foodTypeService;
     }
+
     public Page<Restaurant> searchApi(String query){
 
         // 지역 검색 (var - 키워드는 지역 변수 타입 추론을 허용)
@@ -55,9 +65,21 @@ public class RestaurantServiceImpl implements RestaurantService{
         if(searchLocalRes.getTotal() > 0) {
 
             var localItem = searchLocalRes.getItems();
+
+
             for(var test: localItem){
                 result.setRestaurantName(test.getTitle());
-                result.setCategory(test.getCategory());
+                    String category  = test.getCategory().split(">",4)[0];
+                    if(category.equals("음식점")){
+                        result.setCategory(test.getCategory().split(">",4)[1]);
+                    }else{
+                        result.setCategory(category);
+                    }
+                        String resState = test.getAddress().split(" ", 4)[0];
+                        String resCity = test.getAddress().split(" ", 4)[1];
+                        Location resLocation = locationService.findByLocation(stateRepository.findByStateName(resState), cityRepository.findByCityName(resCity));
+
+                    result.setLocation(resLocation);
                 result.setAddress(test.getAddress());
                 result.setMapx(test.getMapx());
                 result.setMapy(test.getMapy());
@@ -79,7 +101,7 @@ public class RestaurantServiceImpl implements RestaurantService{
         restaurant.setAddress(restaurantDto.getAddress());
         restaurant.setMapx(restaurantDto.getMapx());
         restaurant.setMapy(restaurantDto.getMapy());
-
+        restaurant.setLocation(restaurantDto.getLocation());
         return restaurant;
     }
     public Restaurant updateRestaurant(long restaurantId, String foodTypeName) { // 타입 등록시 지역 자동 추가

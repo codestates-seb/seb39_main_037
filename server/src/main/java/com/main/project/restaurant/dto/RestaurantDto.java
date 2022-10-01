@@ -1,8 +1,10 @@
 package com.main.project.restaurant.dto;
 
+import com.main.project.location.entity.Location;
 import com.main.project.review.entity.Review;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @NoArgsConstructor
@@ -19,5 +21,5 @@ public class RestaurantDto { // DB에 저장할 내용
     private String address;                 // 주소
     private int mapx;
     private int mapy;
-    private long locationId;
+    private Location location;
 }
