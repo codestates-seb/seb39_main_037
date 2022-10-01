@@ -3,13 +3,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import FoodBankIcon from "@mui/icons-material/FoodBank";
 import MenuIcon from "@mui/icons-material/Menu";
 import TopModal from "Components/Common/Modal/TopModal";
+import useCurrentLocation from "Hooks/useCurrentLocation";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Header = () => {
   const [modal, setModal] = useState<boolean>(false);
-
+  const { currentLocation } = useCurrentLocation();
   return (
     <NavContainer>
       <LogoIconDiv>
@@ -20,7 +21,13 @@ const Header = () => {
       <UlContainer>
         <li>
           <LinkCss to="/location">
-            <div>서울시/마포구</div>
+            {currentLocation.locationId ? (
+              <div>
+                {currentLocation.stateName}/{currentLocation.cityName}
+              </div>
+            ) : (
+              <div>위치등록</div>
+            )}
           </LinkCss>
         </li>
         <li>

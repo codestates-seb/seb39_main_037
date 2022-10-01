@@ -1,3 +1,4 @@
+import useCurrentLocation from "Hooks/useCurrentLocation";
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -7,6 +8,7 @@ interface propsType {
 }
 
 const TopModal = ({ setModal }: propsType) => {
+  const { currentLocation } = useCurrentLocation();
   const handleClick = () => {
     setModal(false);
   };
@@ -15,7 +17,13 @@ const TopModal = ({ setModal }: propsType) => {
     <UlContainer>
       <li>
         <LinkCss to="/location" onClick={handleClick}>
-          <div>서울시/마포구</div>
+          {currentLocation.locationId ? (
+            <div>
+              {currentLocation.stateName}/{currentLocation.cityName}
+            </div>
+          ) : (
+            <div>위치를 등록해주세요</div>
+          )}
         </LinkCss>
       </li>
       <li>
