@@ -97,7 +97,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setStatus(HttpStatus.ACCEPTED.value());
         response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
 
-
+        long userId   = principalDetails.getWebUser().getUserId();
         String email   = principalDetails.getWebUser().getEmail();
         String userName = principalDetails.getWebUser().getUserName();
         String nickName = principalDetails.getWebUser().getNickName();
@@ -108,6 +108,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // Map
         Map<String, String> loginResponse = new HashMap<>();
+        loginResponse.put("userId", String.valueOf(userId));
         loginResponse.put("email", email);
         loginResponse.put("userName", userName);
         loginResponse.put("nickName", nickName);
