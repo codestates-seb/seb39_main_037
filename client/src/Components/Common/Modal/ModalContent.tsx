@@ -19,7 +19,7 @@ export const ModalContent = ({
   return (
     <Wrapper>
       <CloseButton>
-        <Close onClick={kind === "post" ? onClose : () => {}} />
+        <Close onClick={onClose} />
       </CloseButton>
 
       <HeaderWrapper>
