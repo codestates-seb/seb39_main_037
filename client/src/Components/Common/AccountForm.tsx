@@ -46,7 +46,9 @@ const AccountForm = ({
 
   const handleSubmit = () => {
     if (isSignup) {
-      if (window.confirm("회원가입하시겠습니까?")) {
+      if (!checked) {
+        alert("개인정보 수집 동의해주세요");
+      } else if (window.confirm("회원가입하시겠습니까?")) {
         postSignUp({
           userName: nameForm,
           nickName: nickNameForm,
@@ -57,7 +59,12 @@ const AccountForm = ({
       }
     } else if (isLogin) {
       if (window.confirm("로그인하시겠습니까?")) {
-        postLogin({ email: emailForm, password: passwordForm });
+        postLogin({ email: emailForm, password: passwordForm }).then(
+          (r: any) => {
+            alert(`${r.data.nickName}님 환영합니다`);
+            navigate("/");
+          },
+        );
       }
     }
   };

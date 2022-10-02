@@ -19,7 +19,7 @@ export const SquareButtonForm = ({
   link,
   title,
   icon,
-  widthStyle,
+  widthStyle = "80%",
   paddingStyle = "5px 20px",
   buttonColor,
   color = "white",
