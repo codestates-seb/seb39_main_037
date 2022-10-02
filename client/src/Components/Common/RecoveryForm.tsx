@@ -69,7 +69,9 @@ const RecoveryForm = ({
 
   return (
     <RecoveryWrapper>
-      <LockReset />
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <LockReset />
+      </div>
       <Description />
       {isRecovery && (
         <>

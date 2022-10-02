@@ -9,7 +9,6 @@ const Login = () => {
   const { email } = location.state || "";
   return (
     <LoginForm>
-      <div>로고</div>
       <ButtonForm
         widthStyle="30vw"
         buttonColor="var(--google-background)"

@@ -45,8 +45,9 @@ const responseInterceptorRejected = (error: AxiosError | any) => {
   console.log(error);
   console.log(error.response);
   alert(errorMsg);
-  return new Error(error.response?.data?.error ?? error);
+  window.location.replace("/");
 };
+
 instance.interceptors.response.use(
   responseInterceptorFulfilled,
   responseInterceptorRejected,

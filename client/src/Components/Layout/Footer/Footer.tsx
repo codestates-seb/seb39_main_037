@@ -1,4 +1,4 @@
-import FoodBankIcon from "@mui/icons-material/FoodBank";
+import { ReactComponent as LogoIcon } from "Media/Image/logo/foodrecoLogo.svg";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -9,14 +9,12 @@ const Footer = () => {
         <li>
           <LogoIconDiv>
             <LinkCss to="/">
-              <FoodBankIcon />
+              <LogoIcon />
             </LinkCss>
           </LogoIconDiv>
         </li>
         <li>
           <div>
-            <p>Food-Reco</p>
-            <br />
             <p>FE: 남진혁, 박지영</p>
             <p>BE: 김지나, 임찬일</p>
           </div>
@@ -57,7 +55,7 @@ const LogoIconDiv = styled.div`
       opacity: 0.5;
     }
     svg {
-      width: 60px;
+      width: 100px;
       height: 60px;
     }
   }

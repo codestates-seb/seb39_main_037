@@ -1,11 +1,11 @@
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseIcon from "@mui/icons-material/Close";
-import FoodBankIcon from "@mui/icons-material/FoodBank";
 import LoginIcon from "@mui/icons-material/Login";
 import MenuIcon from "@mui/icons-material/Menu";
 import TopModal from "Components/Common/Modal/TopModal";
 import useCurrentLocation from "Hooks/useCurrentLocation";
 import useCurrentUser from "Hooks/useCurrentUser";
+import { ReactComponent as LogoIcon } from "Media/Image/logo/foodrecoLogo.svg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -18,7 +18,8 @@ const Header = () => {
     <NavContainer>
       <LogoIconDiv>
         <LinkCss to="/">
-          <FoodBankIcon />
+          <LogoIcon />
+          {/* <img src={logo} alt="" width="100px" height="30px" /> */}
         </LinkCss>
       </LogoIconDiv>
       <UlContainer>
@@ -91,7 +92,7 @@ const LogoIconDiv = styled.div`
       opacity: 0.5;
     }
     svg {
-      width: 60px;
+      width: 100px;
       height: 60px;
     }
   }

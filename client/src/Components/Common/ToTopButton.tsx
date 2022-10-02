@@ -6,6 +6,10 @@ const ToTopButton = () => {
   const [showButton, setShowButton] = useState<boolean>(false);
 
   useEffect(() => {
+    if (window) window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.pageYOffset > 300) {
         // 스크롤이 되면 버튼 보이기
