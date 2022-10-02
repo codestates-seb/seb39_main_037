@@ -1,4 +1,5 @@
 import useCurrentLocation from "Hooks/useCurrentLocation";
+import useCurrentUser from "Hooks/useCurrentUser";
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -9,6 +10,7 @@ interface propsType {
 
 const TopModal = ({ setModal }: propsType) => {
   const { currentLocation } = useCurrentLocation();
+  const { currentUser } = useCurrentUser();
   const handleClick = () => {
     setModal(false);
   };
@@ -37,9 +39,15 @@ const TopModal = ({ setModal }: propsType) => {
         </LinkCss>
       </li>
       <li>
-        <LinkCss to="/users" onClick={handleClick}>
-          <div>MyPage</div>
-        </LinkCss>
+        {currentUser.userId !== 0 ? (
+          <LinkCss to="/users" onClick={handleClick}>
+            <div>{currentUser.nickName}&apos;s Page</div>
+          </LinkCss>
+        ) : (
+          <LinkCss to="/login" onClick={handleClick}>
+            <div>Login</div>
+          </LinkCss>
+        )}
       </li>
     </UlContainer>
   );
