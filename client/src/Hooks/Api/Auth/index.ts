@@ -1,3 +1,4 @@
+import useCurrentUser from "Hooks/useCurrentUser";
 import { useNavigate } from "react-router-dom";
 import { post, setAuthTokenHeader } from "Utils/api";
 
@@ -14,6 +15,7 @@ interface IPostSignUp {
 }
 
 export const useAuth = () => {
+  const { setCurrentUser } = useCurrentUser();
   const navigate = useNavigate();
   // 회원가입
   const postSignUp = async ({
@@ -34,10 +36,13 @@ export const useAuth = () => {
   };
 
   const postLogin = async ({ email, password }: IPostLogin) => {
-    const res = await post(`/login`, { email, password }).then((r: any) =>
-      setAuthTokenHeader(r.headers.authorization),
-    );
-    return { res };
+    const res = await post(`/login`, { email, password }).then((r: any) => {
+      console.log(r);
+      setAuthTokenHeader(r.headers.authorization);
+      setCurrentUser(r.data);
+      return r;
+    });
+    return res;
   };
   return {
     postSignUp,
