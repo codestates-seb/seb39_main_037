@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service;
 public interface MailService {
 
 
-    public void mailSend(MailDto.PostMailDto postMailDto);
+    public String mailSend(MailDto.PostMailDto postMailDto);
 }

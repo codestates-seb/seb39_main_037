@@ -137,6 +137,7 @@ public class ReviewController {
     }
 
 
+
     @GetMapping("/search/{page}") // 리뷰 검색기능 구현
     public ResponseEntity search(@RequestParam String title, @PathVariable("page") int page) {
 

@@ -3,6 +3,7 @@ package com.main.project.securityConfig.filter;
 
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.main.project.securityConfig.PrincipalDetails;
 import com.main.project.user.entity.WebUser;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -23,6 +24,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RequiredArgsConstructor
@@ -94,7 +97,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setStatus(HttpStatus.ACCEPTED.value());
         response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
 
-        PrintWriter writer = response.getWriter();
+
         String email   = principalDetails.getWebUser().getEmail();
         String userName = principalDetails.getWebUser().getUserName();
         String nickName = principalDetails.getWebUser().getNickName();
@@ -103,9 +106,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .path(String.valueOf(principalDetails.getWebUser().getProfileImgName()))
                 .toUriString();
 
+        // Map
+        Map<String, String> loginResponse = new HashMap<>();
+        loginResponse.put("email", email);
+        loginResponse.put("userName", userName);
+        loginResponse.put("nickName", nickName);
+        loginResponse.put("profileImgUrl", profileImgUrl);
 
+        response.setContentType("application/json");
+//        String loginResponse = "{\"email\" : " + email +", \"userName\" : " + userName + ", \"nickName\" : " +nickName + ", \" profileImgUrl\" : " + profileImgUrl + " \n}";
 
-        writer.write("인증에 성공했습니다.\n" + "email : "+email +"\n userName : "+ userName +"\n nickName : "+ nickName + "\n  profileImgUrl : " + profileImgUrl);
+        String json = new Gson().toJson(loginResponse);
+        PrintWriter writer = response.getWriter();
+        writer.write(json);
         writer.close();
     }
 

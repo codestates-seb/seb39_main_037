@@ -25,7 +25,8 @@ public class CorsConfig {
 
         CorsConfiguration config = new CorsConfiguration();//CORS를 설정하는 설정 객체
         config.setAllowCredentials(true);//서버가 응답할 때 생성해서 주는 credential을 자바스크립트가 처리할 수 있도록 설정
-        config.addAllowedOrigin("*");//모든 api에 자원 교차공유허용
+        config.addAllowedOrigin("http://localhost:8080");//모든 api에 자원 교차공유허용
+        config.addAllowedOrigin("https://foodreco.tk");
         config.setAllowCredentials(true);
         config.addAllowedOriginPattern("*");
         config.addAllowedHeader("*");//모든 종류의 헤더값 공유 허용
