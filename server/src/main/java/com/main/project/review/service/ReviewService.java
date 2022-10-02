@@ -17,6 +17,9 @@ public interface ReviewService {
     public Page<Review> findUserReview(WebUser user, int page);
     public void deleteReview(long reviewId);
     public int updateView(long reviewId);
+    public double aveTasteStar(long restaurantId); // 맛 평균 별점
+    public double aveFacilityStar(long restaurantId); //시설 평균 별점
+    public double avePriceStar(long restaurantId); //가격 평균 별점
     public Review findVerifiedReview(long reviewId);
     public Page<Review> search(String keyword, int page);
 }

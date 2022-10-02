@@ -37,7 +37,6 @@ public class ReviewServiceImpl implements ReviewService{
 
         review.addWebUser(userService.checkUserByUserId(userId));
         review.addRestaurant(restaurantServiceImpl.findRestaurant(restaurantId));
-//        review.addFoodType(new FoodType()); //foodtype service 생기면 수정하기
         verifyReview(review);
 
         review.setReviewTitle(review.getReviewTitle());
@@ -48,6 +47,7 @@ public class ReviewServiceImpl implements ReviewService{
         review.setReviewImgUrl(review.getReviewImgUrl());
 
         badgeService.assignBadge(userId);//리뷰를 작성할 때마다 리뷰관련 뱃지 할당 조건을 체크하는 메서드
+        //post review 시 해당 뱃지가 없다는 오류로 인해 주석처리 했음(pr전 해제)
 
 
         return reviewRepository.save(review);
@@ -117,7 +117,12 @@ public class ReviewServiceImpl implements ReviewService{
     public int updateView(long reviewId) {
         return reviewRepository.view(reviewId);
     }
-
+    @Transactional
+    public double aveTasteStar(long restaurantId) {return reviewRepository.avgTasteStar(restaurantId);}
+    @Transactional
+    public double aveFacilityStar(long restaurantId) {return reviewRepository.avgFacilityStar(restaurantId);}
+    @Transactional
+    public double avePriceStar(long restaurantId) {return reviewRepository.avgPriceStar(restaurantId);}
     private void verifyReview(Review review) {
 //         회원이 존재하는지 확인
         userService.checkUserByUserId(review.getWebUser().getUserId());

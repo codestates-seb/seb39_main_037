@@ -53,10 +53,8 @@ public class ReviewController {
     public ResponseEntity postReview (@Valid @RequestBody ReviewPostDto reviewPostDto) {
 
         long userId = reviewPostDto.getUserId();
-//        long foodTypeId = reviewPostDto.getFoodTypeId();
         long restaurantId = reviewPostDto.getRestaurantId();
         Review review = reviewServiceImpl.createReview(userId, restaurantId, reviewMapper.reviewPostDtoToReview(reviewPostDto));
-        restaurantService.aveStar(review);
 
         return new ResponseEntity<>(reviewMapper.reviewToReviewResponseDto(review),
                 HttpStatus.CREATED);

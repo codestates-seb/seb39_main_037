@@ -7,6 +7,7 @@ import com.main.project.location.entity.City;
 import com.main.project.location.entity.Location;
 import com.main.project.location.entity.State;
 import com.main.project.location.service.LocationServiceImpl;
+import com.main.project.naver.GeoTrans;
 import com.main.project.naver.NaverClient;
 import com.main.project.naver.SearchLocalReq;
 import com.main.project.restaurant.dto.RestaurantDto;
@@ -56,15 +57,16 @@ public class RestaurantServiceImpl implements RestaurantService{
 
             var localItem = searchLocalRes.getItems();
             for(var test: localItem){
+                GeoTrans geo = new GeoTrans(0, test.getMapx(), test.getMapy()); //katech(네이버 제공 위치) -> 위경도 변환
                 result.setRestaurantName(test.getTitle());
                 result.setCategory(test.getCategory());
                 result.setAddress(test.getAddress());
-                result.setMapx(test.getMapx());
-                result.setMapy(test.getMapy());
+                result.setMapx(geo.outpt_x);
+                result.setMapy(geo.outpt_y);
+                System.out.println("test X: " + geo.outpt_x + ", test Y: " + geo.outpt_y);
                 var restaurant = dtoToEntity(result);
                 restaurantRepository.save(restaurant);
             }
-
 
         }
         return findAll(0,5);
@@ -122,31 +124,6 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     public void delete(long restaurantId) {
         restaurantRepository.deleteById(restaurantId);
-    }
-
-    public Restaurant aveStar(Review review) { //리뷰 별점 평균을 식당 데이터에 저장하는 로직
-        Restaurant restaurant = findRestaurant(review.getRestaurant().getRestaurantId());
-        double avgTasteStar = restaurant.getReviewList().stream()
-                .map(review1 -> review.getTasteStar())
-                .mapToInt(tasteStar -> tasteStar)
-                .average()
-                .getAsDouble();
-        restaurant.setAveTaste(avgTasteStar);
-
-        double avgFacilityStar = restaurant.getReviewList().stream()
-                .map(review1 -> review.getFacilityStar())
-                .mapToInt(facilityStar -> facilityStar)
-                .average()
-                .getAsDouble();
-        restaurant.setAveFacility(avgFacilityStar);
-        double avgPriceStar = restaurant.getReviewList().stream()
-                .map(review1 -> review.getPriceStar())
-                .mapToInt(priceStar -> priceStar)
-                .average()
-                .getAsDouble();
-        restaurant.setAveTaste(avgTasteStar);
-
-        return restaurantRepository.save(restaurant);
     }
 
 }

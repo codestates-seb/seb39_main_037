@@ -25,6 +25,10 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("SELECT r fROM Review r WHERE r.reviewTitle LIKE %:title%")
     Page<Review> findByReviewTitleContaining(@Param("title") String title, Pageable pageable); // containing 추가, 검색기능 구현
     Page<Review> findByWebUser(WebUser user, Pageable pageable);
-//    @Query("SELECT AVG(tasteStar) as avgTaste from Review r where r.restaurant.id = :restaurantId")
-//    double findByAvgTasteByRestaurant(long restaurantId);
+    @Query("SELECT AVG(tasteStar) FROM Review r WHERE r.restaurant.id = :restaurantId")
+    double avgTasteStar(long restaurantId); //별점 평균 구현
+    @Query("SELECT AVG(facilityStar) FROM Review r WHERE r.restaurant.id = :restaurantId")
+    double avgFacilityStar(long restaurantId); //별점 평균 구현
+    @Query("SELECT AVG(priceStar) FROM Review r WHERE r.restaurant.id = :restaurantId")
+    double avgPriceStar(long restaurantId); //별점 평균 구현
 }
