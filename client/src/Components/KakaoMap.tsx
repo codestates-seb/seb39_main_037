@@ -1,21 +1,8 @@
+import useCurrentRestaurant from "Hooks/useCurrentRestaurant";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
-interface mapListobj {
-  restaurantId: number;
-  restaurantName: string;
-  category: string;
-  description: null | string;
-  restaurantPhone: null | string;
-  address: string;
-  aveTaste: number;
-  aveFacility: number;
-  avePrice: number;
-  mapx: number;
-  mapy: number;
-  locationId: number;
-  foodTypeName: string;
-}
+import { IRestaurant } from "Types";
 
 declare global {
   interface Window {
@@ -23,7 +10,9 @@ declare global {
   }
 }
 
-const KakaoMap = ({ restaurants }: any) => {
+const KakaoMap = ({ restaurants }: Array<IRestaurant> | any) => {
+  const navigate = useNavigate();
+  const { setCurrentRestaurant } = useCurrentRestaurant();
   const [mapLoad, setMapLoad] = useState<boolean>(false);
   useEffect(() => {
     const script = document.createElement("script");
@@ -33,12 +22,12 @@ const KakaoMap = ({ restaurants }: any) => {
   }, []);
   // 경도x
   const mainLongitude =
-    restaurants.reduce((acc: number, cur: mapListobj) => {
+    restaurants.reduce((acc: number, cur: IRestaurant) => {
       return acc + cur.mapx;
     }, 0) / restaurants.length;
   // 위도y
   const mainLatitude =
-    restaurants.reduce((acc: number, cur: mapListobj) => {
+    restaurants.reduce((acc: number, cur: IRestaurant) => {
       return acc + cur.mapy;
     }, 0) / restaurants.length;
 
@@ -46,39 +35,24 @@ const KakaoMap = ({ restaurants }: any) => {
     if (!mapLoad) return;
     console.log("window.kakao", window.kakao);
     window.kakao.maps.load(() => {
-      console.log("로드유즈이펙트");
       const mapContainer = document.getElementById("map");
       const mapOption = {
-        center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-        level: 4,
+        // 지도 중앙 설정
+        center: new window.kakao.maps.LatLng(mainLatitude, mainLongitude),
+        level: 6,
       };
+
+      // 지도 생성
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
 
-      // const restaurantPositions = restaurants.map((r: any) => {
-      //   return {
-      //     title: r.restaurantName,
-      //     latlng: new window.kakao.maps.LatLng(r.mapx, r.mapy),
-      //   };
-      // });
-      // 위치 더미데이터
-      const restaurantPositions = [
-        {
-          title: "카카오",
-          latlng: new window.kakao.maps.LatLng(33.450705, 126.570677),
-        },
-        {
-          title: "생태연못",
-          latlng: new window.kakao.maps.LatLng(33.450936, 126.569477),
-        },
-        {
-          title: "텃밭",
-          latlng: new window.kakao.maps.LatLng(33.450879, 126.56994),
-        },
-        {
-          title: "근린공원",
-          latlng: new window.kakao.maps.LatLng(33.451393, 126.570738),
-        },
-      ];
+      const restaurantPositions = restaurants.map((r: any) => {
+        return {
+          title: r.restaurantName, // 가게이름
+          latlng: new window.kakao.maps.LatLng(r.mapy, r.mapx), // 위도경도 순서
+          restaurantId: r.restaurantId, // 레스토랑아이디
+        };
+      });
+      console.log(restaurantPositions);
       // 마커생성
       restaurantPositions.forEach((r: any) => {
         const marker = new window.kakao.maps.Marker({
@@ -99,22 +73,29 @@ const KakaoMap = ({ restaurants }: any) => {
         });
 
         // 마커에 마우스오버 이벤트를 등록합니다
-        window.kakao.maps.event.addListener(marker, "mouseover", function () {
+        window.kakao.maps.event.addListener(marker, "mouseover", () => {
           // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
           infowindow.open(map, marker);
         });
 
         // 마커에 마우스아웃 이벤트를 등록합니다
-        window.kakao.maps.event.addListener(marker, "mouseout", function () {
+        window.kakao.maps.event.addListener(marker, "mouseout", () => {
           // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
           infowindow.close();
+        });
+
+        // 마커에 클릭이벤트를 등록합니다
+        window.kakao.maps.event.addListener(marker, "click", () => {
+          // 클릭시 해당 가게 리뷰 페이지로 이동
+          infowindow.open(map, marker);
+          setCurrentRestaurant(r); // recoil 설정
+          navigate(`/review/${r.restaurantId}`);
         });
       });
     });
   }, [mapLoad]);
   return (
     <Wrapper>
-      카카오맵
       <div id="map" />
     </Wrapper>
   );
