@@ -12,21 +12,28 @@ const Login = () => {
       <div>로고</div>
       <ButtonForm
         widthStyle="30vw"
-        buttonColor="white"
+        buttonColor="var(--google-background)"
         color="black"
         title=" Login with Google"
         icon={<Google />}
       />
       <ButtonForm
         widthStyle="30vw"
-        buttonColor="black"
+        buttonColor="var(--naver-background)"
         color="white"
-        title=" Login with GitHub"
-        icon={<GitHub />}
+        title=" Login with Naver"
+        icon={
+          <img
+            src="https://ssl.pstatic.net/sstatic/search/favicon/favicon_191118_pc.ico"
+            alt=""
+            width="60%"
+            height="60%"
+          />
+        }
       />
       <ButtonForm
         widthStyle="30vw"
-        buttonColor="#314A86"
+        buttonColor="var( --facebook-background)"
         color="white"
         title=" Login with FaceBook"
         icon={<Facebook />}

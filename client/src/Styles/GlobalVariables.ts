@@ -7,7 +7,7 @@ const variables = css`
   --footer-background: #232629;
   --footer-color: #9199a1;
   --google-background: #ffffff;
-  --github-background: #232629;
+  --naver-background: #2db400;
   --facebook-background: #385499;
   /* --green-color: #34a660; */
   --green-color: #b0da3c;

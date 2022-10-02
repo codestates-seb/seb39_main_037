@@ -9,21 +9,28 @@ const Signup = () => {
     <SignupForm>
       <ButtonForm
         widthStyle="30vw"
-        buttonColor="white"
+        buttonColor="var(--google-background)"
         color="black"
         title=" SignUp with Google"
         icon={<Google />}
       />
       <ButtonForm
         widthStyle="30vw"
-        buttonColor="black"
+        buttonColor="var(--naver-background)"
         color="white"
-        title=" Signup with GitHub"
-        icon={<GitHub />}
+        title=" Signup with Naver"
+        icon={
+          <img
+            src="https://ssl.pstatic.net/sstatic/search/favicon/favicon_191118_pc.ico"
+            alt=""
+            width="60%"
+            height="60%"
+          />
+        }
       />
       <ButtonForm
         widthStyle="30vw"
-        buttonColor="#314A86"
+        buttonColor="var(--facebook-background)"
         color="white"
         title=" SignUp with FaceBook"
         icon={<Facebook />}

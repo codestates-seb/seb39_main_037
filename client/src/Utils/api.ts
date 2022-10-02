@@ -41,11 +41,11 @@ const responseInterceptorFulfilled = (res: AxiosResponse) => {
 };
 
 const responseInterceptorRejected = (error: AxiosError | any) => {
-  const errorMsg = error.response?.data?.message ?? "에러입니다";
+  const errorMsg = error.response?.data?.error ?? "에러입니다";
   console.log(error);
   console.log(error.response);
   alert(errorMsg);
-  return new Error(error.response?.data?.message ?? error);
+  return new Error(error.response?.data?.error ?? error);
 };
 instance.interceptors.response.use(
   responseInterceptorFulfilled,
