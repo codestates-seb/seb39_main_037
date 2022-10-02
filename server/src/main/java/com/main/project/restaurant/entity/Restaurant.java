@@ -30,16 +30,16 @@ public class Restaurant {
     private String restaurantPhone;
     @Column
     private String RestaurantDescription;
-    @Column(columnDefinition = "double default 0", nullable = false)
+    @Column(columnDefinition = "double default 0")
     private double aveTaste;
-    @Column(columnDefinition = "double default 0", nullable = false)
+    @Column(columnDefinition = "double default 0")
     private double aveFacility;
-    @Column(columnDefinition = "double default 0", nullable = false)
+    @Column(columnDefinition = "double default 0")
     private double avePrice;
     @Column
-    private int mapx;
+    private double mapx;
     @Column
-    private int mapy;
+    private double mapy;
 
 
     @ManyToOne(cascade = CascadeType.ALL)
