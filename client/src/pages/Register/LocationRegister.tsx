@@ -52,7 +52,8 @@ const LocationRegister = () => {
   });
   const handleChangeState = (e: SelectChangeEvent) => {
     if (stateOption) {
-      setState(stateOption[Number(e.target.value)]);
+      console.log(stateOption[Number(e.target.value) - 1]);
+      setState(stateOption[Number(e.target.value) - 1]);
       const res = getCity(Number(e.target.value)).then((r: any) => {
         console.log(r);
         setLocationOption(r);
@@ -63,12 +64,13 @@ const LocationRegister = () => {
 
   const handleChangeLocation = (e: SelectChangeEvent) => {
     if (locationOption && e.target.value) {
-      setLocation(locationOption[Number(e.target.value)]);
+      console.log(locationOption[Number(e.target.value) - 1]);
+      setLocation(locationOption[Number(e.target.value) - 1]);
     }
   };
   const handleClick = () => {
     setCurrentLocation(location);
-    alert("저장되었습니다.");
+    alert(`${location.stateName}/${location.cityName}으로 저장되었습니다.`);
     navigate("/");
   };
   if (!stateOption) {
@@ -85,7 +87,7 @@ const LocationRegister = () => {
             <Select
               labelId="stateLocation"
               id="stateLocation"
-              value={String(state.stateId - 1)}
+              value={String(state.stateId)}
               label="광역자치단체"
               onChange={handleChangeState}
               MenuProps={{
@@ -106,7 +108,7 @@ const LocationRegister = () => {
                 className="locationSelect"
                 labelId="stateLocation"
                 id="stateLocation"
-                value={String(location.locationId - 1)}
+                value={String(location.locationId)}
                 label="지방자치단체"
                 onChange={handleChangeLocation}
                 MenuProps={{
@@ -122,7 +124,7 @@ const LocationRegister = () => {
             </FormControl>
           )}
         </div>
-        {location && (
+        {location.locationId !== 0 && (
           <SquareButtonForm title="위치 저장하기" onClick={handleClick} />
         )}
       </LocationContainer>
