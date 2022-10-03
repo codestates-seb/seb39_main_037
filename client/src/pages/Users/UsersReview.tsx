@@ -1,10 +1,42 @@
+import axios from "axios";
+import { useUsers } from "Hooks/Api/Users";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import { MockupComments } from "./MockupData";
 import UsersNav from "./UserNav";
 
+export interface AxiosResponse<T = any> {
+  data: T;
+  status: number;
+  statusText: string;
+  headers: any;
+  // config: AxiosRequestConfig;
+  request?: any;
+}
+
 const UsersReview = () => {
+  const { getUsers } = useUsers();
+  // const [fetchedData, setFetchedData] = useState<AxiosResponse | null | void>(
+  //   null,
+  // );
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const res = await axios.get("https://foodreco.tk/v1/review/mypage/10");
+  //       setFetchedData(res.data);
+  //     } catch (err) {
+  //       console.log("Error", err);
+  //     }
+  //   };
+  //   getData();
+  // }, []);
+
+  // console.log(fetchedData);
+  console.log(getUsers());
+
+  // console.log(process.env.REACT_APP_API_URL);
   return (
     <Container>
       <UsersNav />

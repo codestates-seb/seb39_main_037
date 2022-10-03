@@ -14,6 +14,7 @@ const variables = css`
   --green-color: #b0da3c;
   --input-background: rgba(0, 0, 0, 0.3);
   --font-color: #000000;
+  --nc-button-color: #d9d9d9;
 `;
 
 export default variables;
