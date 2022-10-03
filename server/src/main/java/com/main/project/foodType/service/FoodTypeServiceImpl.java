@@ -22,12 +22,13 @@ public class FoodTypeServiceImpl implements FoodTypeService{
 
 
     @Override
-    public FoodType makeFoodType(String foodTypeName) throws BusinessLogicException {
+    public FoodType makeFoodType(String foodTypeName,  byte[] foodTypeImg) throws BusinessLogicException {
         if(foodTypeRepository.findByTypeName(foodTypeName).isPresent()) {
             throw new BusinessLogicException(ExceptionCode.FOODTYPE_DUPLICATE);}//기존 타입과 중복되는지 체크
 
         FoodType newfoodType = new FoodType();
         newfoodType.setTypeName(foodTypeName);
+        newfoodType.setImage(foodTypeImg);
 
         return foodTypeRepository.save(newfoodType);
     }
@@ -37,6 +38,17 @@ public class FoodTypeServiceImpl implements FoodTypeService{
         foundfoodType.setTypeName(newName);
         return foodTypeRepository.save(foundfoodType);
     }
+
+
+    public FoodType editFoodTypeImg(String foodTypeName, byte[] foodTypeImg){
+        FoodType foundfoodType =  findFoodType(foodTypeName);
+        foundfoodType.setImage(foodTypeImg);
+        return foodTypeRepository.save(foundfoodType);
+    }
+
+
+
+
     @Override
     public FoodType findFoodType(String foodTypeName){
        return foodTypeRepository.findByTypeName(foodTypeName).orElseThrow(() -> new BusinessLogicException(ExceptionCode.FOODTYPE_NOT_EXIST));

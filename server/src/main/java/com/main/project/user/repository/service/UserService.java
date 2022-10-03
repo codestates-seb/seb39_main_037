@@ -1,4 +1,4 @@
-package com.main.project.user.service;
+package com.main.project.user.repository.service;
 
 import com.main.project.user.dto.UserDto;
 import com.main.project.user.entity.WebUser;

@@ -3,11 +3,8 @@ package com.main.project.restaurant.service;
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
 import com.main.project.foodType.service.FoodTypeServiceImpl;
-import com.main.project.location.entity.City;
 import com.main.project.location.entity.Location;
-import com.main.project.location.entity.State;
 import com.main.project.location.repository.CityRepository;
-import com.main.project.location.repository.LocationRepository;
 import com.main.project.location.repository.StateRepository;
 import com.main.project.location.service.LocationServiceImpl;
 import com.main.project.naver.GeoTrans;
@@ -16,22 +13,14 @@ import com.main.project.naver.SearchLocalReq;
 import com.main.project.restaurant.dto.RestaurantDto;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.repository.RestaurantRepository;
-import com.main.project.review.entity.Review;
 import com.main.project.review.repository.ReviewRepository;
-import com.main.project.review.service.ReviewServiceImpl;
-import com.main.project.user.service.UserService;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.print.DocFlavor;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService{

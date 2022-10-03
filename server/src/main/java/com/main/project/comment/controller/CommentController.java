@@ -9,7 +9,7 @@ import com.main.project.review.entity.Review;
 import com.main.project.review.service.ReviewServiceImpl;
 import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
 import com.main.project.user.entity.WebUser;
-import com.main.project.user.service.UserServieImpl;
+import com.main.project.user.repository.service.UserServieImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

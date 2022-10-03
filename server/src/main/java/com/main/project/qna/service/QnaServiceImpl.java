@@ -4,7 +4,7 @@ import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
 import com.main.project.qna.entity.QnA;
 import com.main.project.qna.repository.QnaRepository;
-import com.main.project.user.service.UserService;
+import com.main.project.user.repository.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

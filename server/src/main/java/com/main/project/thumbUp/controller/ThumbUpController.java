@@ -8,7 +8,7 @@ import com.main.project.thumbUp.mapper.ThumbUpMapper;
 import com.main.project.thumbUp.service.ThumbUpServiceImpl;
 
 import com.main.project.user.entity.WebUser;
-import com.main.project.user.service.UserServieImpl;
+import com.main.project.user.repository.service.UserServieImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

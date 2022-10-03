@@ -7,7 +7,7 @@ import com.main.project.restaurant.service.RestaurantServiceImpl;
 import com.main.project.review.entity.Review;
 import com.main.project.review.repository.ReviewRepository;
 import com.main.project.user.entity.WebUser;
-import com.main.project.user.service.UserService;
+import com.main.project.user.repository.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
