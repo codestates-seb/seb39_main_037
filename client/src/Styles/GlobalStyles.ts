@@ -21,6 +21,11 @@ html {
   padding: 0;
 };
 
+button {
+    font-family : inherit;
+    font-size: 1em;
+}
+
 `;
 
 export default GlobalStyle;
