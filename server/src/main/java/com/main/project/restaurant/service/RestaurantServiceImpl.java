@@ -2,6 +2,8 @@ package com.main.project.restaurant.service;
 
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
+import com.main.project.foodType.entity.FoodType;
+import com.main.project.foodType.repository.FoodTypeRepository;
 import com.main.project.foodType.service.FoodTypeServiceImpl;
 import com.main.project.location.entity.Location;
 import com.main.project.location.repository.CityRepository;
@@ -21,7 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
+import java.util.*;
 @Service
 public class RestaurantServiceImpl implements RestaurantService{
     private final NaverClient naverClient;
@@ -30,15 +32,17 @@ public class RestaurantServiceImpl implements RestaurantService{
     LocationServiceImpl locationService;
     StateRepository stateRepository;
 
+    FoodTypeRepository foodTypeRepository;
     CityRepository cityRepository;
     FoodTypeServiceImpl foodTypeService;
 
-    public RestaurantServiceImpl(NaverClient naverClient, RestaurantRepository restaurantRepository, ReviewRepository reviewRepository, LocationServiceImpl locationService, StateRepository stateRepository, CityRepository cityRepository, FoodTypeServiceImpl foodTypeService) {
+    public RestaurantServiceImpl(NaverClient naverClient, RestaurantRepository restaurantRepository, ReviewRepository reviewRepository, LocationServiceImpl locationService, StateRepository stateRepository, FoodTypeRepository foodTypeRepository, CityRepository cityRepository, FoodTypeServiceImpl foodTypeService) {
         this.naverClient = naverClient;
         this.restaurantRepository = restaurantRepository;
         this.reviewRepository = reviewRepository;
         this.locationService = locationService;
         this.stateRepository = stateRepository;
+        this.foodTypeRepository = foodTypeRepository;
         this.cityRepository = cityRepository;
         this.foodTypeService = foodTypeService;
     }
@@ -77,6 +81,14 @@ public class RestaurantServiceImpl implements RestaurantService{
                 System.out.println("test X: " + geo.outpt_x + ", test Y: " + geo.outpt_y);
                 var restaurant = dtoToEntity(result);
                 restaurant.setLocation(resLocation);
+
+                List<FoodType> foodTypes = foodTypeRepository.findAll();
+
+                for(FoodType foodType : foodTypes){
+                   if( restaurant.getCategory().contains(foodType.getTypeName())) {
+                       restaurant.setFoodType(foodType);
+                   }
+                }
                 restaurantRepository.save(restaurant);
             }
 
