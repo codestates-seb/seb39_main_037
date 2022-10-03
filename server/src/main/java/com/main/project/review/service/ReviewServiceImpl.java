@@ -46,7 +46,7 @@ public class ReviewServiceImpl implements ReviewService{
         review.setPriceStar(review.getPriceStar());
         review.setReviewImgUrl(review.getReviewImgUrl());
 
-        badgeService.assignBadge(userId);//리뷰를 작성할 때마다 리뷰관련 뱃지 할당 조건을 체크하는 메서드
+//        badgeService.assignBadge(userId);//리뷰를 작성할 때마다 리뷰관련 뱃지 할당 조건을 체크하는 메서드
         //post review 시 해당 뱃지가 없다는 오류로 인해 주석처리 했음(pr전 해제)
 
 
