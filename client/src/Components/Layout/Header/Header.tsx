@@ -80,7 +80,8 @@ const NavContainer = styled.header`
   height: 60px;
   width: 100%;
   z-index: 5000;
-  border-bottom: 3px solid var(--main-yellow);
+  border-top: 3px solid var(--main-yellow);
+  box-shadow: 0px 2px 2px lightgray;
 `;
 
 const LogoIconDiv = styled.div`
@@ -108,7 +109,7 @@ const UlContainer = styled.ul`
   }
   > li {
     display: flex;
-    font-size: 28px;
+    font-size: 18px;
     justify-content: center;
     min-width: 160px;
     padding-left: 4rem;

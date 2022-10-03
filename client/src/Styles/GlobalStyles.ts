@@ -8,7 +8,7 @@ ${reset}
 
 :root {
   ${variables}
-  font-family: 'Do Hyeon', sans-serif;
+  font-family: 'Nanum Gothic', sans-serif;
 }
 
 html {
