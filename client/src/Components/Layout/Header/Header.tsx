@@ -1,9 +1,11 @@
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseIcon from "@mui/icons-material/Close";
-import FoodBankIcon from "@mui/icons-material/FoodBank";
+import LoginIcon from "@mui/icons-material/Login";
 import MenuIcon from "@mui/icons-material/Menu";
 import TopModal from "Components/Common/Modal/TopModal";
 import useCurrentLocation from "Hooks/useCurrentLocation";
+import useCurrentUser from "Hooks/useCurrentUser";
+import { ReactComponent as LogoIcon } from "Media/Image/logo/foodrecoLogo.svg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -11,11 +13,13 @@ import styled from "styled-components";
 const Header = () => {
   const [modal, setModal] = useState<boolean>(false);
   const { currentLocation } = useCurrentLocation();
+  const { currentUser } = useCurrentUser();
   return (
     <NavContainer>
       <LogoIconDiv>
         <LinkCss to="/">
-          <FoodBankIcon />
+          <LogoIcon />
+          {/* <img src={logo} alt="" width="100px" height="30px" /> */}
         </LinkCss>
       </LogoIconDiv>
       <UlContainer>
@@ -42,9 +46,15 @@ const Header = () => {
         </li>
         <li>
           <MypageIconDiv>
-            <LinkCss to="/users">
-              <AccountCircleIcon />
-            </LinkCss>
+            {currentUser.userId !== 0 ? (
+              <LinkCss to="/users">
+                <AccountCircleIcon />
+              </LinkCss>
+            ) : (
+              <LinkCss to="/login">
+                <LoginIcon />
+              </LinkCss>
+            )}
           </MypageIconDiv>
         </li>
       </UlContainer>
@@ -69,7 +79,8 @@ const NavContainer = styled.header`
   height: 60px;
   width: 100%;
   z-index: 5000;
-  border-bottom: 3px solid var(--main-yellow);
+  border-top: 3px solid var(--main-yellow);
+  box-shadow: 0px 2px 2px lightgray;
 `;
 
 const LogoIconDiv = styled.div`
@@ -81,7 +92,7 @@ const LogoIconDiv = styled.div`
       opacity: 0.5;
     }
     svg {
-      width: 60px;
+      width: 100px;
       height: 60px;
     }
   }
@@ -97,7 +108,7 @@ const UlContainer = styled.ul`
   }
   > li {
     display: flex;
-    font-size: 28px;
+    font-size: 18px;
     justify-content: center;
     min-width: 160px;
     padding-left: 4rem;

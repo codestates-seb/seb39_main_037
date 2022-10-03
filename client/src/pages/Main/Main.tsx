@@ -1,5 +1,4 @@
-import FoodBankIcon from "@mui/icons-material/FoodBank";
-import foodReco from "Media/Image/food-reco.jpg";
+import foodReco from "Media/Image/logo/foodrecoImg.png";
 import mapReco from "Media/Image/mapReco.png";
 import randomImg from "Media/Image/random.png";
 import reviewImg from "Media/Image/review.png";
@@ -32,9 +31,6 @@ const Main = () => {
   return (
     <MainWrapper>
       <OddWrapper>
-        <LogoWrapper>
-          <FoodBankIcon />
-        </LogoWrapper>
         <Description>
           <div>내가 뭘 먹고 싶은지 모를 때! 🤔</div>
           <div>아무거나 먹기는 싫을 때! 🤨</div>
@@ -121,14 +117,6 @@ const EvenWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
   background-color: var(--yellow-background);
-`;
-
-const LogoWrapper = styled.div`
-  width: 100%;
-  font-size: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: end;
 `;
 
 const Description = styled.div`
