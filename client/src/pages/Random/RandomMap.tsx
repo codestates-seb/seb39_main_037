@@ -80,10 +80,14 @@ const demo = [
   },
 ];
 const RandomMap = () => {
+  const url = window.location.href;
+  const selectedMenu = url.slice(url.lastIndexOf("/") + 1);
+
   return (
     <RandomMapWrapper>
       <KakaoMapWrapper className="kakaomap">
         <KakaoMap restaurants={demo} />
+        <SelectedMenuWrapper>{selectedMenu}</SelectedMenuWrapper>
       </KakaoMapWrapper>
       <RestaurantWrapper>
         <RestaurantList restaurants={demo} />
@@ -104,7 +108,36 @@ const RandomMapWrapper = styled.div`
 `;
 const KakaoMapWrapper = styled.div`
   flex: 1;
+  padding: 2rem;
+  min-width: 400px;
+  min-height: 500px;
+  max-height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
 `;
+
+const SelectedMenuWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  width: 150px;
+  height: 50px;
+  border-radius: 15px;
+  font-weight: 600;
+  background-color: #fce205;
+`;
+
 const RestaurantWrapper = styled.div`
   flex: 1;
+  padding: 2rem;
+  margin: 2rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  min-width: calc(100%-32px);
 `;
