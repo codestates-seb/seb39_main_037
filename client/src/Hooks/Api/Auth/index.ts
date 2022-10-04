@@ -1,6 +1,6 @@
 import useCurrentUser from "Hooks/useCurrentUser";
 import { useNavigate } from "react-router-dom";
-import { post, setAuthTokenHeader } from "Utils/api";
+import { post } from "Utils/api";
 
 interface IPostLogin {
   email: string;
@@ -38,8 +38,12 @@ export const useAuth = () => {
   const postLogin = async ({ email, password }: IPostLogin) => {
     const res = await post(`/login`, { email, password }).then((r: any) => {
       console.log(r);
-      setAuthTokenHeader(r.headers.authorization);
+
       setCurrentUser(r.data);
+      localStorage.setItem(
+        "user-token",
+        JSON.stringify(r.headers.authorization),
+      );
       return r;
     });
     return res;

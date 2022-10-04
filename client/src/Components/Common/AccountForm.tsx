@@ -62,7 +62,7 @@ const AccountForm = ({
         postLogin({ email: emailForm, password: passwordForm }).then(
           (r: any) => {
             alert(`${r.data.nickName}님 환영합니다`);
-            navigate("/");
+            navigate(-1);
           },
         );
       }

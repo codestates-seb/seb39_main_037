@@ -9,26 +9,35 @@ const instance = axios.create({
 });
 
 // header 추가
-export const setAuthTokenHeader = (token: string) => {
-  instance.defaults.headers.common.Authorization = token;
-};
-// request interceptor header 추가
-// const interceptorRequestFulfilled = (config: AxiosRequestConfig) => {
-//   // then 또는 catch로 처리되기 전에 요청과 응답을 가로챔
-//   const token = localStorage.getItem("user-token");
-//   return {
-//     ...config,
-//     headers: {
-//       "Access-Control-Allow-Origin": "*",
-//       // Authorization: `Bearer ${token}`,
-//     },
-//   };
+// export const setAuthTokenHeader = (token: string) => {
+//   instance.defaults.headers.common.Authorization = token;
 // };
+// request interceptor header 추가
+const interceptorRequestFulfilled = (config: AxiosRequestConfig) => {
+  // then 또는 catch로 처리되기 전에 요청과 응답을 가로챔
+  if (localStorage.getItem("user-token")) {
+    const userToken = JSON.parse(localStorage.getItem("user-token") || "");
+    return {
+      ...config,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `${userToken}`,
+      },
+    };
+  }
+  return {
+    ...config,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+};
 
-// instance.interceptors.request.use(interceptorRequestFulfilled);
+instance.interceptors.request.use(interceptorRequestFulfilled);
 
 // response interceptor
 const responseInterceptorFulfilled = (res: AxiosResponse) => {
+  console.log(res);
   if (res.status >= 200 && res.status < 300) {
     if (res.config.method === "post") {
       // post일 때는 전체 넘김
@@ -45,7 +54,7 @@ const responseInterceptorRejected = (error: AxiosError | any) => {
   console.log(error);
   console.log(error.response);
   alert(errorMsg);
-  window.location.replace("/");
+  // window.location.replace("/");
 };
 
 instance.interceptors.response.use(
@@ -54,6 +63,8 @@ instance.interceptors.response.use(
 );
 
 export const get = <T>(...args: Parameters<typeof instance.get>) => {
+  console.log(args);
+  console.log(instance.get<T, T>(...args));
   return instance.get<T, T>(...args);
 };
 

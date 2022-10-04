@@ -13,8 +13,8 @@ import RandomMap from "pages/Random/RandomMap";
 import LocationRegister from "pages/Register/LocationRegister";
 import ReviewRegister from "pages/Register/ReviewRegister";
 import Review from "pages/Review/Review";
+import ReviewByRestaurant from "pages/Review/ReviewByRestaurant";
 import ReviewDetail from "pages/Review/ReviewDetail";
-import StoreReview from "pages/Review/StoreReview";
 import Users from "pages/Users/Users";
 import UsersComments from "pages/Users/UsersComments";
 import UsersLike from "pages/Users/UsersLike";
@@ -43,7 +43,7 @@ const App = () => {
           <Route path="/location" element={<LocationRegister />} />
           <Route path="/register" element={<ReviewRegister />} />
           <Route path="/review" element={<Review />} />
-          <Route path="/review/:restaurant" element={<StoreReview />} />
+          <Route path="/review/:restaurant" element={<ReviewByRestaurant />} />
           <Route
             path="/review/:restaurant/:review_id"
             element={<ReviewDetail />}
