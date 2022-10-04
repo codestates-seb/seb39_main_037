@@ -4,6 +4,7 @@ import lombok.Getter;
 
 public enum ExceptionCode {
     REVIEW_NOT_FOUND(404, "리뷰를 찾을 수 없습니다"),
+    CANT_FIND_RESTAURANT(404, "음식과 지역이 정확한지 확인해주세요"),
     WRITER_IS_NOT_MATCH(404, "작성자가 아닙니다"),
     USER_IS_NOT_MATCH(   303, "입력한 사용자와 작성자가 다릅니다."),
     USER_IS_NOT_EXIST(   304, "해당 이메일의 유저가 존재하지 않습니다."),

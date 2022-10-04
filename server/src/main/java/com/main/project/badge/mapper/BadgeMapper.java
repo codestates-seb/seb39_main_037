@@ -16,8 +16,8 @@ public interface BadgeMapper {
             return null;
         }
         BadgeDto.responseDto responseDto = new BadgeDto.responseDto();
-        responseDto.setBadgeName(badge.getBadgename());
-        responseDto.setDescription(badge.getBadgeDescription());
+        responseDto.setBadgeName(badge.getBadgeName());
+        responseDto.setDescription(badge.getDescription());
         responseDto.setBadgePhotoUrl(badge.getBadgeImg().toString());
 
         return responseDto;

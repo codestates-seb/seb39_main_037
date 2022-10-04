@@ -1,4 +1,4 @@
-package com.main.project.securityConfig;
+package com.main.project.securityConfig.filter;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.jwt.JwtException;

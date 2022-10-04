@@ -48,20 +48,7 @@ public class UserContorller {
         int minute = time.getMinute();
         int second = time.getSecond();
 
-
         WebUser webUser =  mapper.userPostDtoToWebUser(postUserDto);
-        // 프로필을 등록하지 않을 경우
-//        if(profileImg.isEmpty()){
-//            ClassPathResource resource = new ClassPathResource("images/defaultImg.jpg");
-//            byte[] defaultImg = FileCopyUtils.copyToByteArray(resource.getInputStream());
-//            webUser.setProfileImg(defaultImg);
-//        }
-        //프로필 사진이 있을 경우
-//        else {
-//            webUser.setProfileImgName(profileImg.getOriginalFilename() + year + month + day + hour + minute + second);
-//            webUser.setProfileImg(profileImg.getBytes());
-//        }
-
          WebUser newUser = userService.registerUser(webUser);
         // 유저 등록시 필요한 내용(유저 본명, 닉네임, 이메일, 비밀번호, 사진)을 dto로 담기(파라미터)
         //

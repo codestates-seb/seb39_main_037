@@ -3,7 +3,6 @@ package com.main.project.badge.entity;
 import com.main.project.badge.UserBadge;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.*;
@@ -17,8 +16,8 @@ public class Badge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long badgeId;
-    String badgename;
-    String badgeDescription;
+    String badgeName;
+    String description;
 
     @Lob
     @Column

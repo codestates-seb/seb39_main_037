@@ -2,6 +2,7 @@ package com.main.project.location.entity;
 
 
 import com.main.project.restaurant.entity.Restaurant;
+import com.main.project.restaurant.entity.RestaurantFood;
 import com.main.project.review.entity.Review;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,9 +36,8 @@ public class Location {
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
 
-
-
-
+    @OneToMany(mappedBy = "location", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<RestaurantFood> restaurantFoods;
 
 
 

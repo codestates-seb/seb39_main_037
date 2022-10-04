@@ -1,11 +1,12 @@
 package com.main.project.food.controller;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.project.food.dto.FoodDto;
 import com.main.project.food.entity.Food;
 import com.main.project.food.mapper.FoodMapper;
 import com.main.project.food.service.FoodServiceImple;
+import com.main.project.restaurant.entity.Restaurant;
+import com.main.project.restaurant.mapper.RestaurantMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +22,12 @@ public class FoodController {
     FoodServiceImple foodService;
     FoodMapper foodMapper;
 
-    public FoodController(FoodServiceImple foodService, FoodMapper foodMapper) {
+    RestaurantMapper restaurantMapper;
+
+    public FoodController(FoodServiceImple foodService, FoodMapper foodMapper, RestaurantMapper restaurantMapper) {
         this.foodService = foodService;
         this.foodMapper = foodMapper;
+        this.restaurantMapper = restaurantMapper;
     }
 
     @PostMapping("/add")
@@ -73,7 +77,12 @@ public class FoodController {
     }
 
 
+    @GetMapping("/find")
+    public ResponseEntity getFoodsByRetaurant(@RequestBody FoodDto.GetRestaurantDto getRestaurantDto) {
+        List<Restaurant> restaurants = foodService.findRestaurantByFood(getRestaurantDto.getFoodId(), getRestaurantDto.getLocationId());
 
+        return new ResponseEntity(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.FOUND);
 
+    }
 
 }

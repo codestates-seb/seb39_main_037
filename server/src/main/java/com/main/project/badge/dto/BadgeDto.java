@@ -16,13 +16,23 @@ public class BadgeDto {
 
         String badgeName;
         String description;
-
-
     }
+
+    @AllArgsConstructor
+    @Getter
+    public static class patchDto{
+        long userId;
+        String badgeName;
+    }
+
+
+
+
 
     @NoArgsConstructor
     @Setter
     @Getter
+    @AllArgsConstructor
     public static class responseDto{
 
         String badgeName;

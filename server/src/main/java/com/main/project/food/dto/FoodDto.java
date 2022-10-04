@@ -49,12 +49,24 @@ public class FoodDto {
     }
 
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class GetRestaurantDto{
+
+        private long foodId;
+        private long locationId;
+
+    }
+
+
 
 
 
     @Getter
     @Setter
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class ResponseDto {
 
         private String foodName;

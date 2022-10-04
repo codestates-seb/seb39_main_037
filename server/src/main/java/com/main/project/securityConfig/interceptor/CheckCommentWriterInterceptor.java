@@ -51,31 +51,34 @@ public class CheckCommentWriterInterceptor implements HandlerInterceptor {
             long commentingUserId = Long.parseLong((String) pathvariable.get("user-id"));
 
             if (commentingUserId!=Long.parseLong(userId)) {
-                response.getOutputStream().println("인증정보가 올바르지 않습니다!!");
+                response.setContentType("text/html; charset=UTF-8"); // 보낼 때 한글 인코딩
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().println("인증정보가 올바르지 않습니다!!");
                 return false;
             }
         }
         else if(httpMethod.equals("PATCH")){
-            ObjectMapper objectMapper = new ObjectMapper();
-            ServletInputStream test = request.getInputStream();//리뷰를 쓴 아읻 확인
-            String messageBody = StreamUtils.copyToString(test, UTF_8);
-            CommentPatchDto commentPatchDto = objectMapper.readValue(messageBody, CommentPatchDto.class);
+            Map pathvariable  = (Map) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+            long commentEdittingUserId = Long.parseLong((String) pathvariable.get("comment-id"));
 
-            long commentId = commentPatchDto.getCommentId();
-            Comment comment = commentServiceImpl.findComment(commentId);
+            long commentedUserId = commentServiceImpl.findComment(commentEdittingUserId).getWebUser().getUserId();
 
-            if(comment.getWebUser().getUserId()!=Long.parseLong(userId)){
-                response.getOutputStream().println("댓글 작성자만 수정 할 수 있습니다.");
+            if(commentedUserId!=Long.parseLong(userId)){
+                response.setContentType("text/html; charset=UTF-8");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().println("댓글 작성자만 수정 할 수 있습니다.");
                 return false;
             }
 
         } else if (httpMethod.equals("DELETE")) {
             Map pathvariable  = (Map) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-            long toDeleteId = (long) pathvariable.get("comment-id");
+            long toDeleteId = Long.parseLong((String) pathvariable.get("comment-id"));
             Comment comment = commentServiceImpl.findComment(toDeleteId);
 
             if(comment.getWebUser().getUserId()!=Long.parseLong(userId)){
-                response.getOutputStream().println("댓글 작성자만 삭제할 수 있습니다.");
+                response.setContentType("text/html; charset=UTF-8");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().println("댓글 작성자만 삭제할 수 있습니다.");
                 return false;
             }
         }
