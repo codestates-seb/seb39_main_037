@@ -4,7 +4,7 @@ package com.main.project.securityConfig.filter;
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.main.project.securityConfig.PrincipalDetails;
+import com.main.project.securityConfig.service.PrincipalDetails;
 import com.main.project.user.entity.WebUser;
 import com.auth0.jwt.algorithms.Algorithm;
 import lombok.RequiredArgsConstructor;
@@ -48,19 +48,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 //            while((input = br.readLine()) != null) {//httprequest의 내용들이 존재한다면
 //                System.out.println(input);//계속 서버 콘솔에 출력한다. Ex) {"email":"dd@naver.com","password":"12313"}
 //            }
-
-
             ObjectMapper om = new ObjectMapper();
             //jackson 라이브러리를 통해(readValue) httpRequest에 담긴 json을 자바 객체로 변화해주는 기능을 수행 ,  httpRequset body에 담긴 json 형식의 데이터(아이디, 비밀번호)를 stream으로 꺼내고 이를 WebUser 타입으로 매핑
             WebUser webUser = om.readValue(request.getInputStream(), WebUser.class);
 
-
-
-
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(webUser.getEmail(), webUser.getPassword());//사용자가 입력한 아이디, 주소를 가지고 토큰을 만든다.
-
-
-
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(webUser.getEmail(), webUser.getPassword());//사용자가 입력한 아이디, 주소를 가지고 토큰을 만든다
 
             System.out.println("아이디와 비밀번호가 확인된 유저를 위한 JWT 생성, jwt를 통한 로그인 처리 완료");
                 Authentication authentication = authenticationManager.authenticate(authenticationToken);//만들어진 토큰을 가져와 authenticationManager가 전달 받아 Authentication 객체 생성
@@ -96,8 +88,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.setStatus(HttpStatus.ACCEPTED.value());
         response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-
-
+        String userId2 = JWT.require(Algorithm.HMAC512("seb29_main37 jwt token")).build().verify(jwtToken).getClaims().toString();
+        String userId3 = JWT.require(Algorithm.HMAC512("seb29_main37 jwt token")).build().verify(jwtToken).getClaim("id").toString();
+        long userId   = principalDetails.getWebUser().getUserId();
         String email   = principalDetails.getWebUser().getEmail();
         String userName = principalDetails.getWebUser().getUserName();
         String nickName = principalDetails.getWebUser().getNickName();
@@ -108,6 +101,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // Map
         Map<String, String> loginResponse = new HashMap<>();
+        loginResponse.put("userId", String.valueOf(userId));
         loginResponse.put("email", email);
         loginResponse.put("userName", userName);
         loginResponse.put("nickName", nickName);

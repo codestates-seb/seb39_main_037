@@ -2,29 +2,21 @@ package com.main.project.securityConfig;
 
 
 
-import com.main.project.securityConfig.filter.CustomOauth2AutheticationFilter;
+import com.main.project.securityConfig.service.PrincipalOauth2UserService;
 import com.main.project.securityConfig.filter.JwtAuthenticationFilter;
 import com.main.project.securityConfig.filter.JwtAuthorizationFilter;
-import com.main.project.user.service.UserService;
+import com.main.project.user.repository.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
-import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer;
-import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.CorsFilter;
-import org.springframework.boot.autoconfigure.security.oauth2.client.servlet.*;
-
 
 
 @Configuration
@@ -39,23 +31,28 @@ public class SecurityConfig {
     @Autowired
     private PrincipalOauth2UserService principalOauth2UserService;
 
-//    @Autowired
-//    private InMemoryOAuth2AuthorizedClientService inMemoryOAuth2AuthorizedClientService;
-//
-//    @Autowired
-//    private ClientRegistrationRepository clientRegistrationRepository;
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+
+        String[] authenticatedAPI = { "/user/edit", "/user/edit/password", "/user/mypage", "/user/withdrawal",  "/images/post", "/images/delete/{filename}",
+                "/foodtype/add", "/foodtype/edit", "/foodtype/edit/img/{foodtypename}", "/foodtype/delete/*", "/select/dish/add","/select/dish/edit",  "/location/manager/state", "/location/manager/add",  "/location/manager/city",
+                   "/review/post", "/review/mypage/*", "/review/delete/*", "/review/edit", "/comment/post", "/comment/edit", "/comment/delete/*" , "/comment/mypage/*", "/thumbUp/delete/*","/thumbUp/post/*","/thumbUp/mypage/*"
+        , "/qna/post", "/qna/edit", "/qna/delete/*"};
+
+
         http.csrf().disable();
         http.headers().frameOptions().disable();
         http.cors().disable();
 
+
+
+
         return http.authorizeRequests()
-                .antMatchers("/user/search/{userid}").authenticated()
+                .antMatchers(authenticatedAPI).authenticated()
                 .anyRequest().permitAll()
                 .and()
-
                 .formLogin().disable()//시큐리티 기본제공 form login html 활성화 -> UsernamePasswordAuthenticationFilter가 설정된다.
                 // 우리가 작성한 JwtAuthenticationFilter가  UsernamePasswordAuthenticationFilter를 상속 받기에 활성화하던 안 하던 인증 절차는 진행이 된다.
                 //.cors().disable()
@@ -67,7 +64,6 @@ public class SecurityConfig {
 //                .and()
                 .apply(new CustomDsl())
                 .and()
-
                 .oauth2Login()
                 .userInfoEndpoint()
                 .userService(principalOauth2UserService)
@@ -92,7 +88,6 @@ public class SecurityConfig {
 
             builder
                     .addFilter(corsFilter)
-//                    .addFilter(new CustomOauth2AutheticationFilter(, inMemoryOAuth2AuthorizedClientService))
                     .addFilter(new JwtAuthenticationFilter(authenticationManager))
                     .addFilter(new JwtAuthorizationFilter(authenticationManager, userService)); // 발급한 토큰을 다시 클라이언트한테서 받아서 인가 요청 처리할 커스텀 필터 추가
 

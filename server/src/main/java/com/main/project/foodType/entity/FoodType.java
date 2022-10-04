@@ -26,6 +26,10 @@ public class FoodType {
     @Column(nullable = false)
     String typeName;
 
+    @Lob
+    byte[] image;
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "foodType", cascade = CascadeType.ALL)
     List<Food> foodList = new ArrayList<>();

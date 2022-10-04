@@ -7,7 +7,7 @@ import com.main.project.foodType.entity.FoodType;
 import java.util.List;
 
 public interface FoodTypeService {
-    FoodType makeFoodType(String foodTypeName) throws BusinessLogicException;
+    FoodType makeFoodType(String foodTypeName, byte[] foodTypeImg) throws BusinessLogicException;
 
     FoodType editFoodType(String oldName, String newName);
 

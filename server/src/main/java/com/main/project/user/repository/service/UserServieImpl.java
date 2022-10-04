@@ -1,4 +1,4 @@
-package com.main.project.user.service;
+package com.main.project.user.repository.service;
 
 import com.main.project.badge.UserBadge;
 import com.main.project.badge.entity.Badge;
@@ -13,7 +13,6 @@ import com.main.project.user.entity.WebUser;
 import com.main.project.user.entity.WithdrawalUser;
 import com.main.project.user.repository.UserRepository;
 import com.main.project.user.repository.WithdrawalUserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

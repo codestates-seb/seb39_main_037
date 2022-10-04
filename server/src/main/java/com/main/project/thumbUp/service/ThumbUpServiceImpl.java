@@ -8,7 +8,6 @@ import com.main.project.thumbUp.entity.ThumbUp;
 import com.main.project.thumbUp.repository.ThumbUpRepository;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.repository.UserRepository;
-import com.main.project.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

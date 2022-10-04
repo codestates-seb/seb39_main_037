@@ -2,10 +2,12 @@ package com.main.project.restaurant.service;
 
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
+import com.main.project.foodType.entity.FoodType;
+import com.main.project.foodType.repository.FoodTypeRepository;
 import com.main.project.foodType.service.FoodTypeServiceImpl;
-import com.main.project.location.entity.City;
 import com.main.project.location.entity.Location;
-import com.main.project.location.entity.State;
+import com.main.project.location.repository.CityRepository;
+import com.main.project.location.repository.StateRepository;
 import com.main.project.location.service.LocationServiceImpl;
 import com.main.project.naver.GeoTrans;
 import com.main.project.naver.NaverClient;
@@ -13,37 +15,38 @@ import com.main.project.naver.SearchLocalReq;
 import com.main.project.restaurant.dto.RestaurantDto;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.repository.RestaurantRepository;
-import com.main.project.review.entity.Review;
 import com.main.project.review.repository.ReviewRepository;
-import com.main.project.review.service.ReviewServiceImpl;
-import com.main.project.user.service.UserService;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.print.DocFlavor;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
+import java.util.*;
 @Service
 public class RestaurantServiceImpl implements RestaurantService{
     private final NaverClient naverClient;
     private final RestaurantRepository restaurantRepository;
     ReviewRepository reviewRepository;
     LocationServiceImpl locationService;
+    StateRepository stateRepository;
+
+    FoodTypeRepository foodTypeRepository;
+    CityRepository cityRepository;
     FoodTypeServiceImpl foodTypeService;
-    public RestaurantServiceImpl(NaverClient naverClient, RestaurantRepository restaurantRepository, ReviewRepository reviewRepository, LocationServiceImpl locationService, FoodTypeServiceImpl foodTypeService) {
+
+    public RestaurantServiceImpl(NaverClient naverClient, RestaurantRepository restaurantRepository, ReviewRepository reviewRepository, LocationServiceImpl locationService, StateRepository stateRepository, FoodTypeRepository foodTypeRepository, CityRepository cityRepository, FoodTypeServiceImpl foodTypeService) {
         this.naverClient = naverClient;
         this.restaurantRepository = restaurantRepository;
         this.reviewRepository = reviewRepository;
         this.locationService = locationService;
+        this.stateRepository = stateRepository;
+        this.foodTypeRepository = foodTypeRepository;
+        this.cityRepository = cityRepository;
         this.foodTypeService = foodTypeService;
     }
+
     public Page<Restaurant> searchApi(String query){
 
         // 지역 검색 (var - 키워드는 지역 변수 타입 추론을 허용)
@@ -56,15 +59,43 @@ public class RestaurantServiceImpl implements RestaurantService{
         if(searchLocalRes.getTotal() > 0) {
 
             var localItem = searchLocalRes.getItems();
+
+
             for(var test: localItem){
                 GeoTrans geo = new GeoTrans(0, test.getMapx(), test.getMapy()); //katech(네이버 제공 위치) -> 위경도 변환
-                result.setRestaurantName(test.getTitle());
-                result.setCategory(test.getCategory());
+
+                String restName  = test.getTitle();
+                restName.replace("<b>" , " ");
+
+                result.setRestaurantName(restName);
+
+
+
+                    String category  = test.getCategory().split(">",4)[0];
+                    if(category.equals("음식점")){
+                        result.setCategory(test.getCategory().split(">",4)[1]);
+                    }else{
+                        result.setCategory(category);
+                    }
+                        String resState = test.getAddress().split(" ", 4)[0];
+                        String resCity = test.getAddress().split(" ", 4)[1];
+                        Location resLocation = locationService.findByLocation(stateRepository.findByStateName(resState), cityRepository.findByCityName(resCity));
+
+                    result.setLocationId(resLocation.getLocationId());
                 result.setAddress(test.getAddress());
                 result.setMapx(geo.outpt_x);
                 result.setMapy(geo.outpt_y);
                 System.out.println("test X: " + geo.outpt_x + ", test Y: " + geo.outpt_y);
                 var restaurant = dtoToEntity(result);
+                restaurant.setLocation(resLocation);
+
+                List<FoodType> foodTypes = foodTypeRepository.findAll();
+
+                for(FoodType foodType : foodTypes){
+                   if( restaurant.getCategory().contains(foodType.getTypeName())) {
+                       restaurant.setFoodType(foodType);
+                   }
+                }
                 restaurantRepository.save(restaurant);
             }
 
@@ -89,15 +120,15 @@ public class RestaurantServiceImpl implements RestaurantService{
 //        Optional.ofNullable(restaurant.getFoodType())
 //                .ifPresent(findRestaurant::setFoodType);
         findRestaurant.addFoodType(foodTypeService.findFoodType(foodTypeName));
-        if(!findRestaurant.getAddress().isEmpty()){
-            String[] arr = findRestaurant.getAddress().split(" ");
-            String addState = arr[0];
-            String addCity = arr[1];
-            State state = locationService.foundState(addState);
-            City city = locationService.foundCity(addCity);
-            Location location = locationService.findByLocation(state, city);
-            findRestaurant.setLocation(location);
-        }
+//        if(!findRestaurant.getAddress().isEmpty()){
+//            String[] arr = findRestaurant.getAddress().split(" ");
+//            String addState = arr[0];
+//            String addCity = arr[1];
+//            State state = locationService.foundState(addState);
+//            City city = locationService.foundCity(addCity);
+//            Location location = locationService.findByLocation(state, city);
+//            findRestaurant.setLocation(location);
+//        }
 
 
         return restaurantRepository.save(findRestaurant);

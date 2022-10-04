@@ -7,10 +7,6 @@ import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.repository.UserRepository;
-import com.main.project.user.service.UserService;
-import com.main.project.user.service.UserServieImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

@@ -1,8 +1,8 @@
-package com.main.project.securityConfig;
+package com.main.project.securityConfig.service;
 
 
 import com.main.project.user.entity.WebUser;
-import com.main.project.user.service.UserService;
+import com.main.project.user.repository.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -35,4 +35,7 @@ public class PrincipalDetailsService implements UserDetailsService {
         }
             return  null;
     }
+
+
+
 }

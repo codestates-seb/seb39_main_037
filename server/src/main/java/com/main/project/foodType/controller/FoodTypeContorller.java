@@ -12,7 +12,9 @@ import com.main.project.foodType.service.FoodTypeServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,20 +33,32 @@ public class FoodTypeContorller {
     }
 
     @PostMapping("/add")
-    public ResponseEntity postFoodType(@RequestBody FoodTypeDto.PostDto postDto){
+    public ResponseEntity postFoodType(@RequestPart FoodTypeDto.PostDto postDto, @RequestPart MultipartFile multipartFile) throws IOException {
         String newFoodTypeName = postDto.getTypeName();
-       FoodType newFoodType  = foodTypeServiceImpl.makeFoodType(newFoodTypeName);
+        byte[] foodTypeImg =   multipartFile.getBytes();
+       FoodType newFoodType  = foodTypeServiceImpl.makeFoodType(newFoodTypeName, foodTypeImg);
 
         return new ResponseEntity(foodTypeMapper.FoodTypeToResponseDto(newFoodType), HttpStatus.CREATED);
     }
 
     @PatchMapping("/edit")
-    public ResponseEntity patchFoodType(@RequestBody FoodTypeDto.PatchDto patchDto){//기존에 등록한 푸드타입 이름 변경 api
+    public ResponseEntity patchFoodType( FoodTypeDto.PatchDto patchDto){//기존에 등록한 푸드타입 이름 변경 api
 
        FoodType newNamedFoodType  = foodTypeServiceImpl.editFoodType(patchDto.getOldTypeName(), patchDto.getNewTypeName());
 
         return  new ResponseEntity<>(foodTypeMapper.FoodTypeToResponseDto(newNamedFoodType), HttpStatus.OK);
     }
+
+    @PatchMapping("/edit/img/{foodtypename}")
+    public ResponseEntity patchFoodTypeImg(@PathVariable("foodtypename") String foodTypeName, @RequestPart MultipartFile multipartFile) throws IOException {//기존에 등록한 푸드타입 이름 변경 api
+
+        FoodType newNamedFoodType  = foodTypeServiceImpl.editFoodTypeImg(foodTypeName, multipartFile.getBytes());
+
+        return  new ResponseEntity<>(foodTypeMapper.FoodTypeToResponseDto(newNamedFoodType), HttpStatus.OK);
+    }
+
+
+
 
     @GetMapping("/all")
     public ResponseEntity getAllFoodtype(){//foodtype 목록 반환

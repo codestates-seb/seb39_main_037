@@ -14,15 +14,18 @@ import com.main.project.review.service.ReviewServiceImpl;
 import com.main.project.thumbUp.service.ThumbUpService;
 import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
 import com.main.project.user.entity.WebUser;
-import com.main.project.user.service.UserService;
+import com.main.project.user.repository.service.UserService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -49,8 +52,9 @@ public class ReviewController {
         this.userService = userService;
     }
 
-    @PostMapping("/post")
-    public ResponseEntity postReview (@Valid @RequestBody ReviewPostDto reviewPostDto) {
+    @PostMapping("/post/{user-id}")
+    public ResponseEntity postReview (@Valid @RequestBody ReviewPostDto reviewPostDto, @AuthenticationPrincipal Authentication webUser) {
+
 
         long userId = reviewPostDto.getUserId();
         long restaurantId = reviewPostDto.getRestaurantId();
@@ -60,7 +64,7 @@ public class ReviewController {
                 HttpStatus.CREATED);
     }
 
-    @PatchMapping("/edit")
+    @PatchMapping("/edit/{review-id}")
     public ResponseEntity patchReview (@Valid @RequestBody ReviewPatchDto reviewPatchDto) {
 
         Review editReview = reviewMapper.reviewPatchDtoToReview(reviewPatchDto);

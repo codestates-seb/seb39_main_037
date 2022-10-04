@@ -62,7 +62,7 @@ public class FoodServiceImple implements FoodService{
     public List<Food> random3FoodsByManyFilter(List<String> foodTypes){
 
         List<Food> filteredList = new ArrayList<>();
-        List<Food>randomList = new ArrayList<>();
+        List<Food> randomList = new ArrayList<>();
 
         for(String foodTypeName : foodTypes){
             filteredList.addAll(random3Foods(foodTypeName));

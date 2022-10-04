@@ -2,9 +2,12 @@ package com.main.project.securityConfig.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.main.project.securityConfig.PrincipalDetails;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.main.project.exception.BusinessLogicException;
+import com.main.project.exception.ExceptionCode;
+import com.main.project.securityConfig.service.PrincipalDetails;
 import com.main.project.user.entity.WebUser;
-import com.main.project.user.service.UserService;
+import com.main.project.user.repository.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -39,8 +42,16 @@ public class    JwtAuthorizationFilter extends BasicAuthenticationFilter {//로�
         }
         String jwtToken = jwtHeader.replace("Bearer ", "");
 
-        String email = JWT.require(Algorithm.HMAC512("seb29_main37 jwt token")).build().verify(jwtToken).getClaim("username").asString();
+        String email = null;
 
+        try {
+             email = JWT.require(Algorithm.HMAC512("seb29_main37 jwt token")).build().verify(jwtToken).getClaim("username").asString();// 토큰 만료 에러 발생
+        }
+        catch(TokenExpiredException e){
+            e.printStackTrace();
+//            throw new BusinessLogicException(ExceptionCode.TOKEN_IS_EXPIRED);
+            request.setAttribute("토큰이 만료되었습니다", new BusinessLogicException(ExceptionCode.TOKEN_IS_EXPIRED));
+        }
         if (email != null) {
             WebUser memberEntity = userService.findUserByEmail(email);
 

@@ -57,7 +57,7 @@ public class WebUser {
     private UserActive isUserActive =  UserActive.Active;//유저 데이터 바로 삭제하는 대신 비활성화 -> 일정 기간 지난 후 삭제(1~2년)
 
     @Column
-    double userLevel = 1.0d;// 유저 활동에 따른 레벨업
+    double userLevel = 10.0d;// 유저 활동에 따른 레벨업
 
     @Column
     String provider;
@@ -91,7 +91,7 @@ public class WebUser {
     @Getter
     public enum Authority implements GrantedAuthority {
         REGULAR_USER("일반 계정"),
-        ADMIN_USER("관리자 게정");
+        ADMIN_USER("관리자 계정");
 
 
         @Getter

@@ -7,7 +7,7 @@ import com.main.project.restaurant.service.RestaurantServiceImpl;
 import com.main.project.review.entity.Review;
 import com.main.project.review.repository.ReviewRepository;
 import com.main.project.user.entity.WebUser;
-import com.main.project.user.service.UserService;
+import com.main.project.user.repository.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class ReviewServiceImpl implements ReviewService{
 
-    private final ReviewRepository reviewRepository;
+    ReviewRepository reviewRepository;
     UserService userService;
     RestaurantServiceImpl restaurantServiceImpl;
 
@@ -46,7 +46,7 @@ public class ReviewServiceImpl implements ReviewService{
         review.setPriceStar(review.getPriceStar());
         review.setReviewImgUrl(review.getReviewImgUrl());
 
-        badgeService.assignBadge(userId);//리뷰를 작성할 때마다 리뷰관련 뱃지 할당 조건을 체크하는 메서드
+//        badgeService.assignBadge(userId);//리뷰를 작성할 때마다 리뷰관련 뱃지 할당 조건을 체크하는 메서드
         //post review 시 해당 뱃지가 없다는 오류로 인해 주석처리 했음(pr전 해제)
 
 
@@ -134,7 +134,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     public Review findVerifiedReview(long reviewId) {
-        Optional<Review> review = reviewRepository.findById(reviewId);
+        Optional<Review> review = reviewRepository.findByReviewId(reviewId);
 
         Review findReview = review.orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));
 
