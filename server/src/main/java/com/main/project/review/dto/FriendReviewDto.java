@@ -14,7 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ReviewResponseDto {
+public class FriendReviewDto {
     private long reviewId;
     private String Nickname;
     private String reviewTitle;
@@ -31,6 +31,8 @@ public class ReviewResponseDto {
     private Integer tasteStar;
     private Integer facilityStar;
     private Integer priceStar;
+    private List<UserBadge> userBadges;
+
 
     private long foodTypeId;
     private long locationId;
