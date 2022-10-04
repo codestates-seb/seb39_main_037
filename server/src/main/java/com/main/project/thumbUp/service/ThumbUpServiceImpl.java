@@ -72,12 +72,16 @@ public class ThumbUpServiceImpl implements ThumbUpService{
         ThumbUp thumbUp = thumbUpRepository.findById(thumbUpId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.ID_NOT_FOUND));
         if(userId == thumbUp.getWebUser().getUserId()){
             thumbUpRepository.delete(thumbUp);
-        } else {new BusinessLogicException(ExceptionCode.USER_IS_NOT_MATCH);}
+        } else { throw new BusinessLogicException(ExceptionCode.USER_IS_NOT_MATCH);}
     }
 
 //  좋아요 중복 체크
     private boolean isNotAlreadyLike(WebUser user, Review review) {
-        return thumbUpRepository.findByWebUserAndReview(user, review).isEmpty();
+        if (thumbUpRepository.findByWebUserAndReview(user, review).isEmpty()) {
+            return true;
+        }else {
+            throw new BusinessLogicException(ExceptionCode.ALREADY_LIKE);
+        }
     }
     public Page<ThumbUp> findUserLike(WebUser user, int page) {
         return thumbUpRepository.findByWebUser(user, PageRequest.of(page, 10, Sort.by("thumbUpId").descending()));
