@@ -5,7 +5,9 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "Styles/GlobalStyles";
 import { theme } from "Styles/Theme";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement,
+);
 root.render(
   <RecoilRoot>
     <ThemeProvider theme={theme}>

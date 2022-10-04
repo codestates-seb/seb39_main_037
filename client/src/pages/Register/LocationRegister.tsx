@@ -71,7 +71,7 @@ const LocationRegister = () => {
   const handleClick = () => {
     setCurrentLocation(location);
     alert(`${location.stateName}/${location.cityName}으로 저장되었습니다.`);
-    navigate("/");
+    navigate(-1);
   };
   if (!stateOption) {
     return <Loading />;

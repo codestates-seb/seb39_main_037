@@ -1,19 +1,22 @@
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseIcon from "@mui/icons-material/Close";
 import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import TopModal from "Components/Common/Modal/TopModal";
+import IconDropDown from "Components/Layout/Header/IconDropDown";
 import useCurrentLocation from "Hooks/useCurrentLocation";
 import useCurrentUser from "Hooks/useCurrentUser";
 import { ReactComponent as LogoIcon } from "Media/Image/logo/foodrecoLogo.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Header = () => {
   const [modal, setModal] = useState<boolean>(false);
+
   const { currentLocation } = useCurrentLocation();
   const { currentUser } = useCurrentUser();
+
   return (
     <NavContainer>
       <LogoIconDiv>
@@ -47,9 +50,7 @@ const Header = () => {
         <li>
           <MypageIconDiv>
             {currentUser.userId !== 0 ? (
-              <LinkCss to="/users">
-                <AccountCircleIcon />
-              </LinkCss>
+              <IconDropDown />
             ) : (
               <LinkCss to="/login">
                 <LoginIcon />
@@ -119,8 +120,8 @@ const MypageIconDiv = styled.div`
   padding-right: 2rem;
   > a {
     svg {
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
     }
   }
 `;

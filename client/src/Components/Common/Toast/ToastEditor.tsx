@@ -9,9 +9,9 @@ import { postImg } from "Hooks/Api/Register/postImg";
 import React, { useRef } from "react";
 
 interface IToastEditor {
-  thumbnail?: string;
-  setThumbnail?: React.Dispatch<React.SetStateAction<string>>;
-  setContent?: React.Dispatch<React.SetStateAction<string>>;
+  thumbnail?: string | null;
+  setThumbnail?: React.Dispatch<React.SetStateAction<string | null>>;
+  setContent: React.Dispatch<React.SetStateAction<string>>;
   height?: string;
 }
 
@@ -24,9 +24,8 @@ const ToastEditor = ({
   const editorRef = useRef<Editor>(null); // 입력받은 텍스트 하기
 
   const handleChange = () => {
-    if (editorRef.current) {
-      // setContent(editorRef.current.getInstance().getHTML());
-      console.log(editorRef.current.getInstance().getHTML());
+    if (setContent) {
+      setContent(editorRef?.current?.getInstance()?.getMarkdown() || "");
     }
   };
 
@@ -55,7 +54,7 @@ const ToastEditor = ({
             if (!thumbnail) {
               setThumbnail?.(imgUrl);
             }
-            console.log(imgUrl);
+            // console.log(imgUrl);
             callback(imgUrl);
           },
         }}

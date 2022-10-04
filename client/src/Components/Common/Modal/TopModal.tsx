@@ -10,11 +10,22 @@ interface propsType {
 
 const TopModal = ({ setModal }: propsType) => {
   const { currentLocation } = useCurrentLocation();
-  const { currentUser } = useCurrentUser();
+  const { currentUser, setCurrentUser } = useCurrentUser();
   const handleClick = () => {
     setModal(false);
   };
-
+  const handleLogout = () => {
+    if (window.confirm("로그아웃하시겠습니까?")) {
+      setCurrentUser({
+        userId: 0,
+        email: "",
+        nickName: "",
+        profileImgUrl: "",
+        userName: "",
+      });
+      localStorage.removeItem("user-token");
+    }
+  };
   return (
     <UlContainer>
       <li>
@@ -38,17 +49,27 @@ const TopModal = ({ setModal }: propsType) => {
           <div>리뷰</div>
         </LinkCss>
       </li>
-      <li>
-        {currentUser.userId !== 0 ? (
-          <LinkCss to="/users" onClick={handleClick}>
-            <div>{currentUser.nickName}&apos;s Page</div>
-          </LinkCss>
-        ) : (
+
+      {currentUser.userId !== 0 ? (
+        <>
+          <li>
+            <LinkCss to="/users" onClick={handleClick}>
+              <div>{currentUser.nickName}&apos;s Page</div>
+            </LinkCss>
+          </li>
+          <li>
+            <LinkCss to="/" onClick={handleLogout}>
+              <div>로그아웃</div>
+            </LinkCss>
+          </li>
+        </>
+      ) : (
+        <li>
           <LinkCss to="/login" onClick={handleClick}>
             <div>Login</div>
           </LinkCss>
-        )}
-      </li>
+        </li>
+      )}
     </UlContainer>
   );
 };
