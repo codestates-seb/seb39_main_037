@@ -53,6 +53,9 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    List<RestaurantFood> foodList = new ArrayList();
+
     public void addFoodType(FoodType foodType){
         this.foodType = foodType;
     }

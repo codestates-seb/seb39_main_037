@@ -7,20 +7,28 @@ import com.main.project.food.entity.Food;
 import com.main.project.food.repository.FoodRepository;
 import com.main.project.foodType.entity.FoodType;
 import com.main.project.foodType.repository.FoodTypeRepository;
+import com.main.project.restaurant.entity.Restaurant;
+import com.main.project.restaurant.entity.RestaurantFood;
+import com.main.project.restaurant.repository.RestaurantFoodRepository;
+import com.main.project.restaurant.repository.RestaurantRepository;
 import org.springframework.stereotype.Service;
 import java.util.*;
+import java.util.stream.Collectors;
+
 @Service
 public class FoodServiceImple implements FoodService{
 
     FoodRepository foodRepository;
     FoodTypeRepository foodTypeRepository;
+    RestaurantFoodRepository restaurantFoodRepository;
+    RestaurantRepository restaurantRepository;
 
-
-    public FoodServiceImple(FoodRepository foodRepository, FoodTypeRepository foodTypeRepository) {
+    public FoodServiceImple(FoodRepository foodRepository, FoodTypeRepository foodTypeRepository, RestaurantFoodRepository restaurantFoodRepository, RestaurantRepository restaurantRepository) {
         this.foodRepository = foodRepository;
         this.foodTypeRepository = foodTypeRepository;
+        this.restaurantFoodRepository = restaurantFoodRepository;
+        this.restaurantRepository = restaurantRepository;
     }
-
 
     @Override
     public Food addFood(FoodDto.PostDto postDto) {
@@ -87,11 +95,27 @@ public class FoodServiceImple implements FoodService{
     }
 
 
+    public List<Restaurant> findRestaurantByFood(long foodId, long locationId) {
+
+
+         List<RestaurantFood> restaurantFood123 = restaurantFoodRepository.findAllByFood(foodRepository.findById(foodId).get());
+
+
+        List<RestaurantFood> restaurantFood = restaurantFood123.stream()
+                 .filter(restaurantFood1 -> restaurantFood1.getLocation().getLocationId()==locationId)
+                 .collect(Collectors.toList());;//음식 기준으로 모든 식당 필터링
 
 
 
+        long[] restaurantList = new long[restaurantFood.size()];
+        List<Restaurant> restaurants = new ArrayList<>();
+        for(int i = 0; i<restaurantList.length; i++){
+            restaurantList[i] = restaurantFood.get(i).getRestaurantFoodId();//조건에 맞는 레스토랑Id의 리스트
+        }
+        for(int i = 0; i<restaurantList.length; i++){
+            restaurants.add(restaurantRepository.findById(restaurantList[i]).get());
+        }
 
-
-
-
+        return restaurants;
+    }
 }
