@@ -1,14 +1,18 @@
 import MenuType from "Components/Common/MenuType";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
-import { RandomMockupData } from "./RandomMockupData";
 
 const Random = () => {
   const [isClick, setIsClick] = useState<boolean>(false);
   const [selectemenuType, setSelectedmenuType] = useState<string>("");
   const [selectedmenuList, setSelectedmenuList] = useState<string[]>([]);
   const [randomMenu, setRandomMenu] = useState<string[]>([]);
+
+  const navigate = useNavigate();
+  const menuClick = () => {
+    navigate(`/random-recommend/map/:food_id`);
+  };
 
   const ClickRandom = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -60,21 +64,27 @@ const Random = () => {
             {isClick === false ? (
               <button type="button">메뉴</button>
             ) : (
-              <button type="button">{randomMenu[0]}</button>
+              <button type="button" onClick={menuClick}>
+                {randomMenu[0]}
+              </button>
             )}
           </li>
           <li>
             {isClick === false ? (
               <button type="button">메뉴</button>
             ) : (
-              <button type="button">{randomMenu[1]}</button>
+              <button type="button" onClick={menuClick}>
+                {randomMenu[1]}
+              </button>
             )}
           </li>
           <li>
             {isClick === false ? (
               <button type="button">메뉴</button>
             ) : (
-              <button type="button">{randomMenu[2]}</button>
+              <button type="button" onClick={menuClick}>
+                {randomMenu[2]}
+              </button>
             )}
           </li>
         </UlBox>
@@ -92,60 +102,41 @@ const Content = styled.div`
   padding: 2rem;
 `;
 
-const DivBox = styled.div`
-  border: 1px solid #e5e5e5;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 1rem;
-  gap: 3rem;
-  max-width: 660px;
-  min-width: 290px;
-`;
-
-const ButtonDiv = styled.div`
-  min-width: 80px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  > img {
-    width: 50px;
-    height: 50px;
-  }
-  > .notactive {
-    background-color: #fff;
-    border: 1px solid #dbdee2;
-    color: #404a5c;
-  }
-  > .active {
-    background-color: #505bf0;
-    color: #fff;
-  }
-`;
-
 const RandomDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 3rem;
 `;
 
 const ButtonRandom = styled.button`
-  border: 0;
+  /* border: 0;
   outline: 0;
   width: 200px;
   height: 100px;
   background-color: var(--green-color);
-  border-radius: 10px;
+  border-radius: 10px; */
+  width: 300px;
+
+  padding: 15px 30px;
+  border-radius: 15px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
+  border: 3px solid #fce205;
+  color: #6e6e6e;
   cursor: pointer;
+  :hover {
+    background-color: #fce205;
+    color: #6e6e6e;
+    transform: scale(1.3);
+  }
 `;
 
 const UlBox = styled.ul`
   display: flex;
-  gap: 2rem;
-  padding-top: 2rem;
+  gap: 3rem;
+  padding: 3rem;
   flex-wrap: wrap;
   justify-content: center;
 
@@ -164,7 +155,11 @@ const UlBox = styled.ul`
       cursor: pointer;
 
       :hover {
-        background-color: var(--main-yellow);
+        /* background-color: var(--main-yellow); */
+
+        background-color: #fce205;
+        color: #6e6e6e;
+        transform: scale(1.3);
       }
     }
   }

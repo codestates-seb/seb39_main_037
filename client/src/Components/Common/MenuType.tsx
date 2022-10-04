@@ -8,56 +8,35 @@ interface IRandomprops {
 }
 
 const MenuType = ({
-  setSelectedmenuList,
   setSelectedmenuType,
+  setSelectedmenuList,
 }: IRandomprops) => {
-  const [tab, setTab] = useState<boolean>(false);
   const [classname, setClassname] = useState<string>("");
-  const [test, settest] = useState<string>("not-active");
-  const [test1, settest1] = useState<string[]>([]);
-  const [test2, settest2] = useState<boolean[]>(
-    Array(RandomMockupData.length).fill(false),
-  );
-
-  //   console.log(test2[0]);
 
   const ClickMenu = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    setTab(!tab);
     const target = e.currentTarget as HTMLInputElement;
 
     RandomMockupData.forEach(({ menuType, list, menuid }) => {
-      //   test2.push(false);
-      //   console.log(test2);
-      //   console.log(menuid - 1);
-
       if (menuType === target.innerText) {
-        const copy = [...test2];
-        test2.map((el, index) => copy[index] === true);
-        // console.log(!test2[menuid - 1]);
-        // !test2[menuid - 1];
-        // console.log(test2[0]);
-        console.log(copy);
         setSelectedmenuList(list);
         setSelectedmenuType(menuType);
-        // settest2(test2[0]);
-        // settest2(!test2[menuid - 1]);
-        // target.className = "active";
+        setClassname(`${menuid}`);
       }
     });
   };
+
   return (
     <DivBox>
       {RandomMockupData.map(({ menuType, menuid, imgURL }) => (
-        <div
+        <ButtonDiv
           key={menuid}
           onClick={(e) => ClickMenu(e)}
-
-          //   className={tab === true ? "active" : undefined}
+          className={classname === `${menuid}` ? "active" : `${menuid}`}
         >
           <img src={imgURL} alt={menuType} />
           <div>{menuType}</div>
-        </div>
+        </ButtonDiv>
       ))}
     </DivBox>
   );
@@ -65,6 +44,7 @@ const MenuType = ({
 
 const DivBox = styled.div`
   border: 1px solid #e5e5e5;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -72,16 +52,16 @@ const DivBox = styled.div`
   gap: 3rem;
   max-width: 660px;
   min-width: 290px;
-  > div {
-    min-width: 80px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    > img {
-      width: 50px;
-      height: 50px;
+
+  > .active {
+    transition: all 0.2s;
+    font-weight: bold;
+    color: var(--main-yellow);
+
+    &:hover {
+      position: relative;
+      box-shadow: none;
+      transform: scale(1.1, 1.1);
     }
   }
 `;
@@ -93,18 +73,10 @@ const ButtonDiv = styled.div`
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+
   > img {
     width: 50px;
     height: 50px;
-  }
-  > .notactive {
-    background-color: #fff;
-    border: 1px solid #dbdee2;
-    color: #404a5c;
-  }
-  > .active {
-    background-color: #505bf0;
-    color: #fff;
   }
 `;
 
