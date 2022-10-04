@@ -29,6 +29,7 @@ public enum ExceptionCode {
     LOCATION_NOT_FOUND(402, "지역이 존재하지 않습니다."),
     STATE_NOT_FOUND(402, "해당 광역시, 도가 존재하지 않습니다."),
     CITY_NOT_FOUND(402, "시, 군, 구가 존재하지 않습니다."),
+    ALREADY_LIKE(404, "이미 좋아요를 눌렀습니다.")
 
 
     ;
