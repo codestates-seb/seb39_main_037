@@ -17,11 +17,10 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-
 public class CommentServiceImpl implements CommentService {
 
 
-    private final CommentRepository commentRepository;
+    private CommentRepository commentRepository;
     UserService userService;
     ReviewServiceImpl reviewServiceImpl;
 
@@ -67,6 +66,12 @@ public class CommentServiceImpl implements CommentService {
 
         return commentRepository.findAllByReview(review, PageRequest.of(page,size, Sort.by("commentId").descending()));
     }
+
+
+    public Comment findComment(long commentId){
+          return   commentRepository.findById(commentId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_IS_NOT_EXIST));
+    }
+
 
     public void deleteComment(long commentId) {
 

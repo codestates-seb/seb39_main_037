@@ -1,4 +1,4 @@
-package com.main.project.securityConfig;
+package com.main.project.securityConfig.service;
 
 
 import com.main.project.securityConfig.provider.FaceBookUserInfo;
@@ -9,10 +9,6 @@ import com.main.project.user.entity.WebUser;
 import com.main.project.user.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;

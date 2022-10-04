@@ -12,6 +12,7 @@ public class FoodTypeDto {
     @NoArgsConstructor
     public static class PostDto {
         String typeName;
+        String typeImgUrl;
 
     }
 

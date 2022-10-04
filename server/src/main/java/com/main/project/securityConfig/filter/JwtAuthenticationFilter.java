@@ -2,10 +2,9 @@ package com.main.project.securityConfig.filter;
 
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.Claim;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.main.project.securityConfig.PrincipalDetails;
+import com.main.project.securityConfig.service.PrincipalDetails;
 import com.main.project.user.entity.WebUser;
 import com.auth0.jwt.algorithms.Algorithm;
 import lombok.RequiredArgsConstructor;

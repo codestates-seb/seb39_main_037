@@ -2,7 +2,7 @@ package com.main.project.securityConfig.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.main.project.securityConfig.PrincipalDetails;
+import com.main.project.securityConfig.service.PrincipalDetails;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.repository.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;

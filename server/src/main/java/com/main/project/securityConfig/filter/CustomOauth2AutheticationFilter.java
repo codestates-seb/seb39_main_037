@@ -1,14 +1,11 @@
 package com.main.project.securityConfig.filter;
 
 import com.google.gson.Gson;
-import com.main.project.securityConfig.PrincipalDetails;
-import lombok.RequiredArgsConstructor;
+import com.main.project.securityConfig.service.PrincipalDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 

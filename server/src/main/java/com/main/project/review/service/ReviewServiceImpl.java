@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class ReviewServiceImpl implements ReviewService{
 
-    private final ReviewRepository reviewRepository;
+    ReviewRepository reviewRepository;
     UserService userService;
     RestaurantServiceImpl restaurantServiceImpl;
 
@@ -134,7 +134,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     public Review findVerifiedReview(long reviewId) {
-        Optional<Review> review = reviewRepository.findById(reviewId);
+        Optional<Review> review = reviewRepository.findByReviewId(reviewId);
 
         Review findReview = review.orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));
 

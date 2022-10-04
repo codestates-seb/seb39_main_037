@@ -1,4 +1,4 @@
-package com.main.project.securityConfig;
+package com.main.project.securityConfig.service;
 
 
 import com.main.project.user.entity.WebUser;
@@ -35,4 +35,7 @@ public class PrincipalDetailsService implements UserDetailsService {
         }
             return  null;
     }
+
+
+
 }

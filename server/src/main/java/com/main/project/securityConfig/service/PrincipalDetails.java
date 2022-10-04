@@ -1,8 +1,9 @@
-package com.main.project.securityConfig;
+package com.main.project.securityConfig.service;
 
 
 import com.main.project.user.entity.WebUser;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 
 @Data
+@Getter
 public class PrincipalDetails implements UserDetails, OAuth2User {
     //PrincipalDetails(UserDetails)는 인증을 위해 AuthenticationFilter -> AuthenticationManager -> AuthenticationProvider로 부터 전달되는 사용자 인증정보(Authentiation 객체)를
     // 가지고 UserDetailsService가 만들어지는 사용자 정보가 담긴 객체의 클래스이다.

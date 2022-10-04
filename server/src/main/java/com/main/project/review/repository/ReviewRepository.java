@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
@@ -31,4 +33,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     double avgFacilityStar(long restaurantId); //별점 평균 구현
     @Query("SELECT AVG(priceStar) FROM Review r WHERE r.restaurant.id = :restaurantId")
     double avgPriceStar(long restaurantId); //별점 평균 구현
+
+    Optional<Review> findByReviewId(long reviewId);
 }
