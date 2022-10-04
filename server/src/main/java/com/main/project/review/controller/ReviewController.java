@@ -120,7 +120,19 @@ public class ReviewController {
     }
 
     @GetMapping("/mypage/{user-id}/{page}")
-    public ResponseEntity getAllUserLike (@PathVariable("user-id") long userId, @PathVariable("page") int page) {
+    public ResponseEntity getAllUserReview (@PathVariable("user-id") long userId, @PathVariable("page") int page) {
+
+        WebUser user = userService.checkUserByUserId(userId);
+
+        Page<Review> pageReview = reviewServiceImpl.findUserReview(user, page - 1);
+        List<Review> reviews = pageReview.getContent();
+
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(reviewMapper.reviewsToReviewResponseDtos(reviews),pageReview),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/follow/{user-id}/{page}")
+    public ResponseEntity getFriendReview (@PathVariable("user-id") long userId, @PathVariable("page") int page) {
 
         WebUser user = userService.checkUserByUserId(userId);
 

@@ -2,6 +2,7 @@ package com.main.project.review.mapper;
 
 import com.main.project.location.entity.Location;
 import com.main.project.restaurant.entity.Restaurant;
+import com.main.project.review.dto.FriendReviewDto;
 import com.main.project.review.dto.ReviewPatchDto;
 import com.main.project.review.dto.ReviewPostDto;
 import com.main.project.review.dto.ReviewResponseDto;
