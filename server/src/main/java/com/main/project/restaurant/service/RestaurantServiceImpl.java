@@ -63,13 +63,9 @@ public class RestaurantServiceImpl implements RestaurantService{
 
             for(var test: localItem){
                 GeoTrans geo = new GeoTrans(0, test.getMapx(), test.getMapy()); //katech(네이버 제공 위치) -> 위경도 변환
-
-                String restName  = test.getTitle();
-                restName.replace("<b>" , " ");
-
-                result.setRestaurantName(restName);
-
-
+                String editted= test.getTitle().replace("<b>" , " ").replace("</b>"," ");
+                String neweditted = editted.substring(0, editted.length() - 1);
+                result.setRestaurantName(neweditted);
 
                     String category  = test.getCategory().split(">",4)[0];
                     if(category.equals("음식점")){

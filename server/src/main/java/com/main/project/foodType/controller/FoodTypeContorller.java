@@ -9,10 +9,15 @@ import com.main.project.foodType.entity.FoodType;
 import com.main.project.foodType.mapper.FoodTypeMapper;
 import com.main.project.foodType.dto.FoodTypeDto;
 import com.main.project.foodType.service.FoodTypeServiceImpl;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.util.*;
@@ -37,39 +42,42 @@ public class FoodTypeContorller {
         String newFoodTypeName = postDto.getTypeName();
         byte[] foodTypeImg =   multipartFile.getBytes();
        FoodType newFoodType  = foodTypeServiceImpl.makeFoodType(newFoodTypeName, foodTypeImg);
-
-        return new ResponseEntity(foodTypeMapper.FoodTypeToResponseDto(newFoodType), HttpStatus.CREATED);
+       FoodTypeDto.ResponseDtoWithType responseDtoWithType = foodTypeMapper.FoodTypeToResponseDto(newFoodType);
+        responseDtoWithType.setImgUrl(uriMaker(newFoodType.getTypeName()));
+        return new ResponseEntity(responseDtoWithType, HttpStatus.CREATED);
     }
 
     @PatchMapping("/edit")
     public ResponseEntity patchFoodType( FoodTypeDto.PatchDto patchDto){//기존에 등록한 푸드타입 이름 변경 api
 
        FoodType newNamedFoodType  = foodTypeServiceImpl.editFoodType(patchDto.getOldTypeName(), patchDto.getNewTypeName());
+        FoodTypeDto.ResponseDtoWithType responseDtoWithType = foodTypeMapper.FoodTypeToResponseDto(newNamedFoodType);
+        responseDtoWithType.setImgUrl(uriMaker(newNamedFoodType.getTypeName()));
 
-        return  new ResponseEntity<>(foodTypeMapper.FoodTypeToResponseDto(newNamedFoodType), HttpStatus.OK);
+
+        return  new ResponseEntity<>(responseDtoWithType, HttpStatus.OK);
     }
 
     @PatchMapping("/edit/img/{foodtypename}")
     public ResponseEntity patchFoodTypeImg(@PathVariable("foodtypename") String foodTypeName, @RequestPart MultipartFile multipartFile) throws IOException {//기존에 등록한 푸드타입 이름 변경 api
 
         FoodType newNamedFoodType  = foodTypeServiceImpl.editFoodTypeImg(foodTypeName, multipartFile.getBytes());
-
-        return  new ResponseEntity<>(foodTypeMapper.FoodTypeToResponseDto(newNamedFoodType), HttpStatus.OK);
+        FoodTypeDto.ResponseDtoWithType responseDtoWithType = foodTypeMapper.FoodTypeToResponseDto(newNamedFoodType);
+        responseDtoWithType.setImgUrl(uriMaker(newNamedFoodType.getTypeName()));
+        return  new ResponseEntity<>(responseDtoWithType, HttpStatus.OK);
     }
-
-
 
 
     @GetMapping("/all")
     public ResponseEntity getAllFoodtype(){//foodtype 목록 반환
 
        List<FoodType> FoodTypeList = foodTypeServiceImpl.findAllFoodType();
-        List<FoodTypeDto.ResponseDto> responseDtos = FoodTypeList
+        List<FoodTypeDto.ResponseDtoWithType> responseDtoWithTypes = FoodTypeList
                 .stream()
-                .map(FoodType -> foodTypeMapper.FoodTypeToResponseDto(FoodType))
+                .map(FoodType -> new FoodTypeDto.ResponseDtoWithType(FoodType.getFoodTypeId(), FoodType.getTypeName(), uriMaker(FoodType.getTypeName())))
                 .collect(Collectors.toList());
 
-        return new ResponseEntity(new Muti_ResponseDTO<>(responseDtos), HttpStatus.FOUND);
+        return new ResponseEntity(new Muti_ResponseDTO<>(responseDtoWithTypes), HttpStatus.FOUND);
 
     }
 
@@ -79,7 +87,7 @@ public class FoodTypeContorller {
         List<Food> FoodList = foodTypeServiceImpl.findAllFoodByFoodType(foodType);
         List<FoodDto.ResponseDto> responseDtos = FoodList
                 .stream()
-                .map(Food -> foodMapper.foodToResponseDto(Food))
+                .map(Food -> new FoodDto.ResponseDto(Food.getFoodName()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity(new Muti_ResponseDTO<>(responseDtos), HttpStatus.FOUND);
@@ -95,6 +103,34 @@ public class FoodTypeContorller {
     }
 
 
+    private String uriMaker(String foodType){
+
+         String test =  ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/foodtype/download/img/")
+                .path(foodType)
+                 .encode()
+                .toUriString();
+
+        return test;
+    }
+
+    @GetMapping("/download/img/{foodtypename}")
+    public ResponseEntity<Resource> downloadPhoto(@PathVariable("foodtypename") String filename) throws Exception {
 
 
+        FoodType foodType = foodTypeServiceImpl.findFoodType(filename);
+
+
+//        HttpHeaders header = new HttpHeaders();
+//        header.add("Content-Type", );
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("image/png"))
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "photo; filename=\"" + foodType.getTypeName()
+                                + "\"")
+                .header(HttpHeaders.CONTENT_TYPE, "image/png")
+                .body(new ByteArrayResource(foodType.getImage()));
+
+    }
 }

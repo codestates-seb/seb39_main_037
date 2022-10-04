@@ -9,6 +9,9 @@ public interface FoodTypeMapper {
 
     FoodType postDtoToFoodType(FoodTypeDto.PostDto postDto);
     FoodType patchDtoToFoodType(FoodTypeDto.PatchDto patchDto);
-    FoodTypeDto.ResponseDto FoodTypeToResponseDto(FoodType foodType);
+    FoodTypeDto.ResponseDtoWithType FoodTypeToResponseDto(FoodType foodType);
+
+
+
 
 }

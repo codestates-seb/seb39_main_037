@@ -1,5 +1,6 @@
 package com.main.project.foodType.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,10 +30,22 @@ public class FoodTypeDto {
     @Getter
     @Setter
     @NoArgsConstructor
-    public static class ResponseDto{
-        String foodTypeId;
+    @AllArgsConstructor
+    public static class ResponseDtoWithType {
+        long foodTypeId;
         String typeName;
+        String imgUrl;
 
+    }
+
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ResponseDtoWithFood {
+        long foodId;
+        String foodName;
     }
 
 }
