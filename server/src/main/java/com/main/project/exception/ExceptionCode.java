@@ -22,6 +22,7 @@ public enum ExceptionCode {
 
     FOOD_NOT_EXIST(901, "해당 푸드는 존재하지 않습니다. "),
     DUPLICATE_FOOD(902, "동일한 푸드가 존재합니다."),
+    TOKEN_IS_EXPIRED(902, "토큰이 만료 되었습니다."),
 
     FILE_IS_NOT_EXIST(102, "해당 파일은 존재하지 않습니다 ."),
     LOCATION_NOT_FOUND(402, "지역이 존재하지 않습니다."),

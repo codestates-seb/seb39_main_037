@@ -38,7 +38,7 @@ public class CommentController {
         this.userService = userService;
     }
 
-    @PostMapping("/post")
+    @PostMapping("/post/{user-id}")
     public ResponseEntity postComment (@Valid @RequestBody CommentPostDto commentPostDto) {
         long userId = commentPostDto.getUserId();
         long reviewId = commentPostDto.getReviewId();

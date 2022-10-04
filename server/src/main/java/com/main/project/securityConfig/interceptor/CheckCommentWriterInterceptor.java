@@ -11,6 +11,7 @@ import com.main.project.comment.service.CommentServiceImpl;
 import com.main.project.review.dto.ReviewPatchDto;
 import com.main.project.review.dto.ReviewPostDto;
 import com.main.project.review.entity.Review;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -19,7 +20,9 @@ import org.springframework.web.servlet.HandlerMapping;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import java.util.Enumeration;
 import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -44,12 +47,10 @@ public class CheckCommentWriterInterceptor implements HandlerInterceptor {
 
         if (httpMethod.equals("POST")) {//post일 경우 json userId와 토큰 id를 체크한다.
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            ServletInputStream test = request.getInputStream();//리뷰를 쓴 아이디 확인
-            String messageBody = StreamUtils.copyToString(test, UTF_8);
-            CommentPostDto commentPostDto = objectMapper.readValue(messageBody, CommentPostDto.class);
+            Map pathvariable  = (Map) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+            long commentingUserId = Long.parseLong((String) pathvariable.get("user-id"));
 
-            if (commentPostDto.getUserId()!=Long.parseLong(userId)) {
+            if (commentingUserId!=Long.parseLong(userId)) {
                 response.getOutputStream().println("인증정보가 올바르지 않습니다!!");
                 return false;
             }

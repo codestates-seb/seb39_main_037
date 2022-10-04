@@ -56,6 +56,7 @@ public class RestaurantController {
 
     @GetMapping("{restaurant-id}") // 사용자가 이용하는 검색 서비스 구현
     public ResponseEntity findRestaurant(@PathVariable("restaurant-id") long restaurantId) {
+
         Restaurant restaurant = restaurantServiceImpl.findRestaurant(restaurantId);
         double aveTaste = reviewService.aveTasteStar(restaurantId);
         restaurant.setAveTaste(Math.round(aveTaste*100)/100.0);
@@ -66,6 +67,7 @@ public class RestaurantController {
         restaurantRepository.save(restaurant);
         System.out.println("test ave(T,F,P) " + aveTaste + ", " + aveFacility + ", " + avePrice); //별점 평균 구현
         return new ResponseEntity<>(restaurantMapper.restaurantToRestaurantPatchResponseDto(restaurant), HttpStatus.OK);
+
     }
 
     @GetMapping("/all/{page}") //관리자 이용
@@ -75,6 +77,7 @@ public class RestaurantController {
         List<Restaurant> restaurants = pageRestaurant.getContent();
 
         return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants),pageRestaurant), HttpStatus.OK);
+
     }
 
     @DeleteMapping("/delete/{restaurant-id}")
