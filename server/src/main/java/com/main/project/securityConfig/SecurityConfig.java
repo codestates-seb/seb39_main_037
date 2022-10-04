@@ -2,6 +2,7 @@ package com.main.project.securityConfig;
 
 
 
+import com.main.project.securityConfig.filter.JwtExceptionFilter;
 import com.main.project.securityConfig.service.PrincipalOauth2UserService;
 import com.main.project.securityConfig.filter.JwtAuthenticationFilter;
 import com.main.project.securityConfig.filter.JwtAuthorizationFilter;

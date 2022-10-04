@@ -149,7 +149,9 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     @Transactional
     public Page<Restaurant> search(String title, int page) { //리뷰 검색기능 구현
-        return restaurantRepository.findByRestaurantNameContaining(title, PageRequest.of(page, 10, Sort.by("restaurantId").descending()));
+
+        Page<Restaurant> restaurants =  restaurantRepository.findByRestaurantNameContaining(title, PageRequest.of(page, 10, Sort.by("restaurantId").descending()));
+        return  restaurants;
     }
 
     public void delete(long restaurantId) {

@@ -48,7 +48,7 @@ public class FoodTypeContorller {
     }
 
     @PatchMapping("/edit")
-    public ResponseEntity patchFoodType( FoodTypeDto.PatchDto patchDto){//기존에 등록한 푸드타입 이름 변경 api
+    public ResponseEntity patchFoodType(@RequestBody FoodTypeDto.PatchDto patchDto){//기존에 등록한 푸드타입 이름 변경 api
 
        FoodType newNamedFoodType  = foodTypeServiceImpl.editFoodType(patchDto.getOldTypeName(), patchDto.getNewTypeName());
         FoodTypeDto.ResponseDtoWithType responseDtoWithType = foodTypeMapper.FoodTypeToResponseDto(newNamedFoodType);
@@ -119,10 +119,6 @@ public class FoodTypeContorller {
 
 
         FoodType foodType = foodTypeServiceImpl.findFoodType(filename);
-
-
-//        HttpHeaders header = new HttpHeaders();
-//        header.add("Content-Type", );
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("image/png"))

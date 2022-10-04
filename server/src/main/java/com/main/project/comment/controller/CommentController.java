@@ -50,7 +50,7 @@ public class CommentController {
         return new ResponseEntity(commentMapper.commentToCommentResponseDto(createdComment), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/edit/{review-id}")
+    @PatchMapping("/edit/{comment-id}")
     public ResponseEntity patchComment (@Valid @RequestBody CommentPatchDto commentPatchDto) {
 
         Comment comment= commentMapper.commentPatchDtoToComment(commentPatchDto);
