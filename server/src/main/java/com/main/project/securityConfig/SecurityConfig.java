@@ -27,6 +27,7 @@ public class SecurityConfig {
 
     private final CorsFilter corsFilter;
     private final UserService userService;
+    private final JwtExceptionFilter jwtExceptionFilter;
 
     @Autowired
     private PrincipalOauth2UserService principalOauth2UserService;
@@ -89,8 +90,8 @@ public class SecurityConfig {
             builder
                     .addFilter(corsFilter)
                     .addFilter(new JwtAuthenticationFilter(authenticationManager))
-                    .addFilter(new JwtAuthorizationFilter(authenticationManager, userService)); // 발급한 토큰을 다시 클라이언트한테서 받아서 인가 요청 처리할 커스텀 필터 추가
-
+                    .addFilter(new JwtAuthorizationFilter(authenticationManager, userService))// 발급한 토큰을 다시 클라이언트한테서 받아서 인가 요청 처리할 커스텀 필터 추가
+                    .addFilterBefore(jwtExceptionFilter, JwtAuthorizationFilter.class);
         }
 
 

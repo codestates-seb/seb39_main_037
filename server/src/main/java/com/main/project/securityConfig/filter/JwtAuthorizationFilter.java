@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -48,9 +49,8 @@ public class    JwtAuthorizationFilter extends BasicAuthenticationFilter {//로�
              email = JWT.require(Algorithm.HMAC512("seb29_main37 jwt token")).build().verify(jwtToken).getClaim("username").asString();// 토큰 만료 에러 발생
         }
         catch(TokenExpiredException e){
-            e.printStackTrace();
-//            throw new BusinessLogicException(ExceptionCode.TOKEN_IS_EXPIRED);
-            request.setAttribute("토큰이 만료되었습니다", new BusinessLogicException(ExceptionCode.TOKEN_IS_EXPIRED));
+            throw new JwtException("토큰 기간 만료");
+//            request.setAttribute("The Token has expired", new BusinessLogicException(ExceptionCode.TOKEN_IS_EXPIRED));
         }
         if (email != null) {
             WebUser memberEntity = userService.findUserByEmail(email);
