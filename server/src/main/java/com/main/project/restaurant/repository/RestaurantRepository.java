@@ -18,6 +18,8 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     @Query("SELECT r fROM Restaurant r WHERE r.restaurantName LIKE %:title%")
     Page<Restaurant> findByRestaurantNameContaining(@Param("title") String title, Pageable pageable); // 사용자가 검색했을때 나오는 식당 값
+     @Query("SELECT r FROM Restaurant r WHERE r.location.id = :locationId")
+     Page<Restaurant> findByLocation(long locationId, Pageable pageable);
 
     Optional<Object> findByCategoryContaining(String category);
 }

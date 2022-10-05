@@ -153,6 +153,10 @@ public class RestaurantServiceImpl implements RestaurantService{
         Page<Restaurant> restaurants =  restaurantRepository.findByRestaurantNameContaining(title, PageRequest.of(page, 10, Sort.by("restaurantId").descending()));
         return  restaurants;
     }
+    public Page<Restaurant> findLocationRestaurant(long locationId, int page) {
+
+        return restaurantRepository.findByLocation(locationId, PageRequest.of(page, 10, Sort.by("restaurantId").descending()));
+    }
 
     public void delete(long restaurantId) {
         restaurantRepository.deleteById(restaurantId);
