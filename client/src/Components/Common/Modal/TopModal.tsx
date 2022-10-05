@@ -9,7 +9,7 @@ interface propsType {
 }
 
 const TopModal = ({ setModal }: propsType) => {
-  const { currentLocation } = useCurrentLocation();
+  const { currentLocation, setCurrentLocation } = useCurrentLocation();
   const { currentUser, setCurrentUser } = useCurrentUser();
   const handleClick = () => {
     setModal(false);
@@ -22,6 +22,11 @@ const TopModal = ({ setModal }: propsType) => {
         nickName: "",
         profileImgUrl: "",
         userName: "",
+      });
+      setCurrentLocation({
+        locationId: 0,
+        stateName: "",
+        cityName: "",
       });
       localStorage.removeItem("user-token");
     }

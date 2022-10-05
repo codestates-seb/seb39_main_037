@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-expressions */
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import useCurrentLocation from "Hooks/useCurrentLocation";
 import useCurrentUser from "Hooks/useCurrentUser";
-// import useDetectClose from "Hooks/useDetectClose";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const IconDropDown = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
+  const { setCurrentLocation } = useCurrentLocation();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const iconHandle = () => {
@@ -21,6 +22,11 @@ const IconDropDown = () => {
         nickName: "",
         profileImgUrl: "",
         userName: "",
+      });
+      setCurrentLocation({
+        locationId: 0,
+        stateName: "",
+        cityName: "",
       });
       localStorage.removeItem("user-token");
     }
