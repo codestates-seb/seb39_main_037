@@ -1,7 +1,7 @@
 package com.main.project.review.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.main.project.badge.UserBadge;
+import com.main.project.badge.entity.UserBadge;
 import com.main.project.foodType.entity.FoodType;
 import com.main.project.location.entity.Location;
 import com.main.project.restaurant.entity.Restaurant;

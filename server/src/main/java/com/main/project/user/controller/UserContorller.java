@@ -102,50 +102,16 @@ public class UserContorller {
     }
 
 
-    @GetMapping("/mypage")
-    public ResponseEntity getUser(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
+    @GetMapping("/mypage/{user-id}")
+    public ResponseEntity getMyUser(@PathVariable("user-id") long userid){
 
-        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
+        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(userid);
 
         ResponseEntity test =  new ResponseEntity( webUserActivity, HttpStatus.OK);
+
+
         return test;
     }
-
-
-//    @GetMapping("/mypage/review")
-//    public ResponseEntity getUserReview(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
-//
-//        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
-//
-//        return new ResponseEntity(webUserActivity.getListOfReview(), HttpStatus.FOUND);
-//    }
-//
-//
-//    @GetMapping("/mypage/badge")
-//    public ResponseEntity getUserBadge(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
-//
-//        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
-//
-//        return new ResponseEntity(webUserActivity.getListOfBadge(), HttpStatus.FOUND);
-//    }
-//
-//
-//    @GetMapping("/mypage/comment")
-//    public ResponseEntity getUserComment(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
-//
-//        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
-//
-//        return new ResponseEntity(webUserActivity.getListOfComment(), HttpStatus.FOUND);
-//    }
-//
-//
-//    @GetMapping("/mypage/thumbup")
-//    public ResponseEntity getUserThumnUps(@RequestBody UserDto.getMyUserActivityDetailsDto getMyUserActivityDetailsDto){
-//
-//        UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
-//
-//        return new ResponseEntity(webUserActivity.getListOfThumbUp(), HttpStatus.FOUND);
-//    }
 
 
     @GetMapping("/search/all/{page}")
@@ -159,21 +125,9 @@ public class UserContorller {
         return  new ResponseEntity(new Multi_ResponseDTOwithPageInfo<>(allUser, pageUsers), HttpStatus.OK);
     }
 
-
-
-
-
-
-
     @GetMapping("/download/photo/{filename}")
     public ResponseEntity<Resource> downloadPhoto(@PathVariable("filename") String filename) throws Exception {
-
-
         WebUser user = userService.findUserByFileName(filename);
-
-
-//        HttpHeaders header = new HttpHeaders();
-//        header.add("Content-Type", );
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("image/png"))

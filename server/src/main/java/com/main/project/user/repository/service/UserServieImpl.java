@@ -1,6 +1,6 @@
 package com.main.project.user.repository.service;
 
-import com.main.project.badge.UserBadge;
+import com.main.project.badge.entity.UserBadge;
 import com.main.project.badge.entity.Badge;
 import com.main.project.badge.service.BadgeServiceImpl;
 import com.main.project.comment.entity.Comment;
@@ -19,11 +19,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServieImpl implements  UserService{
@@ -94,15 +95,23 @@ public class UserServieImpl implements  UserService{
         }
 
         @Override
-        public UserDto.responseUserActivityDto findMyUserActivity(UserDto.getMyUserActivityDetailsDto myUserDto) {
-                WebUser webUser = checkUserByUserId(myUserDto.getUserId());
+        public UserDto.responseUserActivityDto findMyUserActivity(long userId) {
+                WebUser webUser = checkUserByUserId(userId);
 
                 List<Comment> ListOfComment = webUser.getComments();
                 List<Review> ListOfReview =  webUser.getReviews();
                 List<ThumbUp> ListOfThumbUp = webUser.getThumbUps();
                 List<UserBadge> ListOfBadge = webUser.getUserBadges();
+                List<UserDto.responseBadgeDto> responseBadgeDtos = ListOfBadge.stream()
+                        .map(userbadge -> new UserDto.responseBadgeDto(userbadge.getBadge().getBadgeId(), userbadge.getBadge().getBadgeName(),
+                                userbadge.getBadge().getDescription(), uriMaker(userbadge.getBadge(), "badge"))).collect(Collectors.toList());
 
-                return new UserDto.responseUserActivityDto(ListOfComment, ListOfReview, ListOfThumbUp,ListOfBadge);
+                UserDto.responseUserActivityDto responseUserActivityDto = new UserDto.responseUserActivityDto();
+                responseUserActivityDto.setListOfComment(ListOfComment);
+                responseUserActivityDto.setListOfReview(ListOfReview);
+                responseUserActivityDto.setListOfThumbUp(ListOfThumbUp);
+                responseUserActivityDto.setListOfBadge(responseBadgeDtos);
+                return responseUserActivityDto;
         }
 
         @Override
@@ -168,5 +177,13 @@ public class UserServieImpl implements  UserService{
                 if(deActiveUser.getIsUserActive()==WebUser.UserActive.Withdrawal){
                         throw new BusinessLogicException(ExceptionCode.ALREADY_DEACTICATED_USER);
                 }
+        }
+
+        public String uriMaker(Badge badge, String path){
+
+                return ServletUriComponentsBuilder.fromCurrentContextPath()
+                        .path("/"+ path + "/download/")
+                        .path(String.valueOf(badge.getBadgeName()))
+                        .toUriString();
         }
 }

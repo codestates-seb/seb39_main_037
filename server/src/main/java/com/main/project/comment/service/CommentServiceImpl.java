@@ -1,6 +1,7 @@
 package com.main.project.comment.service;
 
 
+import com.main.project.badge.service.BadgeServiceImpl;
 import com.main.project.comment.entity.Comment;
 import com.main.project.comment.repository.CommentRepository;
 import com.main.project.exception.BusinessLogicException;
@@ -24,10 +25,13 @@ public class CommentServiceImpl implements CommentService {
     UserService userService;
     ReviewServiceImpl reviewServiceImpl;
 
-    public CommentServiceImpl(CommentRepository commentRepository, UserService userService, ReviewServiceImpl reviewServiceImpl) {
+    BadgeServiceImpl badgeService;
+
+    public CommentServiceImpl(CommentRepository commentRepository, UserService userService, ReviewServiceImpl reviewServiceImpl, BadgeServiceImpl badgeService) {
         this.commentRepository = commentRepository;
         this.userService = userService;
         this.reviewServiceImpl = reviewServiceImpl;
+        this.badgeService = badgeService;
     }
 
     public Comment createComment(long userId, long reviewId, Comment comment) {
@@ -37,7 +41,11 @@ public class CommentServiceImpl implements CommentService {
         if(reviewId!=0)  {
             comment.addReview(reviewServiceImpl.findVerifiedReview(reviewId));
         }
-        return  commentRepository.save(comment);
+
+        Comment newComment = commentRepository.save(comment);
+        badgeService.assignCommentBadge(userId);
+
+        return  newComment;
 
     }
 

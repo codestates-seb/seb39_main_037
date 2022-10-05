@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,13 +53,18 @@ public class ReviewController {
         this.userService = userService;
     }
 
+    @Transactional
     @PostMapping("/post/{user-id}")
-    public ResponseEntity postReview (@Valid @RequestBody ReviewPostDto reviewPostDto, @AuthenticationPrincipal Authentication webUser) {
+    public ResponseEntity postReview (@Valid @RequestBody ReviewPostDto reviewPostDto) {
 
 
         long userId = reviewPostDto.getUserId();
         long restaurantId = reviewPostDto.getRestaurantId();
-        Review review = reviewServiceImpl.createReview(userId, restaurantId, reviewMapper.reviewPostDtoToReview(reviewPostDto));
+        Review preReview = reviewMapper.reviewPostDtoToReview(reviewPostDto);
+
+        System.out.println("1111111111");
+
+        Review review = reviewServiceImpl.createReview(userId, restaurantId,preReview);
 
         return new ResponseEntity<>(reviewMapper.reviewToReviewResponseDto(review),
                 HttpStatus.CREATED);

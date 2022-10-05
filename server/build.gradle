@@ -35,14 +35,11 @@ dependencies {
 	implementation 'org.mapstruct:mapstruct:1.5.2.Final'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
 	implementation 'org.jsoup:jsoup:1.15.3'
-
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'com.auth0:java-jwt:4.0.0'
 	implementation 'org.jsoup:jsoup:1.13.1'
-
 	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 	implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.3.1'
-
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'com.google.code.gson:gson:2.8.5'
 }

@@ -6,10 +6,9 @@ import com.main.project.badge.mapper.BadgeMapper;
 import com.main.project.badge.repository.BadgeRepository;
 import com.main.project.badge.service.BadgeService;
 import com.main.project.badge.service.BadgeServiceImpl;
+import com.main.project.entity.GlobalMethod;
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
-import com.main.project.foodType.entity.FoodType;
-import com.main.project.user.entity.WebUser;
 import com.main.project.user.repository.service.UserService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -30,18 +29,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/badge")
 public class BadgeController {
 
-    BadgeServiceImpl  service;
+    BadgeServiceImpl badgeServiceImpl;
     BadgeMapper mapper;
-    UserService userService;
     BadgeRepository badgeRepository;
-    BadgeService badgeService;
+    GlobalMethod globalMethod;
 
-    public BadgeController(BadgeServiceImpl service, BadgeMapper mapper, UserService userService, BadgeRepository badgeRepository, BadgeService badgeService) {
-        this.service = service;
+    public BadgeController(BadgeServiceImpl badgeServiceImpl, BadgeMapper mapper, BadgeRepository badgeRepository, GlobalMethod globalMethod) {
+        this.badgeServiceImpl = badgeServiceImpl;
         this.mapper = mapper;
-        this.userService = userService;
         this.badgeRepository = badgeRepository;
-        this.badgeService = badgeService;
+        this.globalMethod = globalMethod;
     }
 
     @PostMapping
@@ -49,14 +46,19 @@ public class BadgeController {
                                     BadgeDto.postDto postDto) throws IOException {
         Badge newbadge = mapper.postDtoToBadge(postDto);
         newbadge.setBadgeImg(badgeImgFile.getBytes());
-        Badge postedBadge = service.makeNewBadge(newbadge);
-        return new ResponseEntity(mapper.badgeToResponseDto(postedBadge), HttpStatus.CREATED);
+        Badge postedBadge = badgeServiceImpl.makeNewBadge(newbadge);
+        BadgeDto.responseDto test = mapper.badgeToResponseDto(postedBadge);
+
+        String badgeImgUrl = globalMethod.uriMaker(postedBadge,"badge");
+        test.setBadgePhotoUrl(badgeImgUrl);
+
+        return new ResponseEntity(test, HttpStatus.CREATED);
     }
 
 
     @GetMapping("/all")
     public ResponseEntity getAllBadge(){
-        List<Badge> badgePage = service.findAllBadges();
+        List<Badge> badgePage = badgeServiceImpl.findAllBadges();
         List<BadgeDto.responseDto> responseDtos = badgePage.stream()
                 .map(badge -> new BadgeDto.responseDto(badge.getBadgeName(),badge.getDescription(),uriMaker(badge)))
                 .collect(Collectors.toList());
@@ -81,7 +83,7 @@ public class BadgeController {
     @DeleteMapping("/delete/{badgeId}")
     public ResponseEntity deleteBadge(@PathVariable("badgeId") long badgeId){
 
-        service.removeBadge(badgeId);
+        badgeServiceImpl.removeBadge(badgeId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
