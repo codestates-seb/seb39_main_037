@@ -9,7 +9,7 @@ interface IPatchReview {
 
 export const useUsers = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
-  console.log(currentUser.userId);
+
   // 회원정보
   const getUsers = async () => {
     const res: any = await get(`user/search/${currentUser.userId}`);
@@ -17,12 +17,9 @@ export const useUsers = () => {
     return res;
   };
   // 회원 리뷰
-  const getUsersReview = async ({ reviewId }: any) => {
-    const res: any = await get("foodtype/all").then((r: any) => {
-      console.log(r);
-      return { r };
-    });
-    return { res };
+  const getUsersReview = async ({ userId, page }: any) => {
+    const res: any = await get(`review/mypage/${currentUser.userId}/1`);
+    return res;
   };
   // 회원 좋아요
   const getUsersLike = async () => {

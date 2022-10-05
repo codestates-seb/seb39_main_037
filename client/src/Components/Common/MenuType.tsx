@@ -18,8 +18,10 @@ const MenuType = ({
   setSelectedmenuList,
 }: IRandomprops) => {
   const [menu, setMenu] = useState<string[]>([]);
+  const [menuList, setMenuList] = useState<string[]>([]);
   const [classname, setClassname] = useState<string>("");
-  const { getMenuType } = useMenuType();
+  const { getMenuType, getRandomMenu } = useMenuType();
+  const [nowmenuType, setNowmenuType] = useState();
 
   useEffect(() => {
     async function menuType() {
@@ -29,23 +31,36 @@ const MenuType = ({
     }
     menuType();
   }, []);
-  console.log(menu);
 
-  const ClickMenu = (e: React.MouseEvent<HTMLElement>) => {
+  const list: string[] = [];
+  useEffect(() => {
+    async function menuList() {
+      if (!nowmenuType) {
+        console.log("not choice");
+      } else {
+        getRandomMenu(nowmenuType).then((res) => {
+          console.log(res);
+          res.map(({ foodName }: any) => {
+            return list.push(foodName);
+          });
+          console.log(list);
+          setMenuList(list);
+        });
+      }
+    }
+    menuList();
+  }, [nowmenuType]);
+  console.log(menuList);
+
+  const ClickMenu = async (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     const target = e.currentTarget as HTMLInputElement;
-
-    // RandomMockupData.forEach(({ menuType, list, menuid }) => {
-    //   if (menuType === target.innerText) {
-    //     setSelectedmenuList(list);
-    //     setSelectedmenuType(menuType);
-    //     setClassname(`${menuid}`);
-    //   }
-    // });
+    setSelectedmenuList(menuList);
     menu.forEach(({ foodTypeId, typeName }: any) => {
       if (typeName === target.innerText) {
         setSelectedmenuType(typeName);
         setClassname(`${foodTypeId}`);
+        setNowmenuType(typeName);
       }
     });
   };

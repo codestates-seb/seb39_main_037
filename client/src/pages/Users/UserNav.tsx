@@ -1,13 +1,43 @@
+import { ReactComponent as BasicUserImg } from "Asset/BasicUserImg.svg";
+import Loading from "Components/Common/Loading";
+import { useUsers } from "Hooks/Api/Users";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { MockupData } from "./MockupData";
 import { UserNavData } from "./UserNavData";
 import UserNavItem from "./UserNavItem";
-
+// interface IUserInfo {
+//   null | string;
+// }
 const UsersNav = () => {
+  const [userImg, setUserImg] = useState<null | string>();
+  const { getUsers } = useUsers();
+  async function getData() {
+    await getUsers().then((res) => {
+      setUserImg(res.profile);
+    });
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+  // if (!userImg) {
+  //   return <Loading />;
+  // }
+  // MockupData.user_img
+  if (userImg === undefined) {
+    return <Loading />;
+  }
+
   return (
     <NavDiv>
-      <img src={`${MockupData.user_img}`} alt="프로필사진" />
+      {userImg === null ? (
+        <BasicUserImg />
+      ) : (
+        <img src={userImg} alt="프로필사진" />
+      )}
+
       <Content>
         {UserNavData.map(({ link, text, id }) => (
           <UserNavItem key={id} link={link} text={text} />
@@ -23,7 +53,7 @@ const NavDiv = styled.div`
   padding-left: 2rem;
   display: flex;
   flex-direction: column;
-
+  align-items: center;
   top: 80px;
   z-index: 1000;
   > img {
@@ -31,6 +61,16 @@ const NavDiv = styled.div`
     width: 200px;
     @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
       width: 80px;
+      padding-bottom: 0;
+      margin-right: 2rem;
+    }
+  }
+  > svg {
+    width: 150px;
+    height: 200px;
+    @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
+      width: 60%;
+      height: 60%;
       padding-bottom: 0;
       margin-right: 2rem;
     }

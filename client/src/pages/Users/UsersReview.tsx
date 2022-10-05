@@ -7,19 +7,18 @@ import UsersNav from "./UserNav";
 
 const UsersReview = () => {
   const [menu, setMenu] = useState<string[]>([]);
-  const { getUsers } = useUsers();
+  const { getUsersReview } = useUsers();
+  // const [user, setUser] = useState<IUserInfo>();
+  // async function getData() {
+  //   await getUsersReview(sdf).then((res) => {
+  //     console.log(sdf);
+  //     // setUser(res);
+  //   });
+  // }
 
   // useEffect(() => {
-  //   async function menuType() {
-  //     getUsers().then((res) => {
-  //       console.log();
-  //       // setMenu(res);
-  //     });
-  //   }
-  //   menuType();
+  //   getData();
   // }, []);
-  // console.log(menu);
-  // console.log(getUsers());
 
   return (
     <Container>

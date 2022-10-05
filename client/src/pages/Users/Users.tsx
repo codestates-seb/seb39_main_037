@@ -1,37 +1,38 @@
+import { ReactComponent as BasicUserImg } from "Asset/BasicUserImg.svg";
 import { CancelFinishButton } from "Components/Common/Button/CancelFinishButton";
 import UserButton from "Components/Common/Button/UserButton";
+import Loading from "Components/Common/Loading";
 import { useUsers } from "Hooks/Api/Users";
-import useCurrentUser from "Hooks/useCurrentUser";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { MockupData } from "./MockupData";
 import UsersNav from "./UserNav";
 
+interface IUserInfo {
+  email: string;
+  nickName: string;
+  profile: string | null;
+  userId: number;
+  userName: string;
+}
+
 const Users = () => {
   const [idOpen, setidOpen] = useState<boolean>(false);
   const [passwordOpen, setpasswordOpen] = useState<boolean>(false);
   const [nicknameOpen, setnicknameOpen] = useState<boolean>(false);
-  const { currentUser, setCurrentUser } = useCurrentUser();
   const { getUsers } = useUsers();
-  const [user, setUser] = useState();
-  // console.log(getUsers());
+  const [user, setUser] = useState<IUserInfo>();
+
   async function getData() {
-    // const data = await getUsers();
-    // console.log(data);
     await getUsers().then((res) => {
       setUser(res);
     });
-    // setUser(data);
   }
 
   useEffect(() => {
     getData();
   }, []);
-  console.log(user);
-
-  // const profileImg = currentUser.profileImgUrl;
-  // const Img = profileImg.slice(profileImg.lastIndexOf("/") + 1);
 
   const basicProfileImg = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -71,6 +72,10 @@ const Users = () => {
     }
   };
 
+  if (!user) {
+    return <Loading />;
+  }
+
   return (
     <Container>
       <UsersNav />
@@ -78,7 +83,11 @@ const Users = () => {
         <li>
           <ContentFirst>사진</ContentFirst>
           <ContentSecond>
-            <UserImg src={MockupData.user_img} alt="프로필 사진" />
+            {user.profile === null ? (
+              <BasicUserImgStyled />
+            ) : (
+              <UserImg src={MockupData.user_img} alt="프로필 사진" />
+            )}
             <div>사진을 등록해주세요</div>
             {/* <div>{user.profile}</div> */}
             <div>
@@ -100,10 +109,7 @@ const Users = () => {
             )}
           </div>
         </li>
-        <li>
-          <ContentFirst>아이디</ContentFirst>
-          <ContentSecond>{MockupData.user_id}</ContentSecond>
-        </li>
+
         <li>
           <ContentFirst>비밀번호</ContentFirst>
           {passwordOpen === true ? (
@@ -146,7 +152,7 @@ const Users = () => {
               </div>
             </ContentSecond>
           ) : (
-            <ContentSecond>{MockupData.nickname}</ContentSecond>
+            <ContentSecond>{user.nickName}</ContentSecond>
           )}
           <div>
             {nicknameOpen === true ? (
@@ -158,7 +164,7 @@ const Users = () => {
         </li>
         <li>
           <ContentFirst>이메일</ContentFirst>
-          <ContentSecond>{MockupData.user_email}</ContentSecond>
+          <ContentSecond>{user.email}</ContentSecond>
         </li>
       </UsersContent>
     </Container>
@@ -166,13 +172,6 @@ const Users = () => {
 };
 
 const Container = styled.div`
-  /* display: flex;
-  padding-bottom: 40rem;
-  @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
-    display: flex;
-    flex-direction: column;
-    padding-left: 2rem;
-  } */
   display: flex;
   width: 100%;
   min-height: 100vh;
@@ -222,6 +221,11 @@ const ButtonStyle = styled.button`
 `;
 
 const UserImg = styled.img`
+  width: 80px;
+  height: 80px;
+`;
+
+const BasicUserImgStyled = styled(BasicUserImg)`
   width: 80px;
   height: 80px;
 `;
