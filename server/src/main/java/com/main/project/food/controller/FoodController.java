@@ -57,7 +57,7 @@ public class FoodController {
         List<FoodDto.random3ResponseDto> responseDtos =  threeRandomFood.stream().map(Food -> new FoodDto.random3ResponseDto(Food.getFoodName(),Food.getFoodType().getTypeName())).collect(Collectors.toList());
 
 
-      return  new ResponseEntity(responseDtos, HttpStatus.FOUND );
+      return  new ResponseEntity(responseDtos, HttpStatus.OK );
     }
 
 
@@ -72,7 +72,7 @@ public class FoodController {
         List<FoodDto.random3ResponseDto> responseDtos =  threeRandomFood.stream().map(Food -> new FoodDto.random3ResponseDto(Food.getFoodName(),Food.getFoodType().getTypeName())).collect(Collectors.toList());
 
 
-        return new ResponseEntity(responseDtos, HttpStatus.FOUND );
+        return new ResponseEntity(responseDtos, HttpStatus.OK );
 
     }
 
@@ -81,7 +81,7 @@ public class FoodController {
     public ResponseEntity getFoodsByRetaurant(@RequestBody FoodDto.GetRestaurantDto getRestaurantDto) {
         List<Restaurant> restaurants = foodService.findRestaurantByFood(getRestaurantDto.getFoodId(), getRestaurantDto.getLocationId());
 
-        return new ResponseEntity(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.FOUND);
+        return new ResponseEntity(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.OK);
 
     }
 

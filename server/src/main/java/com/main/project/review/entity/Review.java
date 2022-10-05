@@ -1,5 +1,8 @@
 package com.main.project.review.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.main.project.comment.entity.Comment;
 import com.main.project.entity.BaseTimeEntity;
 import com.main.project.restaurant.entity.Restaurant;
@@ -19,6 +22,7 @@ import java.util.*;
 @Getter
 @Entity
 @Table(name = "review")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Review extends BaseTimeEntity {
 
     @Id
@@ -48,6 +52,7 @@ public class Review extends BaseTimeEntity {
     private String reviewImgUrl;
 
     private long foodTypeId;
+
 
     @ManyToOne
     @JoinColumn(name="user_Id")

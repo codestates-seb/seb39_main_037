@@ -61,7 +61,7 @@ public class BadgeController {
                 .map(badge -> new BadgeDto.responseDto(badge.getBadgeName(),badge.getDescription(),uriMaker(badge)))
                 .collect(Collectors.toList());
 
-        return new ResponseEntity(responseDtos, HttpStatus.FOUND);
+        return new ResponseEntity(responseDtos, HttpStatus.OK);
     }
 
     @GetMapping("/download/{badgename}")

@@ -1,6 +1,7 @@
 package com.main.project.restaurant.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.main.project.foodType.entity.FoodType;
 import com.main.project.location.entity.Location;
 import com.main.project.review.entity.Review;
@@ -50,9 +51,11 @@ public class Restaurant {
     @JoinColumn(name="location_Id")
     private Location location;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     List<RestaurantFood> foodList = new ArrayList();
 

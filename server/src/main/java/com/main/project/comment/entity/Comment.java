@@ -1,5 +1,8 @@
 package com.main.project.comment.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.main.project.entity.BaseTimeEntity;
 import com.main.project.review.entity.Review;
 import com.main.project.user.entity.WebUser;
@@ -14,6 +17,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Table(name = "comment")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Comment extends BaseTimeEntity {
 
     @Id

@@ -24,7 +24,7 @@ public class AdminController {
 
      List<WebUser> usersByDate =  userService.findUserBydate(startDate, endDate);
 
-        return new ResponseEntity(usersByDate, HttpStatus.FOUND);
+        return new ResponseEntity(usersByDate, HttpStatus.OK);
    }
 
 

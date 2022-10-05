@@ -77,7 +77,7 @@ public class FoodTypeContorller {
                 .map(FoodType -> new FoodTypeDto.ResponseDtoWithType(FoodType.getFoodTypeId(), FoodType.getTypeName(), uriMaker(FoodType.getTypeName())))
                 .collect(Collectors.toList());
 
-        return new ResponseEntity(new Muti_ResponseDTO<>(responseDtoWithTypes), HttpStatus.FOUND);
+        return new ResponseEntity(new Muti_ResponseDTO<>(responseDtoWithTypes), HttpStatus.OK);
 
     }
 
@@ -90,7 +90,7 @@ public class FoodTypeContorller {
                 .map(Food -> new FoodDto.ResponseDto(Food.getFoodName()))
                 .collect(Collectors.toList());
 
-        return new ResponseEntity(new Muti_ResponseDTO<>(responseDtos), HttpStatus.FOUND);
+        return new ResponseEntity(new Muti_ResponseDTO<>(responseDtos),HttpStatus.OK);
     }
 
 
