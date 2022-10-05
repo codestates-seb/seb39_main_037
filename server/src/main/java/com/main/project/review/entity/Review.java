@@ -1,7 +1,8 @@
 package com.main.project.review.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.main.project.comment.entity.Comment;
 import com.main.project.entity.BaseTimeEntity;
@@ -53,21 +54,26 @@ public class Review extends BaseTimeEntity {
 
     private long foodTypeId;
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="user_Id")
     private WebUser webUser;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "location_Id")
     private Location location;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "restaurant_Id")
     private Restaurant restaurant;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<ThumbUp> thumbUps = new ArrayList<>();
+
+    @JsonIgnore
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
@@ -81,5 +87,5 @@ public class Review extends BaseTimeEntity {
     public void addComment(Comment comment){
         comments.add(comment);
     }
-    public List<Comment> getCommentList(){ return comments;}
+
 }

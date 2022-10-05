@@ -2,6 +2,7 @@ package com.main.project.comment.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.main.project.entity.BaseTimeEntity;
 import com.main.project.review.entity.Review;
@@ -27,10 +28,12 @@ public class Comment extends BaseTimeEntity {
     @Column(length = 500, nullable = false)
     private String commentBody;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "review_Id")
     private Review review;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private WebUser webUser;
