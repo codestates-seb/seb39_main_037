@@ -1,6 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
 import LoginIcon from "@mui/icons-material/Login";
-import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import TopModal from "Components/Common/Modal/TopModal";
 import IconDropDown from "Components/Layout/Header/IconDropDown";
