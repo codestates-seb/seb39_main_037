@@ -1,12 +1,15 @@
 package com.main.project.restaurant.controller;
 
 import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
+import com.main.project.location.entity.Location;
+import com.main.project.location.service.LocationServiceImpl;
 import com.main.project.restaurant.dto.RestaurantDto;
 import com.main.project.restaurant.dto.RestaurantPatchDto;
 import com.main.project.restaurant.entity.Restaurant;
 import com.main.project.restaurant.mapper.RestaurantMapper;
 import com.main.project.restaurant.repository.RestaurantRepository;
 import com.main.project.restaurant.service.RestaurantServiceImpl;
+import com.main.project.review.entity.Review;
 import com.main.project.review.service.ReviewServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +32,7 @@ public class RestaurantController {
     private final RestaurantMapper restaurantMapper;
     private final ReviewServiceImpl reviewService;
     private final RestaurantRepository restaurantRepository;
+    private final LocationServiceImpl locationService;
 
 
     @GetMapping("/api/search")
@@ -68,6 +72,17 @@ public class RestaurantController {
         System.out.println("test ave(T,F,P) " + aveTaste + ", " + aveFacility + ", " + avePrice); //별점 평균 구현
         return new ResponseEntity<>(restaurantMapper.restaurantToRestaurantPatchResponseDto(restaurant), HttpStatus.OK);
 
+    }
+    @GetMapping("/location/{location-id}/{page}")
+    public ResponseEntity getAllLocationRestaurant (@PathVariable("location-id") long locationId, @PathVariable("page") int page) {
+
+        Location location = locationService.findLocation(locationId);
+
+        Page<Restaurant> pageRestaurant = restaurantServiceImpl.findLocationRestaurant(locationId, page - 1);
+        List<Restaurant> restaurants = pageRestaurant.getContent();
+
+        return new ResponseEntity<>(new Multi_ResponseDTOwithPageInfo<>(restaurantMapper.restaurantsToRestaurantPatchResponseDtos(restaurants),pageRestaurant),
+                HttpStatus.OK);
     }
 
     @GetMapping("/all/{page}") //관리자 이용
