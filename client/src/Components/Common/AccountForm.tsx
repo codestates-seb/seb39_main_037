@@ -1,8 +1,8 @@
 import { HelpRounded } from "@mui/icons-material";
 import { Checkbox, OutlinedInput } from "@mui/material";
+import { SquareButtonForm } from "Components/Common/Button/SquareButtonForm";
 import { Modal } from "Components/Common/Modal/Modal";
 import { ModalContent } from "Components/Common/Modal/ModalContent";
-import { SquareButtonForm } from "Components/Common/SquareButtonForm";
 import { useAuth } from "Hooks/Api/Auth/index";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
