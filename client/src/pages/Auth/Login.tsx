@@ -1,12 +1,13 @@
 import { Facebook, GitHub, Google } from "@mui/icons-material";
 import AccountForm from "Components/Common/AccountForm";
-import { SquareButtonForm as ButtonForm } from "Components/Common/SquareButtonForm";
+import { SquareButtonForm as ButtonForm } from "Components/Common/Button/SquareButtonForm";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const Login = () => {
   const location = useLocation();
   const { email } = location.state || "";
+  console.log(location);
   return (
     <LoginForm>
       <ButtonForm

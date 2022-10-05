@@ -2,12 +2,12 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { SquareButtonForm } from "Components/Common/Button/SquareButtonForm";
 import Loading from "Components/Common/Loading";
-import { SquareButtonForm } from "Components/Common/SquareButtonForm";
-import { useLocation } from "Hooks/Api/Location";
+import { useLocation as useLocationApi } from "Hooks/Api/Location";
 import useCurrentLocation from "Hooks/useCurrentLocation";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 interface IStateObj {
@@ -22,7 +22,8 @@ interface ILocationObj {
 
 const LocationRegister = () => {
   const navigate = useNavigate();
-  const { getState, getCity } = useLocation();
+  const locationFrom = useLocation();
+  const { getState, getCity } = useLocationApi();
   const [stateOption, setStateOption] = useState<IStateObj[]>();
 
   const [locationOption, setLocationOption] = useState<ILocationObj[]>();
@@ -71,7 +72,13 @@ const LocationRegister = () => {
   const handleClick = () => {
     setCurrentLocation(location);
     alert(`${location.stateName}/${location.cityName}으로 저장되었습니다.`);
-    navigate(-1);
+    if (locationFrom.state === "fromLogin") {
+      // 로그인 한 후 위치저장이면 선택 후 메인화면
+      navigate("/");
+    } else {
+      // 아니면 navigate온 곳으로부터
+      navigate(-1);
+    }
   };
   if (!stateOption) {
     return <Loading />;
@@ -87,7 +94,7 @@ const LocationRegister = () => {
             <Select
               labelId="stateLocation"
               id="stateLocation"
-              value={String(state.stateId)}
+              // value={String(state.stateId)}
               label="광역자치단체"
               onChange={handleChangeState}
               MenuProps={{
@@ -108,15 +115,14 @@ const LocationRegister = () => {
                 className="locationSelect"
                 labelId="stateLocation"
                 id="stateLocation"
-                value={String(location.locationId)}
                 label="지방자치단체"
                 onChange={handleChangeLocation}
                 MenuProps={{
                   PaperProps: { sx: { maxHeight: `400px !important` } },
                 }}
               >
-                {locationOption.map((l) => (
-                  <MenuItem key={l.locationId} value={l.locationId}>
+                {locationOption.map((l, idx) => (
+                  <MenuItem key={l.locationId} value={idx + 1}>
                     {l.cityName}
                   </MenuItem>
                 ))}

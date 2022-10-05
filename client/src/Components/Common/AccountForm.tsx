@@ -1,9 +1,10 @@
 import { HelpRounded } from "@mui/icons-material";
 import { Checkbox, OutlinedInput } from "@mui/material";
+import { SquareButtonForm } from "Components/Common/Button/SquareButtonForm";
 import { Modal } from "Components/Common/Modal/Modal";
 import { ModalContent } from "Components/Common/Modal/ModalContent";
-import { SquareButtonForm } from "Components/Common/SquareButtonForm";
 import { useAuth } from "Hooks/Api/Auth/index";
+import useCurrentLocation from "Hooks/useCurrentLocation";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -24,6 +25,7 @@ const AccountForm = ({
   password = "",
 }: IAccountProps) => {
   const { postSignUp, postLogin } = useAuth();
+  const { currentLocation } = useCurrentLocation();
   const navigate = useNavigate();
   const isSignup = title === "회원가입"; // title이 회원가입 IsLogin 이 true
   const isLogin = title === "로그인"; // title이 로그인이면 IsLogin 이 true
@@ -62,7 +64,13 @@ const AccountForm = ({
         postLogin({ email: emailForm, password: passwordForm }).then(
           (r: any) => {
             alert(`${r.data.nickName}님 환영합니다`);
-            navigate(-1);
+            if (currentLocation.locationId !== 0) {
+              // 위치 저장했으면 이전페이지로
+              navigate(-1);
+            } else {
+              // 위치저장안했으면 위치저장페이지로
+              navigate("/location", { state: "fromLogin" });
+            }
           },
         );
       }

@@ -1,4 +1,4 @@
-import { del, get, patch } from "Utils/api";
+import { del, get, patch, post } from "Utils/api";
 
 interface IPatchReview {
   reviewId: number;
@@ -11,6 +11,16 @@ interface IPatchReview {
 }
 
 export const useReview = () => {
+  // https://foodreco.tk/review/restaurant/6/1
+  const getReviewByRestaurant = async ({ restaurantId, page }: any) => {
+    const res = await get(`/review/restaurant/${restaurantId}/${page}`).then(
+      (r: any) => {
+        console.log(r);
+        return r;
+      },
+    );
+    return res;
+  };
   const getReview = async ({ reviewId }: any) => {
     const res = await get(`/review/${reviewId}`).then((r: any) => {
       console.log(r);
@@ -50,5 +60,20 @@ export const useReview = () => {
     return res;
   };
 
-  return { getReview, patchReview, delReview };
+  const postThumb = async ({ reviewId, userId }: any) => {
+    const res = await post(`thumbUp/post/${reviewId}`, { userId }).then(
+      (r: any) => {
+        console.log(r);
+        return r;
+      },
+    );
+  };
+
+  return {
+    getReviewByRestaurant,
+    getReview,
+    patchReview,
+    delReview,
+    postThumb,
+  };
 };

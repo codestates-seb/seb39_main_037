@@ -1,4 +1,4 @@
-import ToTopButton from "Components/Common/ToTopButton";
+import ToTopButton from "Components/Common/Button/ToTopButton";
 import Footer from "Components/Layout/Footer/Footer";
 import Header from "Components/Layout/Header/Header";
 import Admin from "pages/Admin/Admin";

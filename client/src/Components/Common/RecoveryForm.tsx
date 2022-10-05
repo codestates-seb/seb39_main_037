@@ -1,7 +1,7 @@
 import { LockReset } from "@mui/icons-material";
 import { OutlinedInput } from "@mui/material";
+import { SquareButtonForm } from "Components/Common/Button/SquareButtonForm";
 import PinInput from "Components/Common/PinInput";
-import { SquareButtonForm } from "Components/Common/SquareButtonForm";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
