@@ -24,8 +24,8 @@ const PaginationForm = ({
         totalItemsCount={totalItemsCount}
         pageRangeDisplayed={5}
         onChange={handleChange}
-        prevPageText="Prev"
-        nextPageText="Next"
+        prevPageText="<"
+        nextPageText=">"
       />
     </PaginationWrapper>
   );

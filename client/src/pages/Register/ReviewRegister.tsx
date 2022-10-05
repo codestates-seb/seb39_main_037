@@ -3,17 +3,19 @@ import { SquareButtonForm } from "Components/Common/Button/SquareButtonForm";
 import RatingImg from "Components/Common/RatingImg";
 import ToastEditor from "Components/Common/Toast/ToastEditor";
 import { useRegister } from "Hooks/Api/Register";
+import useCurrentRestaurant from "Hooks/useCurrentRestaurant";
 import useCurrentUser from "Hooks/useCurrentUser";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { IRestaurant } from "Types";
 
 const ReviewRegister = () => {
+  const { currentRestaurant } = useCurrentRestaurant();
   const { currentUser } = useCurrentUser(); // 로그인 한 유저
   const { postReview } = useRegister();
   const [thumbnail, setThumbnail] = useState<string | null>(null);
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const restaurant = { title: "지영반점", id: 15 };
 
   const [tasteStar, setTasteStar] = useState<number>(1);
   const [facilityStar, setFacilityStar] = useState<number>(1);
@@ -27,13 +29,13 @@ const ReviewRegister = () => {
       facilityStar,
       priceStar,
       userId: currentUser.userId,
-      restaurantId: restaurant.id,
+      restaurantId: currentRestaurant.restaurantId,
     });
   };
   return (
     <ReviewRegisterWrapper>
       <ReviewRegisterContainer>
-        <div className="title">{restaurant.title}리뷰쓰기</div>
+        <div className="title">{currentRestaurant.restaurantName}리뷰쓰기</div>
         <ReviewForm>
           <InputLabel>
             <span>제목</span>

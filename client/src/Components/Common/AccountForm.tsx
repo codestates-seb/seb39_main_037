@@ -69,7 +69,7 @@ const AccountForm = ({
               navigate(-1);
             } else {
               // 위치저장안했으면 위치저장페이지로
-              navigate("/location");
+              navigate("/location", { state: "fromLogin" });
             }
           },
         );

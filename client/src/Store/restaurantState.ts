@@ -1,6 +1,9 @@
 import { atom } from "recoil"; // recoil 상태관리
+import { recoilPersist } from "recoil-persist"; // 로컬스토리지에 저장됨
+import { IRestaurant } from "Types";
 
-export const restaurantState = atom({
+const { persistAtom } = recoilPersist();
+export const restaurantState = atom<IRestaurant>({
   key: "restaurantState",
   default: {
     restaurantId: 0,
@@ -17,4 +20,5 @@ export const restaurantState = atom({
     locationId: 0,
     foodTypeName: "",
   },
+  effects_UNSTABLE: [persistAtom],
 });
