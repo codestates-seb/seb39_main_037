@@ -1,7 +1,7 @@
 package com.main.project.user.entity;
 
 import com.fasterxml.jackson.annotation.*;
-import com.main.project.badge.UserBadge;
+import com.main.project.badge.entity.UserBadge;
 import com.main.project.comment.entity.Comment;
 import com.main.project.review.entity.Review;
 import com.main.project.thumbUp.entity.ThumbUp;
@@ -17,7 +17,6 @@ import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @NoArgsConstructor

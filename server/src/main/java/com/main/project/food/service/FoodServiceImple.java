@@ -97,8 +97,8 @@ public class FoodServiceImple implements FoodService{
 
     public List<Restaurant> findRestaurantByFood(long foodId, long locationId) {
 
-
-         List<RestaurantFood> restaurantFood123 = restaurantFoodRepository.findAllByFood(foodRepository.findById(foodId).get());
+       Food food = foodRepository.findById(foodId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.FOOD_NOT_EXIST));
+         List<RestaurantFood> restaurantFood123 = restaurantFoodRepository.findAllByFood(food);
 
 
         List<RestaurantFood> restaurantFood = restaurantFood123.stream()
@@ -110,7 +110,7 @@ public class FoodServiceImple implements FoodService{
         long[] restaurantList = new long[restaurantFood.size()];
         List<Restaurant> restaurants = new ArrayList<>();
         for(int i = 0; i<restaurantList.length; i++){
-            restaurantList[i] = restaurantFood.get(i).getRestaurantFoodId();//조건에 맞는 레스토랑Id의 리스트
+            restaurantList[i] = restaurantFood.get(i).getRestaurant().getRestaurantId();//조건에 맞는 레스토랑Id의 리스트
         }
         for(int i = 0; i<restaurantList.length; i++){
             restaurants.add(restaurantRepository.findById(restaurantList[i]).get());

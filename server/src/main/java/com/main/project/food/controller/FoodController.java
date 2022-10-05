@@ -51,9 +51,9 @@ public class FoodController {
 
 
     @GetMapping("/random")
-    public ResponseEntity getFoods(@RequestBody FoodDto.GetDto getDto){
+    public ResponseEntity getFoods(@RequestParam String foodType){
 
-        List<Food> threeRandomFood = foodService.random3Foods(getDto.getFoodType());
+        List<Food> threeRandomFood = foodService.random3Foods(foodType);
         List<FoodDto.random3ResponseDto> responseDtos =  threeRandomFood.stream().map(Food -> new FoodDto.random3ResponseDto(Food.getFoodName(),Food.getFoodType().getTypeName())).collect(Collectors.toList());
 
 
@@ -63,11 +63,11 @@ public class FoodController {
 
 
     @GetMapping("/randoms")
-    public ResponseEntity getFoods(@RequestBody FoodDto.GetMultiDto getMultiDto){
+    public ResponseEntity getFoods(@RequestParam  List<String> foodTypes){
 
-          List filterTypes = List.of(getMultiDto.getFoodTypes());
+//          List filterTypes = List.of(getMultiDto.getFoodTypes());
 
-        List<Food> threeRandomFood = foodService.random3FoodsByManyFilter(filterTypes);
+        List<Food> threeRandomFood = foodService.random3FoodsByManyFilter(foodTypes);
 
         List<FoodDto.random3ResponseDto> responseDtos =  threeRandomFood.stream().map(Food -> new FoodDto.random3ResponseDto(Food.getFoodName(),Food.getFoodType().getTypeName())).collect(Collectors.toList());
 
@@ -77,9 +77,9 @@ public class FoodController {
     }
 
 
-    @GetMapping("/find")
-    public ResponseEntity getFoodsByRetaurant(@RequestBody FoodDto.GetRestaurantDto getRestaurantDto) {
-        List<Restaurant> restaurants = foodService.findRestaurantByFood(getRestaurantDto.getFoodId(), getRestaurantDto.getLocationId());
+    @GetMapping("/find/{food-id}/{location-id}")
+    public ResponseEntity getFoodsByRetaurant(@PathVariable("food-id") long foodId, @PathVariable("location-id") long locationId) {
+        List<Restaurant> restaurants = foodService.findRestaurantByFood(foodId, locationId);
 
         return new ResponseEntity(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.OK);
 

@@ -1,6 +1,6 @@
 package com.main.project.user.dto;
 
-import com.main.project.badge.UserBadge;
+import com.main.project.badge.entity.UserBadge;
 import com.main.project.comment.entity.Comment;
 import com.main.project.review.entity.Review;
 import com.main.project.thumbUp.entity.ThumbUp;
@@ -77,11 +77,25 @@ public class UserDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    public static class responseBadgeDto{
+        long badgeId;
+        String badgeName;
+        String description;
+        String badgeImgUrl;
+
+    }
+
+
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class responseUserActivityDto{
         List<Comment> ListOfComment;
         List<Review> ListOfReview;
         List<ThumbUp> ListOfThumbUp;
-        List<UserBadge> ListOfBadge;
+        List<responseBadgeDto> ListOfBadge;
 
     }
 

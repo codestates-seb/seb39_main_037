@@ -21,7 +21,7 @@ public interface UserService {
 
     WebUser checkUserByUserId(long user);
 
-    UserDto.responseUserActivityDto findMyUserActivity(UserDto.getMyUserActivityDetailsDto myUserDto);
+    UserDto.responseUserActivityDto findMyUserActivity(long userId);
 
 
 

@@ -1,6 +1,6 @@
 package com.main.project.badge.entity;
 
-import com.main.project.badge.UserBadge;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +23,8 @@ public class Badge {
     @Column
     byte[] badgeImg;
 
+
+    @JsonIgnore
     @OneToMany(mappedBy = "badge", cascade = CascadeType.ALL)
     private List<UserBadge> userBadges = new ArrayList<>();
 

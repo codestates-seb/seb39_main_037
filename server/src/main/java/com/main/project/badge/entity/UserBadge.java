@@ -1,16 +1,19 @@
-package com.main.project.badge;
+package com.main.project.badge.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.main.project.badge.entity.Badge;
 import com.main.project.user.entity.WebUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @Entity
 public class UserBadge {
 
@@ -18,6 +21,7 @@ public class UserBadge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userBadgeId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_Id")
     private WebUser webUser;
@@ -37,12 +41,5 @@ public class UserBadge {
 
         }
     }
-
-//    public void addBadge(Badge badge) {
-//        this.badge = badge;
-//        if (!this.badge.getUserBadges().contains(this)) {
-//            this.badge.addBadgeUser(this);
-//        }
-//    }
 
 }
