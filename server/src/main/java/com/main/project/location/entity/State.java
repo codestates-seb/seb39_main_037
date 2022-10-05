@@ -1,6 +1,7 @@
 package com.main.project.location.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.main.project.location.entity.Location;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class State{
     @Column
     String stateName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
     private List<Location> locations = new ArrayList<>();
 

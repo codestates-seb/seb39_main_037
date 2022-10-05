@@ -2,6 +2,7 @@ package com.main.project.user.controller;
 
 
 import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
+import com.main.project.entity.Muti_ResponseDTO;
 import com.main.project.user.dto.UserDto;
 import com.main.project.user.entity.WebUser;
 import com.main.project.user.mapper.UserMapper;
@@ -97,7 +98,7 @@ public class UserContorller {
 
        WebUser webUser  = userService.checkUserByUserId(userid);
 
-       return new ResponseEntity(mapper.webUserToresponseUserDto(webUser), HttpStatus.FOUND);
+       return new ResponseEntity(mapper.webUserToresponseUserDto(webUser), HttpStatus.OK);
     }
 
 
@@ -106,7 +107,8 @@ public class UserContorller {
 
         UserDto.responseUserActivityDto webUserActivity  = userService.findMyUserActivity(getMyUserActivityDetailsDto);
 
-        return new ResponseEntity(webUserActivity, HttpStatus.FOUND);
+        ResponseEntity test =  new ResponseEntity( webUserActivity, HttpStatus.OK);
+        return test;
     }
 
 
@@ -154,7 +156,7 @@ public class UserContorller {
                 pageUsers.getContent().stream().map(WebUser -> new UserDto.responseWithPhotoUrlDTO(WebUser.getUserId(), WebUser.getUserName(), WebUser.getNickName(), WebUser.getEmail(), WebUser.getCreatedAt(), WebUser.getUpdatedAt(),uriMaker(WebUser) ))
                 .collect(Collectors.toList());
 
-        return  new ResponseEntity(new Multi_ResponseDTOwithPageInfo<>(allUser, pageUsers), HttpStatus.FOUND);
+        return  new ResponseEntity(new Multi_ResponseDTOwithPageInfo<>(allUser, pageUsers), HttpStatus.OK);
     }
 
 

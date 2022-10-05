@@ -2,6 +2,7 @@ package com.main.project.location.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,7 +23,7 @@ public class City {
         @Column
         String cityName;
 
-
+        @JsonIgnore
         @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
         private List<Location> locations = new ArrayList<>();
 }

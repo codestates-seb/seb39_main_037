@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -95,6 +96,7 @@ public class UserServieImpl implements  UserService{
         @Override
         public UserDto.responseUserActivityDto findMyUserActivity(UserDto.getMyUserActivityDetailsDto myUserDto) {
                 WebUser webUser = checkUserByUserId(myUserDto.getUserId());
+
                 List<Comment> ListOfComment = webUser.getComments();
                 List<Review> ListOfReview =  webUser.getReviews();
                 List<ThumbUp> ListOfThumbUp = webUser.getThumbUps();

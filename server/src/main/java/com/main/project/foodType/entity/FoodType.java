@@ -34,7 +34,7 @@ public class FoodType {
     @OneToMany(mappedBy = "foodType", cascade = CascadeType.ALL)
     List<Food> foodList = new ArrayList<>();
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "foodType", cascade = CascadeType.ALL)
     List<Restaurant> restaurant = new ArrayList();
 

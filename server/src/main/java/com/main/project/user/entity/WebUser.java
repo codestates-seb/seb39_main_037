@@ -1,5 +1,6 @@
 package com.main.project.user.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import com.main.project.badge.UserBadge;
 import com.main.project.comment.entity.Comment;
 import com.main.project.review.entity.Review;
@@ -16,13 +17,14 @@ import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 
 @NoArgsConstructor
 @Setter
 @Entity
 @Getter
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Table(name = "webUser")
 public class WebUser {
 
@@ -71,21 +73,27 @@ public class WebUser {
     @Column
     LocalDateTime updatedAt = LocalDateTime.now();
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
     private List<UserBadge> userBadges = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
     private List<ThumbUp> thumbUps = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "qnaUser", cascade = CascadeType.ALL)
     private List<QnA> userQnAs = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "webUser", cascade = CascadeType.DETACH)
     private List<Review> reviews = new ArrayList<>();
+
+
 
 
     @Getter
