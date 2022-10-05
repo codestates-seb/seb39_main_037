@@ -22,7 +22,7 @@ export const MockupComments = [
       profile_image:
         "https://www.gravatar.com/avatar/1ee974306d2def46eb69534fbcf95cc5?s=256&d=identicon&r=PG",
       nickname: "납니다",
-      comment: "머라고 어쩌구 저짜구 맛이",
+      comment: "머라고 어쩌구 저짜구 맛이sdfsdfsdfsefsd",
     },
     title: "1번이다",
     body: "1번 내용인데 어쩌고 저쩌구~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",

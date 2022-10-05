@@ -1,6 +1,8 @@
 import { CancelFinishButton } from "Components/Common/Button/CancelFinishButton";
 import UserButton from "Components/Common/Button/UserButton";
-import React, { useState } from "react";
+import { useUsers } from "Hooks/Api/Users";
+import useCurrentUser from "Hooks/useCurrentUser";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { MockupData } from "./MockupData";
@@ -10,6 +12,30 @@ const Users = () => {
   const [idOpen, setidOpen] = useState<boolean>(false);
   const [passwordOpen, setpasswordOpen] = useState<boolean>(false);
   const [nicknameOpen, setnicknameOpen] = useState<boolean>(false);
+  const { currentUser, setCurrentUser } = useCurrentUser();
+  const { getUsers } = useUsers();
+  const [user, setUser] = useState();
+  // console.log(getUsers());
+  async function getData() {
+    // const data = await getUsers();
+    // console.log(data);
+    await getUsers().then((res) => {
+      setUser(res);
+    });
+    // setUser(data);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+  console.log(user);
+
+  // const profileImg = currentUser.profileImgUrl;
+  // const Img = profileImg.slice(profileImg.lastIndexOf("/") + 1);
+
+  const basicProfileImg = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+  };
 
   const clickButton = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLInputElement;
@@ -49,19 +75,20 @@ const Users = () => {
     <Container>
       <UsersNav />
       <UsersContent>
-        <Litest>
+        <li>
           <ContentFirst>사진</ContentFirst>
           <ContentSecond>
             <UserImg src={MockupData.user_img} alt="프로필 사진" />
             <div>사진을 등록해주세요</div>
-            <DivTest>
+            {/* <div>{user.profile}</div> */}
+            <div>
               {idOpen === true && (
                 <>
                   <ButtonStyle type="button">사진 선택</ButtonStyle>
                   <ButtonStyle type="button">기본 이미지</ButtonStyle>
                 </>
               )}
-            </DivTest>
+            </div>
           </ContentSecond>
           <div>
             {idOpen === true ? (
@@ -72,7 +99,7 @@ const Users = () => {
               <UserButton text="사진" onClick={clickButton} />
             )}
           </div>
-        </Litest>
+        </li>
         <li>
           <ContentFirst>아이디</ContentFirst>
           <ContentSecond>{MockupData.user_id}</ContentSecond>
@@ -139,29 +166,43 @@ const Users = () => {
 };
 
 const Container = styled.div`
-  display: flex;
+  /* display: flex;
   padding-bottom: 40rem;
   @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
     display: flex;
     flex-direction: column;
     padding-left: 2rem;
+  } */
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
+    flex-direction: column;
   }
 `;
 
 const UsersContent = styled.section`
-  width: calc(100% - 164px);
-  display: flex;
-  flex-direction: column;
-  padding-top: 10rem;
+  flex: 1;
+  padding: 2rem;
+  max-width: 1000px;
 
   > li {
     list-style: none;
     display: flex;
     align-items: flex-start;
+    justify-content: space-between;
     padding: 2rem 2rem;
 
-    /* min-width: 1000px; */
     border-bottom: 4px solid rgb(247, 247, 247);
+    > div:nth-child(2) {
+      flex: 1;
+    }
+
+    @media screen and (max-width: ${({ theme }) => theme.breakPoints.mobile}) {
+      /* background-color: red; */
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 `;
 
@@ -170,7 +211,7 @@ const ContentFirst = styled.div`
 `;
 
 const ContentSecond = styled.div`
-  width: 450px;
+  width: 300px;
 `;
 
 const ButtonStyle = styled.button`
@@ -185,15 +226,4 @@ const UserImg = styled.img`
   height: 80px;
 `;
 
-const DivTest = styled.div`
-  /* display: flex;
-  overflow: hidden;
-  min-height: 1rem;
-  max-height: 10rem; */
-`;
-
-const Litest = styled.li`
-  /* min-height: 10rem;
-  max-height: 100rem; */
-`;
 export default Users;

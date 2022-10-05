@@ -18,14 +18,14 @@ const UsersNav = () => {
 };
 
 const NavDiv = styled.div`
+  flex: 0.3;
   padding-top: 2rem;
   padding-left: 2rem;
   display: flex;
   flex-direction: column;
-  position: relative;
+
   top: 80px;
   z-index: 1000;
-  margin-right: 5rem;
   > img {
     padding-bottom: 4rem;
     width: 200px;
@@ -39,7 +39,9 @@ const NavDiv = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-left: 0;
+    padding: 2rem;
+
+    justify-content: center;
   }
 `;
 
@@ -51,6 +53,8 @@ const Content = styled.div`
   @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    /* min-width: 300px; */
   }
 `;
 

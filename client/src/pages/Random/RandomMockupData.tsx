@@ -1,29 +1,25 @@
 export const RandomMockupData = [
   {
     menuid: 1,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/close-isolated-bowl-bibimbap-beef-600w-1973300186.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/2276/2276931.png",
     menuType: "한식",
     list: ["김치찌개", "된장찌개", "김치찜", "된장국", "김치국"],
   },
   {
     menuid: 2,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/2090/2090214.png",
     menuType: "중식",
     list: ["자장면", "짬뽕", "볶음밥", "탕수육", "사천탕수육", "유산슬"],
   },
   {
     menuid: 3,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/3183/3183419.png",
     menuType: "일식",
     list: ["스시", "돈까스", "오꼬노미야끼", "나가사키짬뽕", "장어덮밥"],
   },
   {
     menuid: 4,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/676/676746.png",
     menuType: "양식",
     list: [
       "뽀모도로",
@@ -36,113 +32,107 @@ export const RandomMockupData = [
   },
   {
     menuid: 5,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/7593/7593714.png",
     menuType: "아시안",
-    list: ["쌀국수", "된장찌개", "1234"],
+    list: ["쌀국수", "딤섬", "우육면", "그린 커리", "똠양꿍"],
   },
   {
     menuid: 6,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/4727/4727470.png",
     menuType: "분식",
-    list: ["김치찌개", "된장찌개", "1234"],
+    list: [
+      "떡볶이",
+      "김밥",
+      "라면",
+      "튀김",
+      "순대",
+      "호떡",
+      "어묵",
+      "쫄면",
+      "만두",
+    ],
   },
   {
     menuid: 7,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/7010/7010909.png",
     menuType: "카페/디저트",
     list: ["김치찌개", "된장찌개", "1234"],
   },
   {
     menuid: 8,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/6192/6192238.png",
     menuType: "고기",
-    list: ["김치찌개", "된장찌개", "1234"],
+    list: ["쪽갈비", "숯불돼지갈비", "갈비찜", "곱창"],
   },
   {
     menuid: 9,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/3259/3259041.png",
     menuType: "회/생선",
-    list: ["김치찌개", "된장찌개", "1234"],
+    list: ["도다리 회", "참돔", "우럭", "도미", "농어"],
   },
   {
     menuid: 10,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/2713/2713995.png",
     menuType: "튀김",
-    list: ["김치찌개", "된장찌개", "1234"],
+    list: ["새우튀김", "오징어튀김", "치즈스틱"],
   },
   {
     menuid: 11,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/2276/2276941.png",
     menuType: "면",
-    list: ["김치찌개", "된장찌개", "1234"],
+    list: ["쇼유라멘", "미소라멘", "시오라멘", "야끼소바", "짬뽕", "자장면"],
   },
   {
     menuid: 12,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/4424/4424181.png",
     menuType: "밥",
-    list: ["김치찌개", "된장찌개", "1234"],
+    list: ["새우볶음밥", "게살볶음밥", "육회비빔밥", "돌솥비빔밥"],
   },
   {
     menuid: 13,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/5930/5930051.png",
     menuType: "버거",
-    list: ["김치찌개", "된장찌개", "1234"],
+    list: ["한우버거", "더블치즈버거", "베이컨디럭스버거"],
   },
   {
     menuid: 14,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/6518/6518114.png",
     menuType: "피자",
     list: ["김치찌개", "된장찌개", "1234"],
   },
   {
     menuid: 15,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/6254/6254922.png",
     menuType: "치킨",
     list: ["김치찌개", "된장찌개", "1234"],
   },
   {
     menuid: 16,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/8269/8269541.png",
     menuType: "야식",
     list: ["김치찌개", "된장찌개", "1234"],
   },
   {
     menuid: 17,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/6175/6175073.png",
     menuType: "국물요리",
     list: ["김치찌개", "된장찌개", "1234"],
   },
   {
     menuid: 18,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/8269/8269625.png",
     menuType: "족발/보쌈",
     list: ["김치찌개", "된장찌개", "1234"],
   },
   {
     menuid: 19,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/325/325610.png",
     menuType: "샐러드",
     list: ["김치찌개", "된장찌개", "1234"],
   },
   {
     menuid: 20,
-    imgURL:
-      "https://image.shutterstock.com/image-photo/braised-pigs-feet-chinese-food-600w-1941316075.jpg",
+    imgURL: "https://cdn-icons-png.flaticon.com/512/6258/6258609.png",
     menuType: "도시락",
     list: ["김치찌개", "된장찌개", "1234"],
   },
