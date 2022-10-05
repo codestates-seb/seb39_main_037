@@ -1,18 +1,21 @@
-import {
-  ArrowDropDown,
-  ArrowDropUp,
-  Favorite,
-  FavoriteBorder,
-  History,
-} from "@mui/icons-material";
+import { Favorite } from "@mui/icons-material";
+import CommentInput from "Components/Comment/CommentInput";
+import CommentList from "Components/Comment/CommentList";
+import PaginationForm from "Components/Common/Pagination/PaginationForm";
 import ToastViewer from "Components/Common/Toast/ToastViewer";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import styled from "styled-components";
 
 const reviewMock = {
   reviewId: 1,
   reviewTitle: "리뷰",
-  reviewBody: "리뷰 본문",
+  reviewBody: `# 코코이찌방야
+
+  ### 처음가보는 맛집
+  굳굳
+  
+  `,
   view: 0,
   thumbUp: 0,
   createdAt: "2022-10-01",
@@ -31,26 +34,50 @@ const reviewMock = {
 };
 const ReviewDetail = () => {
   const { review_id: reviewId } = useParams();
-
+  const [currentPage, setCurrentPage] = useState<number>(1);
   return (
     <ReviewDetailWrapper>
-      <ReviewWrapper>
-        <RestaurantInfo>
-          <div className="left">
-            <p>{reviewMock.restaurantName}</p>
-            <p>작성자:{reviewMock.nickname}</p>
-          </div>
-          <div className="right">
-            맛:{reviewMock.tasteStar} 시설:{reviewMock.facilityStar} 가격:
-            {reviewMock.priceStar} <Favorite />
-            {reviewMock.thumbUp}
-          </div>
-        </RestaurantInfo>
+      <RestaurantInfo>
+        <div className="left">
+          <p style={{ fontWeight: "700" }}>{reviewMock.restaurantName}</p>
+          <p>작성자:{reviewMock.nickname}</p>
+        </div>
+        <div className="right">
+          <span>맛:{reviewMock.tasteStar}</span>
+          <span> 시설:{reviewMock.facilityStar}</span>
+          <span>
+            가격:
+            {reviewMock.priceStar}
+          </span>
+          <span>
+            <Favorite />
+          </span>
+          <span>{reviewMock.thumbUp}</span>
+        </div>
+      </RestaurantInfo>
+      <BodyWrapper>
+        <ViewerWrapper>
+          <ToastViewer contents={reviewMock.reviewBody} />
+        </ViewerWrapper>
+        <ReviewLine />
+        <CommentWrapper>
+          <CommentInputWrapper>
+            <CommentInput reviewId={Number(reviewId)} />
+          </CommentInputWrapper>
+          <CommentList reviewId={Number(reviewId)} />
+        </CommentWrapper>
+      </BodyWrapper>
 
-        <ToastViewer contents={reviewMock.reviewBody} />
-      </ReviewWrapper>
-
-      <CommentWrapper />
+      <PaginationForm
+        activePage={1}
+        totalItemsCount={26}
+        onChange={(e: any) => setCurrentPage(e)}
+      />
+      {/* <PaginationForm
+        activePage={currentPage}
+        totalItemsCount={totalElements}
+        onChange={(e: any) => setCurrentPage(e)}
+      /> */}
     </ReviewDetailWrapper>
   );
 };
@@ -60,16 +87,59 @@ export default ReviewDetail;
 const ReviewDetailWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
 `;
 const RestaurantInfo = styled.div`
   width: 100%;
-  display: grid;
+  display: flex;
   align-items: center;
-  grid-template-columns: max-content 1fr;
+  justify-content: space-around;
+  padding-bottom: 30px;
+  border-bottom: solid 0.5px gray;
   .left {
     display: flex;
     flex-direction: column;
+    font-size: 20px;
+    gap: 15px;
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    > span {
+      margin: 3px;
+    }
   }
 `;
-const ReviewWrapper = styled.div``;
-const CommentWrapper = styled.div``;
+const ReviewLine = styled.div`
+  width: 100%;
+  border-bottom: solid 0.5px gray;
+`;
+const BodyWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ViewerWrapper = styled.div`
+  display: flex;
+  width: 80%;
+  margin: 20px;
+  min-height: 500px;
+  max-height: 700px;
+  overflow-y: auto;
+`;
+const CommentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+`;
+const CommentInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-bottom: dotted 0.5px gray;
+`;
