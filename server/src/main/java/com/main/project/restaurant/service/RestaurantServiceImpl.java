@@ -2,6 +2,7 @@ package com.main.project.restaurant.service;
 
 import com.main.project.exception.BusinessLogicException;
 import com.main.project.exception.ExceptionCode;
+import com.main.project.food.entity.Food;
 import com.main.project.food.repository.FoodRepository;
 import com.main.project.foodType.entity.FoodType;
 import com.main.project.foodType.repository.FoodTypeRepository;
@@ -111,7 +112,8 @@ public class RestaurantServiceImpl implements RestaurantService{
                 RestaurantFood restaurantFood = new RestaurantFood();
                 restaurantFood.setRestaurant(restaurant);
                 String a =query.split(" ",2)[1];
-                restaurantFood.setFood(foodRepository.findByFoodName(query.split(" ",2)[1]).get());
+                Food foundFood = foodRepository.findByFoodName(a).get();
+                restaurantFood.setFood(foundFood);
                 restaurantFood.setLocation(resLocation);
                 restaurantFoodRepository.save(restaurantFood);
             }
