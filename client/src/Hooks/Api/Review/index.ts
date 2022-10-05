@@ -1,4 +1,4 @@
-import { del, get, patch } from "Utils/api";
+import { del, get, patch, post } from "Utils/api";
 
 interface IPatchReview {
   reviewId: number;
@@ -50,5 +50,14 @@ export const useReview = () => {
     return res;
   };
 
-  return { getReview, patchReview, delReview };
+  const postThumb = async ({ reviewId, userId }: any) => {
+    const res = await post(`thumbUp/post/${reviewId}`, { userId }).then(
+      (r: any) => {
+        console.log(r);
+        return r;
+      },
+    );
+  };
+
+  return { getReview, patchReview, delReview, postThumb };
 };
