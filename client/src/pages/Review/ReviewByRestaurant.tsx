@@ -88,7 +88,7 @@ export default ReviewByRestaurant;
 const ReviewByRestaurantWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
-  margin-top: 30px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
 `;

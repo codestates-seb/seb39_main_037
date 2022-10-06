@@ -117,10 +117,11 @@ const FeatureTag = styled.span`
   font-size: 0.75rem;
   padding: 0.25rem 0.75rem;
   margin: 0 0.25rem;
-  border: 1px solid var(--green-color);
+  border: 1px solid var(--main-yellow);
   border-radius: 10px;
-  background-color: var(--green-color);
+  background-color: var(--main-yellow);
   color: #fff;
+  font-weight: 600;
   @media (max-width: 768px) {
     padding: 0.1rem 0.5rem;
     font-size: 0.55rem;
@@ -128,7 +129,8 @@ const FeatureTag = styled.span`
 `;
 
 const CircleTag = styled.span`
-  color: var(--green-color);
+  color: var(--main-yellow);
+  font-weight: 600;
 `;
 
 //  <TeamCard
