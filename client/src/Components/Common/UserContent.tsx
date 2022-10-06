@@ -1,3 +1,4 @@
+import defaultFood from "Media/Image/defaultFood.png";
 import Review from "pages/Review/Review";
 import { MockupComments } from "pages/Users/MockupData";
 import React from "react";
@@ -58,11 +59,7 @@ const UserContent = ({ data }: any) => {
                 <NavLinkCss to="/review/:restaurant/:review_id">
                   <div>
                     <RestaurantImg
-                      src={
-                        reviewImgUrl === null
-                          ? "https://image.shutterstock.com/image-photo/grilled-chicken-breast-fillet-fresh-600w-1713446386.jpg"
-                          : reviewImgUrl
-                      }
+                      src={reviewImgUrl === null ? defaultFood : reviewImgUrl}
                       alt="음식 사진"
                     />
                   </div>
@@ -102,9 +99,7 @@ const UserContent = ({ data }: any) => {
                   <div>
                     <RestaurantImg
                       src={
-                        reviewPhotoUrl === null
-                          ? "https://image.shutterstock.com/image-photo/grilled-chicken-breast-fillet-fresh-600w-1713446386.jpg"
-                          : reviewPhotoUrl
+                        reviewPhotoUrl === null ? defaultFood : reviewPhotoUrl
                       }
                       alt="음식 사진"
                     />
@@ -146,9 +141,7 @@ const UserContent = ({ data }: any) => {
                   <div>
                     <RestaurantImg
                       src={
-                        reviewPhotoUrl === null
-                          ? "https://image.shutterstock.com/image-photo/grilled-chicken-breast-fillet-fresh-600w-1713446386.jpg"
-                          : reviewPhotoUrl
+                        reviewPhotoUrl === null ? defaultFood : reviewPhotoUrl
                       }
                       alt="음식 사진"
                     />
