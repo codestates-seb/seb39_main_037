@@ -37,7 +37,17 @@ const ReviewDetail = () => {
             가격:
             {currentReview.priceStar}
           </span>
-          <span className="thumb">
+          <span
+            className="thumb"
+            onClick={() => {
+              postThumb({ reviewId, userId: currentUser.userId }).then(
+                (r: any) => {
+                  alert("좋아요를 눌렀습니다.");
+                  window.location.reload();
+                },
+              );
+            }}
+          >
             <Favorite />
           </span>
           <span>{currentReview.thumbUp}</span>
