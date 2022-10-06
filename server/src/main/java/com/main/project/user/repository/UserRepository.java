@@ -24,4 +24,6 @@ public interface UserRepository extends JpaRepository<WebUser, Long> {
     Optional<List<WebUser>> findAllByCreatedAtBetween(LocalDate start, LocalDate end);
 
     Optional<WebUser> findByprofileImgName(String fileName);
+
+    Optional<WebUser> findByProfileImgName(String profileImgName);
 }

@@ -54,7 +54,7 @@ public class FoodController {
     public ResponseEntity getFoods(@RequestParam String foodType){
 
         List<Food> threeRandomFood = foodService.random3Foods(foodType);
-        List<FoodDto.random3ResponseDto> responseDtos =  threeRandomFood.stream().map(Food -> new FoodDto.random3ResponseDto(Food.getFoodName(),Food.getFoodType().getTypeName())).collect(Collectors.toList());
+        List<FoodDto.random3ResponseDto> responseDtos =  threeRandomFood.stream().map(Food -> new FoodDto.random3ResponseDto(Food.getFoodId(),Food.getFoodName(),Food.getFoodType().getTypeName())).collect(Collectors.toList());
 
 
       return  new ResponseEntity(responseDtos, HttpStatus.OK );
@@ -69,7 +69,7 @@ public class FoodController {
 
         List<Food> threeRandomFood = foodService.random3FoodsByManyFilter(foodTypes);
 
-        List<FoodDto.random3ResponseDto> responseDtos =  threeRandomFood.stream().map(Food -> new FoodDto.random3ResponseDto(Food.getFoodName(),Food.getFoodType().getTypeName())).collect(Collectors.toList());
+        List<FoodDto.random3ResponseDto> responseDtos =  threeRandomFood.stream().map(Food -> new FoodDto.random3ResponseDto(Food.getFoodId(),Food.getFoodName(),Food.getFoodType().getTypeName())).collect(Collectors.toList());
 
 
         return new ResponseEntity(responseDtos, HttpStatus.OK );
@@ -84,5 +84,6 @@ public class FoodController {
         return new ResponseEntity(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.OK);
 
     }
+
 
 }
