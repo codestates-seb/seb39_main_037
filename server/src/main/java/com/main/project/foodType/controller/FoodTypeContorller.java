@@ -87,7 +87,7 @@ public class FoodTypeContorller {
         List<Food> FoodList = foodTypeServiceImpl.findAllFoodByFoodType(foodType);
         List<FoodDto.ResponseDto> responseDtos = FoodList
                 .stream()
-                .map(Food -> new FoodDto.ResponseDto(Food.getFoodName()))
+                .map(Food -> new FoodDto.ResponseDto(Food.getFoodId(), Food.getFoodName()))
                 .collect(Collectors.toList());
 
         return new ResponseEntity(new Muti_ResponseDTO<>(responseDtos),HttpStatus.OK);
