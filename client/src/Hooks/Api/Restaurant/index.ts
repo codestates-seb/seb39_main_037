@@ -14,10 +14,19 @@ export const useRestaurant = () => {
   // 아이디로 식당 정보 찾기
   const getRestaruantById = async ({ restaurantId }: any) => {
     const res = await get(`/restaurant/${restaurantId}`).then((r: any) => {
-      console.log(r);
       return r;
     });
     return res;
   };
-  return { getRestaurantByLocation, getRestaruantById };
+  // 검색으로 식당찾기
+
+  const getRestaruantByTitle = async ({ foodid, locationId }: any) => {
+    const res = await get(`select/dish/find/${foodid}/${locationId}`).then(
+      (r: any) => {
+        return r;
+      },
+    );
+    return res;
+  };
+  return { getRestaurantByLocation, getRestaruantById, getRestaruantByTitle };
 };

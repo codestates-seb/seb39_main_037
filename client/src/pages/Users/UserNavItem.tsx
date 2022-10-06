@@ -39,7 +39,7 @@ const NavLinkCss = styled(NavLink)`
     background: var(--main-yellow);
   }
   @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
-    width: 150px;
+    width: 140px;
   }
 `;
 

@@ -37,7 +37,7 @@ const App = () => {
           <Route path="/email-verify" element={<EmailVerify />} />
           <Route path="/random-recommend" element={<Random />} />
           <Route
-            path="/random-recommend/map/:food_id"
+            path="/random-recommend/map/:food_name/:food_id"
             element={<RandomMap />}
           />
           <Route path="/location" element={<LocationRegister />} />
