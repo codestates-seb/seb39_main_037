@@ -34,7 +34,7 @@ const ReviewByRestaurant = () => {
         setPageInfo(r.pageInfo);
       },
     );
-  }, []);
+  }, [currentPage]);
   const handleClick = () => {
     if (restaurantInfo) {
       setCurrentRestaurant(restaurantInfo);

@@ -15,11 +15,12 @@ const KakaoMap = ({ restaurants }: Array<IRestaurant> | any) => {
   const { setCurrentRestaurant } = useCurrentRestaurant();
   const [mapLoad, setMapLoad] = useState<boolean>(false);
   useEffect(() => {
+    setMapLoad(false);
     const script = document.createElement("script");
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAOMAP_APPKEY}&autoload=false`;
     script.addEventListener("load", () => setMapLoad(true));
     document.head.appendChild(script);
-  }, []);
+  }, [restaurants]);
   // 경도x
   const mainLongitude =
     restaurants.reduce((acc: number, cur: IRestaurant) => {
