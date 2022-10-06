@@ -1,8 +1,10 @@
 package com.main.project.food.controller;
 
 
+import com.main.project.entity.Multi_ResponseDTOwithPageInfo;
 import com.main.project.food.dto.FoodDto;
 import com.main.project.food.entity.Food;
+import org.springframework.data.domain.*;
 import com.main.project.food.mapper.FoodMapper;
 import com.main.project.food.service.FoodServiceImple;
 import com.main.project.restaurant.entity.Restaurant;
@@ -77,11 +79,12 @@ public class FoodController {
     }
 
 
-    @GetMapping("/find/{food-id}/{location-id}")
-    public ResponseEntity getFoodsByRetaurant(@PathVariable("food-id") long foodId, @PathVariable("location-id") long locationId) {
+    @GetMapping("/find/{food-id}/{location-id}/{page}")
+    public ResponseEntity getFoodsByRestaurant(@PathVariable("food-id") long foodId, @PathVariable("location-id") long locationId,@PathVariable("page") int page) {
         List<Restaurant> restaurants = foodService.findRestaurantByFood(foodId, locationId);
+        Page pageRestaurant = new PageImpl(restaurants, PageRequest.of(page, 10, Sort.by("restaurantId").descending()), restaurants.size());
 
-        return new ResponseEntity(restaurantMapper.restaurantsToRestaurantResponseDtos(restaurants), HttpStatus.OK);
+        return new ResponseEntity(new Multi_ResponseDTOwithPageInfo<>(restaurantMapper.restaurantsToRestaurantPatchResponseDtos(restaurants),pageRestaurant), HttpStatus.OK);
 
     }
 
