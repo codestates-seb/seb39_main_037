@@ -69,10 +69,7 @@ const NavDiv = styled.div`
     width: 150px;
     height: 200px;
     @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
-      width: 60%;
-      height: 60%;
-      padding-bottom: 0;
-      margin-right: 2rem;
+      display: none;
     }
   }
   @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
@@ -94,6 +91,7 @@ const Content = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
     /* min-width: 300px; */
   }
 `;

@@ -2,28 +2,35 @@ import UserContent from "Components/Common/UserContent";
 import { useUsers } from "Hooks/Api/Users";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { IPageObj } from "Types";
 
 import UsersNav from "./UserNav";
 
 const UsersReview = () => {
-  const [menu, setMenu] = useState<string[]>([]);
   const { getUsersReview } = useUsers();
-  // const [user, setUser] = useState<IUserInfo>();
-  // async function getData() {
-  //   await getUsersReview(sdf).then((res) => {
-  //     console.log(sdf);
-  //     // setUser(res);
-  //   });
-  // }
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  const [data, setData] = useState<object[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageInfo, setPageInfo] = useState<IPageObj>();
+
+  async function getData() {
+    await getUsersReview({
+      page: currentPage,
+    }).then((r: any) => {
+      // console.log(r);
+      setPageInfo(r.pageInfo);
+      setData(r.data);
+    });
+  }
+  useEffect(() => {
+    getData();
+  }, []);
+  console.log(data);
 
   return (
     <Container>
       <UsersNav />
-      <UserContent />
+      <UserContent data={data} />
     </Container>
   );
 };

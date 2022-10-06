@@ -3,6 +3,7 @@ import { CancelFinishButton } from "Components/Common/Button/CancelFinishButton"
 import UserButton from "Components/Common/Button/UserButton";
 import Loading from "Components/Common/Loading";
 import { useUsers } from "Hooks/Api/Users";
+import useCurrentUser from "Hooks/useCurrentUser";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -21,21 +22,36 @@ const Users = () => {
   const [idOpen, setidOpen] = useState<boolean>(false);
   const [passwordOpen, setpasswordOpen] = useState<boolean>(false);
   const [nicknameOpen, setnicknameOpen] = useState<boolean>(false);
-  const { getUsers } = useUsers();
+  const { getUsers, patchUsers } = useUsers();
   const [user, setUser] = useState<IUserInfo>();
+
+  const { currentUser } = useCurrentUser();
+  console.log(currentUser);
+  const [form, setForm] = useState({
+    userName: currentUser.userName,
+    nickName: currentUser.nickName,
+    email: currentUser.email,
+  });
+
+  console.log(form);
 
   async function getData() {
     await getUsers().then((res) => {
       setUser(res);
     });
   }
-
   useEffect(() => {
     getData();
-  }, []);
+  }, [setUser]);
 
-  const basicProfileImg = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
+  const onTextAreaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    setForm({
+      userName: currentUser.userName,
+      nickName: value,
+      email: currentUser.email,
+    });
   };
 
   const clickButton = (e: React.MouseEvent<HTMLElement>) => {
@@ -148,7 +164,10 @@ const Users = () => {
                 <li>특수문자는 사용 불가합니다.</li>
               </ul>
               <div>
-                <input placeholder="닉네임 입력(최대 15자)" />
+                <input
+                  placeholder="닉네임 입력(최대 15자)"
+                  onChange={onTextAreaChange}
+                />
               </div>
             </ContentSecond>
           ) : (

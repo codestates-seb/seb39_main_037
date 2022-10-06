@@ -1,14 +1,36 @@
 import UserContent from "Components/Common/UserContent";
+import { useUsers } from "Hooks/Api/Users";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { IPageObj } from "Types";
 
 import UsersNav from "./UserNav";
 
 const UsersLike = () => {
+  const { getUsersLike } = useUsers();
+
+  const [data, setData] = useState<object[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageInfo, setPageInfo] = useState<IPageObj>();
+
+  async function getData() {
+    await getUsersLike({
+      page: currentPage,
+    }).then((r: any) => {
+      // console.log(r);
+      setPageInfo(r.pageInfo);
+      setData(r.data);
+    });
+  }
+  useEffect(() => {
+    getData();
+  }, []);
+  console.log(data);
   return (
     <Container>
       <UsersNav />
-      <UserContent />
+      <UserContent data={data} />
     </Container>
   );
 };

@@ -1,12 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IRestaurant } from "Types";
 
 const RestaurantList = ({ restaurants }: Array<IRestaurant> | any) => {
+  const navigate = useNavigate();
+  const menuClick = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.currentTarget as HTMLInputElement;
+
+    navigate(`/review/${target.id}`);
+  };
+
   return (
     <RestaurantWrapper>
       {restaurants.map((r: IRestaurant) => (
-        <IndividualResWrapper key={r.restaurantId}>
+        <IndividualResWrapper
+          key={r.restaurantId}
+          id={String(r.restaurantId)}
+          onClick={menuClick}
+        >
           <RestaurantInpo>
             <div>{r.restaurantName}</div>
             <LocationAndNumber>
@@ -29,9 +41,11 @@ const RestaurantList = ({ restaurants }: Array<IRestaurant> | any) => {
 };
 
 const RestaurantWrapper = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  cursor: pointer;
 `;
 
 const IndividualResWrapper = styled.div`

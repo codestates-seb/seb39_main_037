@@ -4,19 +4,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 interface IRandomprops {
-  setSelectedmenuList: React.Dispatch<React.SetStateAction<string[]>>;
   setSelectedmenuType: React.Dispatch<React.SetStateAction<string>>;
 }
-// interface Imenu {
-//   typeName: string;
-//   foodTypeId: number;
-//   imgUrl: string;
-// }
 
-const MenuType = ({
-  setSelectedmenuType,
-  setSelectedmenuList,
-}: IRandomprops) => {
+const MenuType = ({ setSelectedmenuType }: IRandomprops) => {
   const [menu, setMenu] = useState<string[]>([]);
   const [menuList, setMenuList] = useState<string[]>([]);
   const [classname, setClassname] = useState<string>("");
@@ -32,30 +23,30 @@ const MenuType = ({
     menuType();
   }, []);
 
-  const list: string[] = [];
-  useEffect(() => {
-    async function menuList() {
-      if (!nowmenuType) {
-        console.log("not choice");
-      } else {
-        getRandomMenu(nowmenuType).then((res) => {
-          console.log(res);
-          res.map(({ foodName }: any) => {
-            return list.push(foodName);
-          });
-          console.log(list);
-          setMenuList(list);
-        });
-      }
-    }
-    menuList();
-  }, [nowmenuType]);
-  console.log(menuList);
+  // const list: string[] = [];
+  // useEffect(() => {
+  //   async function menuList() {
+  //     if (!nowmenuType) {
+  //       console.log("not choice");
+  //     } else {
+  //       getRandomMenu(nowmenuType).then((res) => {
+  //         // console.log(res);
+  //         res.map(({ foodName }: any) => {
+  //           return list.push(foodName);
+  //         });
+  //         // console.log(list);
+  //         setMenuList(list);
+  //       });
+  //     }
+  //   }
+  //   menuList();
+  // }, [nowmenuType]);
+  // console.log(menuList);
 
   const ClickMenu = async (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     const target = e.currentTarget as HTMLInputElement;
-    setSelectedmenuList(menuList);
+
     menu.forEach(({ foodTypeId, typeName }: any) => {
       if (typeName === target.innerText) {
         setSelectedmenuType(typeName);
@@ -87,11 +78,12 @@ const DivBox = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 2rem;
+  padding: 1rem;
   gap: 3rem;
   /* gap: 0.5rem; */
+
   max-width: 660px;
-  min-width: 290px;
+  /* min-width: 290px; */
 
   > .active {
     transition: all 0.2s;
@@ -107,7 +99,7 @@ const DivBox = styled.div`
 `;
 
 const ButtonDiv = styled.div`
-  min-width: 80px;
+  min-width: 90px;
   display: flex;
   justify-content: center;
   flex-direction: column;

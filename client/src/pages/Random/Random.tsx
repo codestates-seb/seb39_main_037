@@ -8,96 +8,52 @@ interface Iselectedmenu {
   foodName: string;
   foodTypeName: string;
 }
+interface Itest {
+  foodName: string;
+  foodId: number;
+}
 
 type Iselectedmenulist = Array<Iselectedmenu>;
 const Random = () => {
   const [isClick, setIsClick] = useState<boolean>(false);
   const [selectemenuType, setSelectedmenuType] = useState<string>("");
-  const [selectedmenuList, setSelectedmenuList] = useState<string[]>([]);
-  const [randomMenu, setRandomMenu] = useState<string[]>([]);
+  const [data, setData] = useState<object[]>([]);
   const { getRandomMenu } = useMenuType();
 
-  const [selectedmenulist, setSelectedmenulist] = useState<Iselectedmenulist>();
-  const [test, settest] = useState<string[]>([]);
-
   const navigate = useNavigate();
-  const menuClick = () => {
-    navigate(`/random-recommend/map/:food_id`);
+  const menuClick = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.currentTarget as HTMLInputElement;
+
+    navigate(`/random-recommend/map/${target.innerText}/${target.id}`);
   };
 
-  // const ClickRandom = (e: React.MouseEvent<HTMLElement>) => {
-  //   e.stopPropagation();
-  //   if (selectedmenuList.length === 0) {
-  //     setIsClick(false);
-  //   } else {
-  //     setIsClick(true);
-  //   }
-
-  //   const selectIndex = (selectingNumber: number) => {
-  //     const randomIndexArray = [];
-  //     for (let i = 0; i < selectingNumber; i += 1) {
-  //       const randomNum =
-  //         selectedmenuList[Math.floor(Math.random() * selectedmenuList.length)];
-  //       if (randomIndexArray.indexOf(randomNum) === -1) {
-  //         randomIndexArray.push(randomNum);
-  //       } else {
-  //         i -= 1;
-  //       }
-  //     }
-  //     return randomIndexArray;
-  //   };
-  //   if (selectedmenuList.length === 0) {
-  //     setIsClick(false);
-  //   } else {
-  //     setRandomMenu(selectIndex(3));
-  //   }
-  // };
-  const savedMenu1: string[] = [];
+  const savedId: string[] = [];
   const savedMenu: string[] = [];
-  const clickRandom = async () => {
-    await getRandomMenu(selectemenuType).then((res) => {
-      console.log(res);
+  const clickRandom = async (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
 
-      res.map(({ foodName }: any) => {
-        return savedMenu1.push(foodName);
-      });
-
-      settest(savedMenu1);
-      setSelectedmenulist(res);
-    });
-    console.log(test);
-    if (savedMenu.length === 0) {
+    if (!selectemenuType) {
       setIsClick(false);
     } else {
       setIsClick(true);
     }
-    // e.stopPropagation();
+
+    const res = await getRandomMenu(selectemenuType);
+    try {
+      // console.log(res);
+      setData(res);
+    } catch (err) {
+      alert(err);
+    }
   };
-  console.log(selectedmenulist);
-  if (!selectedmenulist) {
-    console.log("not");
-  } else {
-    // selectedmenulist.map(({ foodName }) => savedMenu.push(foodName));
-    // settest(selectedmenulist.map(({ foodName }) => foodName));
-    selectedmenulist.map(({ foodName }) => savedMenu.push(foodName));
-    console.log(savedMenu);
-    // settest([...savedMenu]);
+  if (data !== undefined) {
+    data.map(({ foodId }: any) => savedId.push(foodId));
+    data.map(({ foodName }: any) => savedMenu.push(foodName));
   }
-
-  // console.log(test);
-  // if()
-  // if (selectedmenulist === undefined) {
-  //   return <></>;
-  // }
-
-  console.log(savedMenu1);
 
   return (
     <Content>
-      <MenuType
-        setSelectedmenuList={setSelectedmenuList}
-        setSelectedmenuType={setSelectedmenuType}
-      />
+      <MenuType setSelectedmenuType={setSelectedmenuType} />
 
       <RandomDiv>
         <div>
@@ -114,8 +70,8 @@ const Random = () => {
             {isClick === false ? (
               <button type="button">메뉴</button>
             ) : (
-              <button type="button" onClick={menuClick}>
-                {test[0]}
+              <button type="button" onClick={menuClick} id={savedId[0]}>
+                {savedMenu[0]}
               </button>
             )}
           </li>
@@ -123,8 +79,8 @@ const Random = () => {
             {isClick === false ? (
               <button type="button">메뉴</button>
             ) : (
-              <button type="button" onClick={menuClick}>
-                {test[1]}
+              <button type="button" onClick={menuClick} id={savedId[1]}>
+                {savedMenu[1]}
               </button>
             )}
           </li>
@@ -132,8 +88,8 @@ const Random = () => {
             {isClick === false ? (
               <button type="button">메뉴</button>
             ) : (
-              <button type="button" onClick={menuClick}>
-                {test[2]}
+              <button type="button" onClick={menuClick} id={savedId[2]}>
+                {savedMenu[2]}
               </button>
             )}
           </li>
@@ -146,10 +102,11 @@ const Random = () => {
 export default Random;
 
 const Content = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
   padding: 2rem;
+  align-items: center;
 `;
 
 const RandomDiv = styled.div`
@@ -166,7 +123,7 @@ const ButtonRandom = styled.button`
   height: 100px;
   background-color: var(--green-color);
   border-radius: 10px; */
-  width: 300px;
+  width: 200px;
 
   padding: 15px 30px;
   border-radius: 15px;

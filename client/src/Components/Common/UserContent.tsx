@@ -1,8 +1,19 @@
+import Review from "pages/Review/Review";
 import { MockupComments } from "pages/Users/MockupData";
-import { NavLink } from "react-router-dom";
+import React from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const UserContent = () => {
+import Loading from "./Loading";
+
+const UserContent = ({ data }: any) => {
+  const navigate = useNavigate();
+  const menuClick = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.currentTarget as HTMLInputElement;
+
+    navigate(`/review/${target.id}`);
+  };
+  console.log(data);
   function textLengthOverCut(txt: string) {
     const len = 15;
     const lastTxt = "...";
@@ -13,39 +24,147 @@ const UserContent = () => {
     return txt;
   }
 
+  const url = window.location.href;
+
+  const nowUrl = url.slice(url.lastIndexOf("/") + 1);
+
+  console.log(nowUrl);
+  if (data) {
+    if (nowUrl === "review") {
+      return (
+        <UsersContent>
+          {data.map(
+            ({
+              reviewId,
+              restaurantName,
+              nickname,
+              reviewTitle,
+              reviewBody,
+              reviewImgUrl,
+            }: any) => (
+              <ContainerLi key={reviewId}>
+                <FirstDiv>
+                  <NavLinkCss to="/review/:restaurant/:review_id">
+                    <div>{restaurantName}</div>
+                  </NavLinkCss>
+                  <div>{nickname}</div>
+                </FirstDiv>
+                <NavLinkCss to="/review/:restaurant/:review_id">
+                  <SecondDiv>
+                    <div>{textLengthOverCut(reviewTitle)}</div>
+                    <div>{textLengthOverCut(reviewBody)}</div>
+                  </SecondDiv>
+                </NavLinkCss>
+                <NavLinkCss to="/review/:restaurant/:review_id">
+                  <div>
+                    <RestaurantImg
+                      src={
+                        reviewImgUrl === null
+                          ? "https://image.shutterstock.com/image-photo/grilled-chicken-breast-fillet-fresh-600w-1713446386.jpg"
+                          : reviewImgUrl
+                      }
+                      alt="음식 사진"
+                    />
+                  </div>
+                </NavLinkCss>
+              </ContainerLi>
+            ),
+          )}
+        </UsersContent>
+      );
+    }
+    if (nowUrl === "like") {
+      return (
+        <UsersContent>
+          {data.map(
+            ({
+              reviewId,
+              restaurantName,
+              reviewNickName,
+              reviewTitle,
+              reviewBody,
+              reviewPhotoUrl,
+            }: any) => (
+              <ContainerLi key={reviewId}>
+                <FirstDiv>
+                  <NavLinkCss to="/review/:restaurant">
+                    <div>{restaurantName}</div>
+                  </NavLinkCss>
+                  <div>{reviewNickName}</div>
+                </FirstDiv>
+                <NavLinkCss to="/review/:restaurant/:review_id">
+                  <SecondDiv>
+                    <div>{textLengthOverCut(reviewTitle)}</div>
+                    <div>{textLengthOverCut(reviewBody)}</div>
+                  </SecondDiv>
+                </NavLinkCss>
+                <NavLinkCss to="/review/:restaurant/:review_id">
+                  <div>
+                    <RestaurantImg
+                      src={
+                        reviewPhotoUrl === null
+                          ? "https://image.shutterstock.com/image-photo/grilled-chicken-breast-fillet-fresh-600w-1713446386.jpg"
+                          : reviewPhotoUrl
+                      }
+                      alt="음식 사진"
+                    />
+                  </div>
+                </NavLinkCss>
+              </ContainerLi>
+            ),
+          )}
+        </UsersContent>
+      );
+    }
+
+    if (nowUrl === "comment") {
+      return (
+        <UsersContent>
+          {data.map(
+            ({
+              commentId,
+              restaurantName,
+              reviewNickName,
+              reviewTitle,
+              commentBody,
+              reviewPhotoUrl,
+            }: any) => (
+              <ContainerLi key={commentId}>
+                <FirstDiv>
+                  <NavLinkCss to="/review/:restaurant">
+                    <div>{restaurantName}</div>
+                  </NavLinkCss>
+                  <div>{reviewNickName}</div>
+                </FirstDiv>
+                <NavLinkCss to="/review/:restaurant/:review_id">
+                  <SecondDiv>
+                    <div>{textLengthOverCut(reviewTitle)}</div>
+                    <div>{textLengthOverCut(commentBody)}</div>
+                  </SecondDiv>
+                </NavLinkCss>
+                <NavLinkCss to="/review/:restaurant/:review_id">
+                  <div>
+                    <RestaurantImg
+                      src={
+                        reviewPhotoUrl === null
+                          ? "https://image.shutterstock.com/image-photo/grilled-chicken-breast-fillet-fresh-600w-1713446386.jpg"
+                          : reviewPhotoUrl
+                      }
+                      alt="음식 사진"
+                    />
+                  </div>
+                </NavLinkCss>
+              </ContainerLi>
+            ),
+          )}
+        </UsersContent>
+      );
+    }
+  }
   return (
-    <UsersContent>
-      {MockupComments.map(
-        ({
-          commentid,
-          title,
-          restaurant,
-          owner,
-          restaurantImg,
-          replyToUser,
-        }) => (
-          <ContainerLi key={commentid}>
-            <FirstDiv>
-              <NavLinkCss to="/review/:restaurant">
-                <div>{restaurant}</div>
-              </NavLinkCss>
-              <div>{owner.nickname}</div>
-            </FirstDiv>
-            <NavLinkCss to="/review/:restaurant/:review_id">
-              <SecondDiv>
-                <div>{textLengthOverCut(title)}</div>
-                <div>{textLengthOverCut(replyToUser.comment)}</div>
-              </SecondDiv>
-            </NavLinkCss>
-            <NavLinkCss to="/review/:restaurant/:review_id">
-              <div>
-                <RestaurantImg src={restaurantImg} alt="음식 사진" />
-              </div>
-            </NavLinkCss>
-          </ContainerLi>
-        ),
-      )}
-    </UsersContent>
+    <>
+      <Loading />
+    </>
   );
 };
 

@@ -1,96 +1,55 @@
+import Loading from "Components/Common/Loading";
 import KakaoMap from "Components/KakaoMap";
 import RestaurantList from "Components/RestaurantList";
+import { useRestaurant } from "Hooks/Api/Restaurant/index";
+import useCurrentLocation from "Hooks/useCurrentLocation";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { IPageObj, IRestaurant } from "Types";
 
-const demo = [
-  {
-    restaurantId: 47,
-    restaurantName: "신도림 이도<b>식당</b>",
-    category: "한식>닭갈비",
-    description: null,
-    restaurantPhone: null,
-    address: "서울특별시 구로구 신도림동 337 신도림1차푸르지오 2층",
-    aveTaste: 0,
-    aveFacility: 0,
-    avePrice: 0,
-    mapx: 126.88773232152055,
-    mapy: 37.50921749823045,
-    locationId: 0,
-    foodTypeName: null,
-  },
-  {
-    restaurantId: 46,
-    restaurantName: "무한자금성",
-    category: "중식>중식당",
-    description: null,
-    restaurantPhone: null,
-    address: "서울특별시 구로구 구로동 212-30",
-    aveTaste: 0,
-    aveFacility: 0,
-    avePrice: 0,
-    mapx: 126.89412118008596,
-    mapy: 37.483993646896366,
-    locationId: 0,
-    foodTypeName: null,
-  },
-  {
-    restaurantId: 45,
-    restaurantName: "문어부인삼교비",
-    category: "한식>육류,고기요리>돼지고기구이>문어부인삼교비",
-    description: null,
-    restaurantPhone: null,
-    address: "서울특별시 구로구 신도림동 337",
-    aveTaste: 0,
-    aveFacility: 0,
-    avePrice: 0,
-    mapx: 126.88753952487176,
-    mapy: 37.50925172832515,
-    locationId: 0,
-    foodTypeName: null,
-  },
-  {
-    restaurantId: 44,
-    restaurantName: "신림춘천집 <b>구로</b>디지털 직영점",
-    category: "음식점>한식>육류,고기요리>닭요리",
-    description: null,
-    restaurantPhone: null,
-    address: "서울특별시 구로구 구로동 1124-69",
-    aveTaste: 0,
-    aveFacility: 0,
-    avePrice: 0,
-    mapx: 126.89985309605856,
-    mapy: 37.4840560680429,
-    locationId: 0,
-    foodTypeName: null,
-  },
-  {
-    restaurantId: 43,
-    restaurantName: "새벽집 양곱창",
-    category: "한식>곱창,막창,양",
-    description: null,
-    restaurantPhone: null,
-    address: "서울특별시 구로구 신도림동 694",
-    aveTaste: 0,
-    aveFacility: 0,
-    avePrice: 0,
-    mapx: 126.88404353369323,
-    mapy: 37.50778613297942,
-    locationId: 0,
-    foodTypeName: null,
-  },
-];
 const RandomMap = () => {
   const url = window.location.href;
-  const selectedMenu = url.slice(url.lastIndexOf("/") + 1);
+  const decodeurl = decodeURI(url);
+  const selectedId = decodeurl.slice(decodeurl.lastIndexOf("/") + 1);
+  const menuName = decodeurl.split("/")[5];
 
+  const { currentLocation } = useCurrentLocation();
+  const { getRestaruantByTitle } = useRestaurant();
+
+  const [data, setData] = useState<object[]>([]);
+  const navigate = useNavigate();
+  console.log(currentLocation.locationId);
+  if (currentLocation.locationId === 0) {
+    // 로케이션이 저장되어있지 않으면?
+    navigate("/location");
+  }
+
+  async function getData() {
+    const res = await getRestaruantByTitle({
+      foodid: selectedId,
+      locationId: currentLocation.locationId,
+    });
+    try {
+      // console.log(res);
+      setData(res);
+    } catch (err) {
+      alert(err);
+    }
+  }
+  useEffect(() => {
+    getData();
+  }, []);
+
+  if (data.length === 0) return <Loading />;
   return (
     <RandomMapWrapper>
       <KakaoMapWrapper className="kakaomap">
-        <KakaoMap restaurants={demo} />
-        <SelectedMenuWrapper>{selectedMenu}</SelectedMenuWrapper>
+        <KakaoMap restaurants={data} />
+        <SelectedMenuWrapper>{menuName}</SelectedMenuWrapper>
       </KakaoMapWrapper>
       <RestaurantWrapper>
-        <RestaurantList restaurants={demo} />
+        <RestaurantList restaurants={data} />
       </RestaurantWrapper>
     </RandomMapWrapper>
   );
@@ -109,7 +68,7 @@ const RandomMapWrapper = styled.div`
 const KakaoMapWrapper = styled.div`
   flex: 1;
   padding: 2rem;
-  min-width: 400px;
+  /* min-width: 400px; */
   min-height: 500px;
   max-height: 700px;
   display: flex;
