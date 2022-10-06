@@ -1,4 +1,5 @@
 import Loading from "Components/Common/Loading";
+import PaginationForm from "Components/Common/Pagination/PaginationForm";
 import KakaoMap from "Components/KakaoMap";
 import RestaurantList from "Components/RestaurantList";
 import { useRestaurant } from "Hooks/Api/Restaurant/index";
@@ -9,6 +10,8 @@ import styled from "styled-components";
 import { IPageObj, IRestaurant } from "Types";
 
 const RandomMap = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageInfo, setPageInfo] = useState<IPageObj>();
   const url = window.location.href;
   const decodeurl = decodeURI(url);
   const selectedId = decodeurl.slice(decodeurl.lastIndexOf("/") + 1);
@@ -29,10 +32,12 @@ const RandomMap = () => {
     const res = await getRestaruantByTitle({
       foodid: selectedId,
       locationId: currentLocation.locationId,
+      page: currentPage,
     });
     try {
       // console.log(res);
-      setData(res);
+      setData(res.data);
+      setPageInfo(res.pageInfo);
     } catch (err) {
       alert(err);
     }
@@ -41,7 +46,7 @@ const RandomMap = () => {
     getData();
   }, []);
 
-  if (data.length === 0) return <Loading />;
+  if (data.length === 0 || !pageInfo) return <Loading />;
   return (
     <RandomMapWrapper>
       <KakaoMapWrapper className="kakaomap">
@@ -51,6 +56,16 @@ const RandomMap = () => {
       <RestaurantWrapper>
         <RestaurantList restaurants={data} />
       </RestaurantWrapper>
+      {pageInfo.totalPages > 1 && (
+        <PaginationForm
+          activePage={currentPage}
+          totalItemsCount={pageInfo.totalElements}
+          onChange={(e: any) => {
+            console.log(e);
+            setCurrentPage(e);
+          }}
+        />
+      )}
     </RandomMapWrapper>
   );
 };
@@ -75,6 +90,9 @@ const KakaoMapWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   align-content: center;
+  position: sticky;
+  top: 150px;
+  left: 2rem;
 `;
 
 const SelectedMenuWrapper = styled.div`

@@ -20,12 +20,12 @@ export const useRestaurant = () => {
   };
   // 검색으로 식당찾기
 
-  const getRestaruantByTitle = async ({ foodid, locationId }: any) => {
-    const res = await get(`select/dish/find/${foodid}/${locationId}`).then(
-      (r: any) => {
-        return r;
-      },
-    );
+  const getRestaruantByTitle = async ({ foodid, locationId, page }: any) => {
+    const res = await get(
+      `select/dish/find/${foodid}/${locationId}/${page}`,
+    ).then((r: any) => {
+      return r;
+    });
     return res;
   };
   return { getRestaurantByLocation, getRestaruantById, getRestaruantByTitle };
