@@ -68,8 +68,9 @@ public class FoodDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ResponseDto {
-
+        private long foodId;
         private String foodName;
+
 
     }
 
@@ -78,7 +79,7 @@ public class FoodDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class random3ResponseDto {
-
+        private long foodId;
         private String foodName;
         private String foodTypeName;
     }

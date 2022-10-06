@@ -19,15 +19,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServieImpl implements  UserService{
+public class UserServieImpl implements  UserService {
 
         private BadgeServiceImpl badgeService;
         UserRepository userRepository;
@@ -78,12 +80,11 @@ public class UserServieImpl implements  UserService{
                 WebUser edittingUser = checkUserByUserId(patchUserpasswordDto.getUserId());
 
                 //비밀번호가 맞는지 체크
-                if(isPassWordMatch(patchUserpasswordDto.getOldPassWord(), edittingUser)) {
-                        edittingUser.setPassword(bCryptPasswordEncoder.encode(patchUserpasswordDto.getNewPassword())) ;
+                if (isPassWordMatch(patchUserpasswordDto.getOldPassWord(), edittingUser)) {
+                        edittingUser.setPassword(bCryptPasswordEncoder.encode(patchUserpasswordDto.getNewPassword()));
                         userRepository.save(edittingUser);
-                }
-                else{
-                       throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);
+                } else {
+                        throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);
                 }
                 return edittingUser;
         }
@@ -91,7 +92,7 @@ public class UserServieImpl implements  UserService{
 
         @Override//UserId로 DB의 유저 확인
         public WebUser checkUserByUserId(long userid) {
-                return userRepository.findById(userid).orElseThrow(()-> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
+                return userRepository.findById(userid).orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
         }
 
         @Override
@@ -99,7 +100,7 @@ public class UserServieImpl implements  UserService{
                 WebUser webUser = checkUserByUserId(userId);
 
                 List<Comment> ListOfComment = webUser.getComments();
-                List<Review> ListOfReview =  webUser.getReviews();
+                List<Review> ListOfReview = webUser.getReviews();
                 List<ThumbUp> ListOfThumbUp = webUser.getThumbUps();
                 List<UserBadge> ListOfBadge = webUser.getUserBadges();
                 List<UserDto.responseBadgeDto> responseBadgeDtos = ListOfBadge.stream()
@@ -120,13 +121,14 @@ public class UserServieImpl implements  UserService{
 
                 checkIsUserDeActive(deActiveUser);
 
-                if(isPassWordMatch(password, deActiveUser)) {
+                if (isPassWordMatch(password, deActiveUser)) {
                         deActiveUser.setIsUserActive(WebUser.UserActive.Withdrawal);//유저 상태 휴면으로 변경 -> 리팩토링 필요할 듯,
                         WithdrawalUser withdrawalUser = new WithdrawalUser();
                         withdrawalUser.setWebUser(deActiveUser);
                         withdrawalUserRepository.save(withdrawalUser);
+                } else {
+                        throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);
                 }
-                else{ throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);}
 
         }
 
@@ -164,26 +166,38 @@ public class UserServieImpl implements  UserService{
         }
 
         @Override
-         public WebUser findUserByFileName(String filename) {
-           return    userRepository.findByprofileImgName(filename).orElseThrow(() -> new BusinessLogicException(ExceptionCode.FILE_IS_NOT_EXIST));
-         }
+        public WebUser findUserByFileName(String filename) {
+                return userRepository.findByprofileImgName(filename).orElseThrow(() -> new BusinessLogicException(ExceptionCode.FILE_IS_NOT_EXIST));
+        }
 
         @Override
         public boolean isPassWordMatch(String dtoPassWord, WebUser toCheckUser) {
                 return bCryptPasswordEncoder.matches(dtoPassWord, toCheckUser.getPassword());
         }
+
         @Override
         public void checkIsUserDeActive(WebUser deActiveUser) {
-                if(deActiveUser.getIsUserActive()==WebUser.UserActive.Withdrawal){
+                if (deActiveUser.getIsUserActive() == WebUser.UserActive.Withdrawal) {
                         throw new BusinessLogicException(ExceptionCode.ALREADY_DEACTICATED_USER);
                 }
         }
 
-        public String uriMaker(Badge badge, String path){
+        public String uriMaker(Badge badge, String path) {
 
                 return ServletUriComponentsBuilder.fromCurrentContextPath()
-                        .path("/"+ path + "/download/")
+                        .path("/" + path + "/download/")
                         .path(String.valueOf(badge.getBadgeName()))
                         .toUriString();
         }
+
+        public WebUser addProfileImg(long userid, MultipartFile profileImg) throws IOException {
+
+                WebUser webUser = userRepository.findById(userid).orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_IS_NOT_EXIST));
+                webUser.setProfileImg(profileImg.getBytes());
+                webUser.setProfileImgName(profileImg.getOriginalFilename());
+                return userRepository.save(webUser);
+
+        }
 }
+
+
