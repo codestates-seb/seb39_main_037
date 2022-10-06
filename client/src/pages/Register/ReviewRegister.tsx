@@ -101,6 +101,8 @@ const ReviewRegisterContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 80%;
+  padding: 2rem;
+  gap: 2rem;
   .title {
     margin: 10px;
     font-size: 3rem;
@@ -108,8 +110,14 @@ const ReviewRegisterContainer = styled.div`
 `;
 const RatingWrapper = styled.div`
   display: flex;
+  align-items: center;
 `;
-const ReviewForm = styled.div``;
+const ReviewForm = styled.div`
+  display: flex;
+  gap: 1rem;
+
+  flex-direction: column;
+`;
 
 const InputLabel = styled.div`
   width: 95%;

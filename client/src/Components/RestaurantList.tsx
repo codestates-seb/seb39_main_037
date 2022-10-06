@@ -23,10 +23,10 @@ const RestaurantList = ({ restaurants }: Array<IRestaurant> | any) => {
             <div>{r.restaurantName}</div>
             <LocationAndNumber>
               <div>주소 : {r.address}</div>
-              <div>
+              {/* <div>
                 전화번호 :{" "}
                 {r.restaurantPhone === null ? "-" : r.restaurantPhone}
-              </div>
+              </div> */}
             </LocationAndNumber>
             <AddInpo>
               <div>맛 : {r.aveTaste === 0 ? "-" : r.aveTaste} / 5</div>

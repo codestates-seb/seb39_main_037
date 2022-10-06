@@ -1,4 +1,7 @@
 import TeamCard from "Components/TeamCard";
+import Lim from "Media/Image/ci.png";
+import Nam from "Media/Image/jh.png";
+import Kim from "Media/Image/jn.png";
 import Park from "Media/Image/jy.png";
 import foodReco from "Media/Image/logo/foodrecoImg.png";
 import mapReco from "Media/Image/mapReco.png";
@@ -99,8 +102,35 @@ const Main = () => {
             featureTag={["auth", "main", "review", "locationStore", "marker"]}
             intro="무엇을 먹을지 모르겠을 땐? 같이 푸드레코해요!"
             github="https://github.com/JIYEONGSTAR"
-            blog="https://jiyeongstar.tistory.com/"
+            blog="https://jiyeongstar.tistory.com"
             email="jiyeongstar@gmail.com"
+          />
+          <TeamCard
+            img={Nam}
+            name="남진혁"
+            featureTag={["random", "mypage", "반응형"]}
+            intro="아무거나 먹기 싫을 땐? 푸드레코가 도와줄게요!"
+            github="https://github.com/jin92926"
+            blog="https://jin92926.tistory.com"
+            email="jin92926@gmail.com"
+          />
+          <TeamCard
+            img={Kim}
+            name="김지나"
+            featureTag={["review", "comment", "Q&A", "restaurant"]}
+            intro="맛집 찾기는 푸드레코!"
+            github="https://github.com/SEBBE39JINAKIM"
+            blog="https://sebbe39jinakim.github.io"
+            email="petitjina1999@gmail.com"
+          />
+          <TeamCard
+            img={Lim}
+            name="임찬일"
+            featureTag={["Spring Security", "food", "배포"]}
+            intro="언제나 함께 하고 싶은 개발자가 되겠습니다!"
+            github="https://github.com/Akkuchan"
+            blog="https://github.com/Akkuchan"
+            email="pohd8494@gmail.com"
           />
         </CenterWrapper>
       </OddWrapper>

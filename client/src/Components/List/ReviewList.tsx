@@ -14,7 +14,7 @@ const ReviewList = ({ review }: IReviewObj | any) => {
       {review.nickname}
       <ReviewContent>
         <div>{review.reviewTitle}</div>
-        <div>{review.reviewBody}</div>
+        <div>{review.reviewBody.split("[]")[0]}</div>
       </ReviewContent>
       <div>
         {review.reviewImgUrl ? (
