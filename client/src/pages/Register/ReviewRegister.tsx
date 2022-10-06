@@ -6,10 +6,12 @@ import { useRegister } from "Hooks/Api/Register";
 import useCurrentRestaurant from "Hooks/useCurrentRestaurant";
 import useCurrentUser from "Hooks/useCurrentUser";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IRestaurant } from "Types";
 
 const ReviewRegister = () => {
+  const navigate = useNavigate();
   const { currentRestaurant } = useCurrentRestaurant();
   const { currentUser } = useCurrentUser(); // 로그인 한 유저
   const { postReview } = useRegister();
@@ -30,6 +32,11 @@ const ReviewRegister = () => {
       priceStar,
       userId: currentUser.userId,
       restaurantId: currentRestaurant.restaurantId,
+    }).then((r: any) => {
+      if (r.status >= 200 && r.status < 300) {
+        alert("저장되었습니다.");
+        navigate(-1);
+      }
     });
   };
   return (

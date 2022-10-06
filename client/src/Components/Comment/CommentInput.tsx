@@ -2,6 +2,7 @@ import { SquareButtonForm } from "Components/Common/Button/SquareButtonForm";
 import { useComment } from "Hooks/Api/Review/comment";
 import useCurrentUser from "Hooks/useCurrentUser";
 import React, { useState } from "react";
+import { useParams } from "react-router";
 import styled from "styled-components";
 
 interface ICommentProps {
@@ -41,17 +42,21 @@ const CommentInput = ({
     if (
       window.confirm(`댓글을 ${isEdit ? "수정" : "등록"}하시겠습니까?`) === true
     ) {
-      if (!isPost) {
+      if (!isEdit) {
         postComment({
           userId: currentUser.userId,
           commentBody: commentForm,
           reviewId,
+        }).then((r: any) => {
+          window.location.reload();
         });
       } else {
         patchComment({
           commentId,
           userId: currentUser.userId,
           commentBody: commentForm,
+        }).then((r: any) => {
+          window.location.reload();
         });
       }
     }
@@ -102,7 +107,7 @@ const InputStyle = styled.textarea`
   margin-left: 1vw;
   border: 1px solid lightgray;
   border-radius: 5px;
-
+  font-family: "Nanum Gothic", sans-serif;
   font-size: 11pt;
 `;
 

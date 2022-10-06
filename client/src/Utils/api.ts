@@ -6,6 +6,7 @@ const instance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: { "Access-Control-Allow-Origin": "*" },
   withCredentials: true,
+  timeout: 100000,
 });
 
 // header 추가
@@ -50,11 +51,10 @@ const responseInterceptorFulfilled = (res: AxiosResponse) => {
 };
 
 const responseInterceptorRejected = (error: AxiosError | any) => {
-  const errorMsg = error.response?.data?.error ?? "에러입니다";
+  const errorMsg = error.response?.data?.message ?? "에러입니다";
   console.log(error);
   console.log(error.response);
   alert(errorMsg);
-  // window.location.replace("/");
 };
 
 instance.interceptors.response.use(
@@ -63,14 +63,10 @@ instance.interceptors.response.use(
 );
 
 export const get = <T>(...args: Parameters<typeof instance.get>) => {
-  console.log(args);
-  console.log(instance.get<T, T>(...args));
   return instance.get<T, T>(...args);
 };
 
 export const post = <T>(...args: Parameters<typeof instance.post>) => {
-  console.log(args);
-  console.log(instance.post<T, T>(...args));
   return instance.post<T, T>(...args);
 };
 

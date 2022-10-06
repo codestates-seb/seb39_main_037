@@ -11,7 +11,6 @@ interface IPatchReview {
 }
 
 export const useReview = () => {
-  // https://foodreco.tk/review/restaurant/6/1
   const getReviewByRestaurant = async ({ restaurantId, page }: any) => {
     const res = await get(`/review/restaurant/${restaurantId}/${page}`).then(
       (r: any) => {
@@ -63,10 +62,10 @@ export const useReview = () => {
   const postThumb = async ({ reviewId, userId }: any) => {
     const res = await post(`thumbUp/post/${reviewId}`, { userId }).then(
       (r: any) => {
-        console.log(r);
         return r;
       },
     );
+    return res;
   };
 
   return {

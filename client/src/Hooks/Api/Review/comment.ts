@@ -18,6 +18,7 @@ export const useComment = () => {
         return r;
       },
     );
+
     return res;
   };
 
@@ -26,7 +27,7 @@ export const useComment = () => {
     reviewId,
     commentBody,
   }: IPostComment) => {
-    const res = await post(`/comment/post`, {
+    const res = await post(`/comment/post/${userId}`, {
       userId,
       reviewId,
       commentBody,
@@ -41,7 +42,7 @@ export const useComment = () => {
     userId,
     commentBody,
   }: IPatchComment) => {
-    const res = await patch(`/comment/edit`, {
+    const res = await patch(`/comment/edit/${commentId}`, {
       commentId,
       userId,
       commentBody,

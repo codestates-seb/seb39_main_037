@@ -54,7 +54,10 @@ const IconDropDown = () => {
       </DropDownButton>
       <DropDown isDropped={isOpen}>
         <LinkCss to="/users">
-          <div>{currentUser.nickName}&apos;s 페이지 가기</div>
+          <div>
+            {currentUser.nickName}&apos;s
+            <br /> 페이지 가기
+          </div>
         </LinkCss>
         <LinkCss to="/" onClick={handleLogout}>
           <div>로그아웃하기</div>

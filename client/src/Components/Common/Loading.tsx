@@ -39,14 +39,13 @@ const LoadingWrapper = styled.div`
   justify-content: center;
   align-items: center;
   #fountainTextG {
-    width: 234px;
     margin: auto;
   }
 
   .fountainTextG {
     color: rgb(0, 0, 0);
     font-family: Arial;
-    font-size: 24px;
+    font-size: 35px;
     text-decoration: none;
     font-weight: normal;
     font-style: normal;

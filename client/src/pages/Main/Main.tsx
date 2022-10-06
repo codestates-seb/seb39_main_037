@@ -1,3 +1,5 @@
+import TeamCard from "Components/TeamCard";
+import Park from "Media/Image/jy.png";
 import foodReco from "Media/Image/logo/foodrecoImg.png";
 import mapReco from "Media/Image/mapReco.png";
 import randomImg from "Media/Image/random.png";
@@ -91,6 +93,15 @@ const Main = () => {
           <TitleWrapper>
             <span>foodReco 팀 소개</span>
           </TitleWrapper>
+          <TeamCard
+            img={Park}
+            name="박지영"
+            featureTag={["auth", "main", "review", "locationStore", "marker"]}
+            intro="무엇을 먹을지 모르겠을 땐? 같이 푸드레코해요!"
+            github="https://github.com/JIYEONGSTAR"
+            blog="https://jiyeongstar.tistory.com/"
+            email="jiyeongstar@gmail.com"
+          />
         </CenterWrapper>
       </OddWrapper>
     </MainWrapper>

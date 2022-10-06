@@ -17,8 +17,8 @@ const ReviewList = ({ review }: IReviewObj | any) => {
         <div>{review.reviewBody}</div>
       </ReviewContent>
       <div>
-        {review.reviewImg ? (
-          <RestaurantImg src={review.reviewImg} alt="" />
+        {review.reviewImgUrl ? (
+          <RestaurantImg src={review.reviewImgUrl} alt="" />
         ) : (
           <RestaurantImg src={defaultFood} alt="" />
         )}
