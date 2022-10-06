@@ -57,7 +57,6 @@ const AccountForm = ({
           email: emailForm,
           password: passwordForm,
         });
-        // navigate("/login");
       }
     } else if (isLogin) {
       if (window.confirm("로그인하시겠습니까?")) {

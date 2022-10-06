@@ -24,7 +24,7 @@ const Comment = ({ data }: any) => {
             {data.createdAt === data.updatedAt ? (
               <div>{data.createdAt.replace("T", " ")}</div>
             ) : (
-              <div>{data.updatedAt.replace("T", " ")}수정됨.</div>
+              <div>{data.updatedAt.replace("T", " ")} 수정.</div>
             )}
           </Date>
         </NickName>

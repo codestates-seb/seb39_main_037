@@ -1,9 +1,11 @@
 import Comment from "Components/Comment/Comment";
 import Loading from "Components/Common/Loading";
+import PaginationForm from "Components/Common/Pagination/PaginationForm";
 import { useComment } from "Hooks/Api/Review/comment";
 import useCurrentUser from "Hooks/useCurrentUser";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { IPageObj } from "Types";
 
 interface IComments {
   reviewId: number;
@@ -21,56 +23,42 @@ interface ICommentObj {
   reviewPhotoUrl: null | string;
   reviewTitle: string;
 }
-const commentList = [
-  {
-    commentId: 2,
-    commentBody: "comment2",
-    createdAt: "2022-10-01T10:00:47",
-    updatedAt: "2022-10-01T10:00:47",
-    nickName: "지영",
-    userId: 2,
-    restaurantId: 1,
-    restaurantName: "코코이찌방야 압구정로데오점",
-    reviewNickName: "jin2",
-    reviewPhotoUrl: null,
-    reviewTitle: "review",
-  },
-  {
-    commentId: 1,
-    commentBody: "comment",
-    createdAt: "2022-10-01T09:20:03",
-    updatedAt: "2022-10-01T09:20:03",
-    nickName: "minmin2",
-    userId: 2,
-    restaurantId: 1,
-    restaurantName: "코코이찌방야 압구정로데오점",
-    reviewNickName: "jin2",
-    reviewPhotoUrl: null,
-    reviewTitle: "review",
-  },
-];
+
 const CommentList = ({ reviewId }: IComments) => {
   const { currentUser } = useCurrentUser();
   const [page, setPage] = useState<number>(1);
 
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const { getComment } = useComment();
-  // const [commentList, setCommentList] = useState<ICommentObj[] | null>(null);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const res = await getComment({ reviewId: { reviewId }, page: { page } });
-  //     setCommentList(res);
-  //   };
-  //   fetchData();
-  // }, [page]);
+  const [commentList, setCommentList] = useState<ICommentObj[] | null>(null);
+  const [pageInfo, setPageInfo] = useState<IPageObj | null>(null);
+  useEffect(() => {
+    getComment({ reviewId, page: currentPage }).then((r: any) => {
+      console.log(r);
+      setCommentList(r);
+      // setPageInfo(r.pageInfo);
+    });
+  }, [page]);
 
+  console.log("comment", commentList);
   if (commentList === null) return <Loading />;
   return (
     <CommentListWrapper>
-      <div className="top">댓글 (2)</div>
-      {commentList.length !== 0 ? (
+      <div className="top">댓글{commentList?.length || 0}</div>
+      {commentList !== undefined ? (
         commentList.map((c: any) => <Comment data={c} key={c.commentId} />)
       ) : (
-        <>첫 댓글을 남겨주세요</>
+        <div className="firstComment">첫 댓글을 남겨주세요</div>
+      )}
+      {pageInfo && pageInfo.totalPages > 1 && (
+        <PaginationForm
+          activePage={currentPage}
+          totalItemsCount={pageInfo.totalElements}
+          onChange={(e: any) => {
+            console.log(e);
+            setCurrentPage(e);
+          }}
+        />
       )}
     </CommentListWrapper>
   );
@@ -84,5 +72,14 @@ const CommentListWrapper = styled.div`
     padding-left: 20px;
     font-family: 18px;
     font-weight: 700;
+  }
+  > .firstComment {
+    margin-top: 20px;
+    padding-left: 20px;
+    font-family: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
 `;

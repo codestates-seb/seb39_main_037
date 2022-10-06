@@ -5,12 +5,14 @@ import ReviewList from "Components/List/ReviewList";
 import { useRestaurant } from "Hooks/Api/Restaurant/index";
 import { useReview } from "Hooks/Api/Review/index";
 import useCurrentRestaurant from "Hooks/useCurrentRestaurant";
+import useCurrentUser from "Hooks/useCurrentUser";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import styled from "styled-components";
 import { IPageObj, IRestaurant, IReviewObj } from "Types";
 
 const ReviewByRestaurant = () => {
+  const { currentUser } = useCurrentUser();
   const { setCurrentRestaurant } = useCurrentRestaurant();
   const navigate = useNavigate();
   const [restaurantInfo, setRestaurantInfo] = useState<IRestaurant>();
@@ -39,7 +41,7 @@ const ReviewByRestaurant = () => {
       navigate(`/register`);
     }
   };
-  if (!restaurantInfo && !reviewList && !pageInfo) return <Loading />;
+  if (!restaurantInfo || !reviewList || !pageInfo) return <Loading />;
   return (
     <ReviewByRestaurantWrapper>
       <RestaurantInfo>
@@ -55,18 +57,20 @@ const ReviewByRestaurant = () => {
             {restaurantInfo?.avePrice}
           </span>
         </div>
-        <SquareButtonForm
-          title="리뷰쓰러가기"
-          widthStyle="30%"
-          onClick={handleClick}
-        />
+        {currentUser.userId !== 0 && (
+          <SquareButtonForm
+            title="리뷰쓰러가기"
+            widthStyle="30%"
+            onClick={handleClick}
+          />
+        )}
       </RestaurantInfo>
       <ReviewInfo>
         {reviewList?.map((r) => (
           <ReviewList review={r} key={r.reviewId} />
         ))}
       </ReviewInfo>
-      {pageInfo && pageInfo?.totalPages > 1 && (
+      {pageInfo.totalPages > 1 && (
         <PaginationForm
           activePage={currentPage}
           totalItemsCount={pageInfo.totalElements}

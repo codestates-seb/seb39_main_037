@@ -31,7 +31,6 @@ const Footer = () => {
 
 const FooterContainer = styled.footer`
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -41,10 +40,13 @@ const FooterContainer = styled.footer`
   font-size: 23px;
   z-index: 1000;
   top: 60px;
+  width: 100%;
 `;
 
 const UlContainer = styled.ul`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const CopyrightContainer = styled.div``;

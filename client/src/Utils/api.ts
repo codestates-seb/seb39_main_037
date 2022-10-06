@@ -38,7 +38,7 @@ instance.interceptors.request.use(interceptorRequestFulfilled);
 
 // response interceptor
 const responseInterceptorFulfilled = (res: AxiosResponse) => {
-  console.log(res);
+  // console.log(res);
   if (res.status >= 200 && res.status < 300) {
     if (res.config.method === "post") {
       // post일 때는 전체 넘김

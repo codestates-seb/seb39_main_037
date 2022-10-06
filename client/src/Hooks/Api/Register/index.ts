@@ -21,7 +21,7 @@ export const useRegister = () => {
     userId,
     restaurantId,
   }: IPostReview) => {
-    const res = await post(`/review/post`, {
+    const res = await post(`/review/post/${userId}`, {
       reviewTitle,
       reviewBody,
       tasteStar,
