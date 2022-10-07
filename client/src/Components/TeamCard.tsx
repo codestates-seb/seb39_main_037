@@ -39,7 +39,7 @@ const TeamCard = ({
         </div>
         <div>
           <CircleTag>blog:</CircleTag>
-          <a href="{blog}" target="_blank" rel="noreferrer">
+          <a href={blog} target="_blank" rel="noreferrer">
             {blog}
           </a>
         </div>
