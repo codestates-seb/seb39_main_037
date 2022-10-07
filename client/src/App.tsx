@@ -1,3 +1,4 @@
+import ToTopButton from "Components/Common/Button/ToTopButton";
 import Footer from "Components/Layout/Footer/Footer";
 import Header from "Components/Layout/Header/Header";
 import Admin from "pages/Admin/Admin";
@@ -12,46 +13,66 @@ import RandomMap from "pages/Random/RandomMap";
 import LocationRegister from "pages/Register/LocationRegister";
 import ReviewRegister from "pages/Register/ReviewRegister";
 import Review from "pages/Review/Review";
+import ReviewByRestaurant from "pages/Review/ReviewByRestaurant";
 import ReviewDetail from "pages/Review/ReviewDetail";
-import StoreReview from "pages/Review/StoreReview";
 import Users from "pages/Users/Users";
 import UsersComments from "pages/Users/UsersComments";
 import UsersLike from "pages/Users/UsersLike";
 import UsersReview from "pages/Users/UsersReview";
 import NotFound from "pages/Utils/NotFound";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import styled from "styled-components";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Header />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/account-recovery" element={<AccountRecovery />} />
-        <Route path="/change-password" element={<ChangePassword />} />
-        <Route path="/email-verify" element={<EmailVerify />} />
-        <Route path="/random-recommend" element={<Random />} />
-        <Route path="/random-recommend/map/:food_id" element={<RandomMap />} />
-        <Route path="/location" element={<LocationRegister />} />
-        <Route path="/register" element={<ReviewRegister />} />
-        <Route path="/review" element={<Review />} />
-        <Route path="/review/:restaurant" element={<StoreReview />} />
-        <Route
-          path="/review/:restaurant/:review_id"
-          element={<ReviewDetail />}
-        />
-        <Route path="/users" element={<Users />} />
-        <Route path="/users/comment" element={<UsersComments />} />
-        <Route path="/users/like" element={<UsersLike />} />
-        <Route path="/users/review" element={<UsersReview />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/*" element={<NotFound />} />
-      </Routes>
+      <Container>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/account-recovery" element={<AccountRecovery />} />
+          <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/email-verify" element={<EmailVerify />} />
+          <Route path="/random-recommend" element={<Random />} />
+          <Route
+            path="/random-recommend/map/:food_name/:food_id"
+            element={<RandomMap />}
+          />
+          <Route path="/location" element={<LocationRegister />} />
+          <Route path="/register" element={<ReviewRegister />} />
+          <Route path="/review" element={<Review />} />
+          <Route path="/review/:restaurant" element={<ReviewByRestaurant />} />
+          <Route
+            path="/review/:restaurant/:review_id"
+            element={<ReviewDetail />}
+          />
+          <Route path="/users" element={<Users />} />
+          <Route path="/users/comment" element={<UsersComments />} />
+          <Route path="/users/like" element={<UsersLike />} />
+          <Route path="/users/review" element={<UsersReview />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+      </Container>
+      <ToTopButton />
       <Footer />
     </BrowserRouter>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+  background: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  position: relative;
+  top: 60px;
+  /* height: auto;
+  min-height: 100%;
+  padding-bottom: 300px; */
+`;
 
 export default App;
