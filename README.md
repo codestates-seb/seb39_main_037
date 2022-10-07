@@ -4,6 +4,8 @@
 ### food + recommend + record
 
 ---
+https://seb39-main-037.vercel.app/
+
 빠른 이메일 : food_reco@gmail.com
 
 빠른 비밀번호: vnemfpzh(푸드레코:한글로 입력)
