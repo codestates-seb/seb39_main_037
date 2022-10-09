@@ -24,12 +24,10 @@ const ReviewByRestaurant = () => {
   const { restaurant: restaurantId } = useParams();
   useEffect(() => {
     getRestaruantById({ restaurantId }).then((r: any) => {
-      console.log(r);
       setRestaurantInfo(r);
     });
     getReviewByRestaurant({ restaurantId, page: currentPage }).then(
       (r: any) => {
-        console.log(r);
         setReviewList(r.data);
         setPageInfo(r.pageInfo);
       },
@@ -75,7 +73,6 @@ const ReviewByRestaurant = () => {
           activePage={currentPage}
           totalItemsCount={pageInfo.totalElements}
           onChange={(e: any) => {
-            console.log(e);
             setCurrentPage(e);
           }}
         />

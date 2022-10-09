@@ -7,9 +7,7 @@ import styled from "styled-components";
 import { MockupData } from "./MockupData";
 import { UserNavData } from "./UserNavData";
 import UserNavItem from "./UserNavItem";
-// interface IUserInfo {
-//   null | string;
-// }
+
 const UsersNav = () => {
   const [userImg, setUserImg] = useState<null | string>();
   const { getUsers } = useUsers();
@@ -22,10 +20,6 @@ const UsersNav = () => {
   useEffect(() => {
     getData();
   }, []);
-  // if (!userImg) {
-  //   return <Loading />;
-  // }
-  // MockupData.user_img
   if (userImg === undefined) {
     return <Loading />;
   }

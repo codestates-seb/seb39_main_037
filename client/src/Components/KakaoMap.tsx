@@ -34,7 +34,6 @@ const KakaoMap = ({ restaurants }: Array<IRestaurant> | any) => {
 
   useEffect(() => {
     if (!mapLoad) return;
-    console.log("window.kakao", window.kakao);
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById("map");
       const mapOption = {
@@ -53,7 +52,6 @@ const KakaoMap = ({ restaurants }: Array<IRestaurant> | any) => {
           restaurantId: r.restaurantId, // 레스토랑아이디
         };
       });
-      console.log(restaurantPositions);
       // 마커생성
       restaurantPositions.forEach((r: any) => {
         const marker = new window.kakao.maps.Marker({

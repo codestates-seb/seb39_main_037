@@ -40,7 +40,6 @@ const Random = () => {
 
     const res = await getRandomMenu(selectemenuType);
     try {
-      // console.log(res);
       setData(res);
     } catch (err) {
       alert(err);

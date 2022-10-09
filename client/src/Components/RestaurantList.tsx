@@ -65,7 +65,6 @@ const RestaurantInpo = styled.div`
   flex-direction: column;
   gap: 2rem;
 `;
-// const;
 
 const LocationAndNumber = styled.div`
   font-size: 13px;

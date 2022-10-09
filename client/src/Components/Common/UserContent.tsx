@@ -14,7 +14,6 @@ const UserContent = ({ data }: any) => {
 
     navigate(`/review/${target.id}`);
   };
-  console.log(data);
   function textLengthOverCut(txt: string) {
     const len = 15;
     const lastTxt = "...";
@@ -29,7 +28,6 @@ const UserContent = ({ data }: any) => {
 
   const nowUrl = url.slice(url.lastIndexOf("/") + 1);
 
-  console.log(nowUrl);
   if (data) {
     if (nowUrl === "review") {
       return (

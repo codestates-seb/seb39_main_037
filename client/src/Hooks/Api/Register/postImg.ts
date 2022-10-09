@@ -17,7 +17,6 @@ export const postImg = async ({ imgFile }: IPostImgFile) => {
       Authorization: `${userToken}`,
     },
   }).then((r: any) => {
-    console.log(r);
     if (r.status / 100 !== 2) {
       alert("에러입니다.");
     } else return r;

@@ -31,7 +31,6 @@ export const useRegister = () => {
       userId,
       restaurantId,
     }).then((r: any) => {
-      console.log(r);
       return r;
     });
     return res;

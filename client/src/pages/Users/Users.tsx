@@ -26,14 +26,11 @@ const Users = () => {
   const [user, setUser] = useState<IUserInfo>();
 
   const { currentUser } = useCurrentUser();
-  console.log(currentUser);
   const [form, setForm] = useState({
     userName: currentUser.userName,
     nickName: currentUser.nickName,
     email: currentUser.email,
   });
-
-  console.log(form);
 
   async function getData() {
     await getUsers().then((res) => {
