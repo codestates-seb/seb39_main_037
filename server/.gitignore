@@ -23,23 +23,16 @@ bin/
 *.iml
 *.ipr
 out/
-**/application.yml
-**/application-local.yml
-**/application-server.yml
-
-application.yml
-application-local.yml
-application-server.yml
-
-
-
+server/src/main/resources/application.yml
 **/logs/
 *.log
 *.zip
 *.yaml
 **/target/
 **/.idea/
-*.yml
+**/application.yml
+**/application-local.yml
+**/application-server.yml
 
 
 ### NetBeans ###
