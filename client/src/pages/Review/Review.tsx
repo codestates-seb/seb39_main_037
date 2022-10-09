@@ -42,8 +42,10 @@ const Review = () => {
           {currentLocation.stateName} /{currentLocation.cityName}
         </SelectedMenuWrapper>
       </KakaoMapWrapper>
-      <RestaurantWrapper>
-        <RestaurantList restaurants={restaurantList} />
+      <InfoWrapper>
+        <RestaurantWrapper>
+          <RestaurantList restaurants={restaurantList} />
+        </RestaurantWrapper>
         {pageInfo.totalPages > 1 && (
           <PaginationForm
             activePage={currentPage}
@@ -53,7 +55,7 @@ const Review = () => {
             }}
           />
         )}
-      </RestaurantWrapper>
+      </InfoWrapper>
     </ReviewWrapper>
   );
 };
@@ -66,6 +68,7 @@ const ReviewWrapper = styled.div`
   min-height: 100vh;
   @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
     flex-direction: column;
+    justify-content: center;
   }
 `;
 const KakaoMapWrapper = styled.div`
@@ -79,8 +82,12 @@ const KakaoMapWrapper = styled.div`
   align-items: center;
   align-content: center;
   position: sticky;
-  top: 150px;
+  /* top: 150px; */
   left: 2rem;
+  @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
+    max-height: 30vh;
+    position: static;
+  }
 `;
 const SelectedMenuWrapper = styled.div`
   display: flex;
@@ -93,7 +100,13 @@ const SelectedMenuWrapper = styled.div`
   font-weight: 600;
   background-color: #fce205;
 `;
-
+const InfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+  max-height: 700px;
+  overflow-y: auto;
+`;
 const RestaurantWrapper = styled.div`
   flex: 1;
   padding: 2rem;
@@ -105,4 +118,7 @@ const RestaurantWrapper = styled.div`
   gap: 3rem;
   min-width: calc(100%-32px);
   flex-direction: column;
+  @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
+    display: none;
+  }
 `;

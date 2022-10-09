@@ -44,9 +44,9 @@ const Main = () => {
             <span>푸드레코</span>가 도와줄게요! 🍱
           </div>
         </Description>
-        <ImgWrapper>
+        <MainImgWrapper>
           <img data-lazy={foodReco} alt="" />
-        </ImgWrapper>
+        </MainImgWrapper>
       </OddWrapper>
       <EvenWrapper>
         <CenterWrapper>
@@ -58,10 +58,10 @@ const Main = () => {
             <div>매일 무엇을 먹을까 고민하는 우리들을 위해</div>
             <div>메뉴를 추천해줘요 🥐</div>
           </Info>
+          <ImgWrapper>
+            <img data-lazy={randomImg} alt="" />
+          </ImgWrapper>
         </CenterWrapper>
-        <ImgWrapper>
-          <img data-lazy={randomImg} alt="" />
-        </ImgWrapper>
       </EvenWrapper>
       <OddWrapper>
         <CenterWrapper>
@@ -72,10 +72,10 @@ const Main = () => {
             <div>추천 시스템을 통해 메뉴를 선택했다면 </div>
             <div>내 위치에 따른 음식점을 보여줘요 🍛</div>
           </Info>
+          <ImgWrapper>
+            <img data-lazy={mapReco} alt="" />
+          </ImgWrapper>
         </CenterWrapper>
-        <ImgWrapper>
-          <img data-lazy={mapReco} alt="" />
-        </ImgWrapper>
       </OddWrapper>
       <EvenWrapper>
         <CenterWrapper>
@@ -86,10 +86,10 @@ const Main = () => {
             <div>나와 같은 지역의 다른 누군가에게</div>
             <div> 맛집을 추천해줄 수 있는 리뷰도 작성해요 🍙</div>
           </Info>
+          <ImgWrapper>
+            <img data-lazy={reviewImg} alt="" />
+          </ImgWrapper>
         </CenterWrapper>
-        <ImgWrapper>
-          <img data-lazy={reviewImg} alt="" />
-        </ImgWrapper>
       </EvenWrapper>
       <OddWrapper>
         <CenterWrapper>
@@ -150,14 +150,21 @@ const OddWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh;
+
+  @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
+    align-items: center;
+    justify-content: center;
+  }
 `;
 const EvenWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh;
   background-color: var(--yellow-background);
+  @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const Description = styled.div`
@@ -180,22 +187,31 @@ const Description = styled.div`
     font-size: 16px;
   }
 `;
-
-const ImgWrapper = styled.div`
+const MainImgWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 50px 0 100px 0;
   max-width: 100%;
+  > img {
+    @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
+      width: 80%;
+    }
+  }
+`;
+const ImgWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 0 100px 0;
   & img {
-    width: 31.25rem;
-    height: 28.875rem;
+    width: 100%;
     @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
       width: 25rem;
       height: 23.125rem;
     }
     @media screen and (max-width: ${({ theme }) => theme.breakPoints.mobile}) {
-      width: 12.5rem;
-      height: 11.563rem;
+      width: 100%;
+      height: 100%;
     }
   }
 `;
@@ -205,7 +221,7 @@ const CenterWrapper = styled.div`
   margin: 0 auto;
   flex: 1;
   @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
-    width: 100%;
+    width: 90%;
   }
 `;
 
@@ -217,12 +233,12 @@ const TitleWrapper = styled.div`
     color: var(--main-yellow);
     @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
       font-size: 1.75rem;
-      margin-left: 1.25rem;
+      /* margin-left: 1.25rem; */
     }
 
     @media screen and (max-width: ${({ theme }) => theme.breakPoints.mobile}) {
       font-size: 1.5rem;
-      margin-left: 1.25rem;
+      /* margin-left: 1.25rem; */
     }
   }
 `;
@@ -238,7 +254,7 @@ const Info = styled.div`
   }
   @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
     font-size: 1rem;
-    margin-left: 1.25rem;
+    /* margin-left: 1.25rem; */
   }
 `;
 
