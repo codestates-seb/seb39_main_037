@@ -20,7 +20,7 @@ const RestaurantList = ({ restaurants }: Array<IRestaurant> | any) => {
           onClick={menuClick}
         >
           <RestaurantInpo>
-            <div>{r.restaurantName}</div>
+            <div className="restaurantName">{r.restaurantName}</div>
             <LocationAndNumber>
               <div>주소 : {r.address}</div>
               {/* <div>
@@ -64,6 +64,9 @@ const RestaurantInpo = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 2rem;
+  > .restaurantName {
+    font-weight: 700;
+  }
 `;
 
 const LocationAndNumber = styled.div`

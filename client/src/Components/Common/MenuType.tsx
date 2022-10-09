@@ -55,12 +55,12 @@ const MenuType = ({ setSelectedmenuType }: IRandomprops) => {
 const DivBox = styled.div`
   border: 1px solid #e5e5e5;
   border-radius: 10px;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   justify-content: center;
   flex-wrap: wrap;
   padding: 1rem;
   gap: 3rem;
-  /* gap: 0.5rem; */
 
   max-width: 660px;
   /* min-width: 290px; */
@@ -76,6 +76,12 @@ const DivBox = styled.div`
       transform: scale(1.1, 1.1);
     }
   }
+  @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media screen and (max-width: ${({ theme }) => theme.breakPoints.mobile}) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
 const ButtonDiv = styled.div`
@@ -89,6 +95,9 @@ const ButtonDiv = styled.div`
   > img {
     width: 50px;
     height: 50px;
+  }
+  @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
+    min-width: 50px;
   }
 `;
 
