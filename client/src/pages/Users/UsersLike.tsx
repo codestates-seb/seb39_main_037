@@ -18,7 +18,6 @@ const UsersLike = () => {
     await getUsersLike({
       page: currentPage,
     }).then((r: any) => {
-      // console.log(r);
       setPageInfo(r.pageInfo);
       setData(r.data);
     });
@@ -26,7 +25,6 @@ const UsersLike = () => {
   useEffect(() => {
     getData();
   }, []);
-  console.log(data);
   return (
     <Container>
       <UsersNav />

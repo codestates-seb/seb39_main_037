@@ -38,7 +38,6 @@ export const useUsers = () => {
       nickName,
       email,
     }).then((r: any) => {
-      console.log(r);
       return r;
     });
     return res;
@@ -52,27 +51,3 @@ export const useUsers = () => {
     patchUsers,
   };
 };
-
-// const patchReview = async ({
-//   reviewId,
-//   userId,
-//   reviewTitle,
-//   reviewBody,
-//   tasteStar,
-//   facilityStar,
-//   priceStar,
-// }: IPatchReview) => {
-//   const res = await patch(`/review/edit`, {
-//     reviewId,
-//     userId,
-//     reviewTitle,
-//     reviewBody,
-//     tasteStar,
-//     facilityStar,
-//     priceStar,
-//   }).then((r: any) => {
-//     console.log(r);
-//     return r;
-//   });
-//   return res;
-// };

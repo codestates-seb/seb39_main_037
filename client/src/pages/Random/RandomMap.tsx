@@ -22,7 +22,6 @@ const RandomMap = () => {
 
   const [data, setData] = useState<object[]>([]);
   const navigate = useNavigate();
-  console.log(currentLocation.locationId);
   if (currentLocation.locationId === 0) {
     // 로케이션이 저장되어있지 않으면?
     navigate("/location");
@@ -35,7 +34,6 @@ const RandomMap = () => {
       page: currentPage,
     });
     try {
-      // console.log(res);
       setData(res.data);
       setPageInfo(res.pageInfo);
     } catch (err) {
@@ -61,7 +59,6 @@ const RandomMap = () => {
           activePage={currentPage}
           totalItemsCount={pageInfo.totalElements}
           onChange={(e: any) => {
-            console.log(e);
             setCurrentPage(e);
           }}
         />

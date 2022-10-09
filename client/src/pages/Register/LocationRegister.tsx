@@ -29,13 +29,10 @@ const LocationRegister = () => {
   const [locationOption, setLocationOption] = useState<ILocationObj[]>();
 
   const { setCurrentLocation } = useCurrentLocation();
-  // const cityOption = {}
-  console.log(stateOption);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await getState();
-      console.log(res);
       setStateOption(res);
     };
     fetchData();
@@ -53,19 +50,15 @@ const LocationRegister = () => {
   });
   const handleChangeState = (e: SelectChangeEvent) => {
     if (stateOption) {
-      console.log(stateOption[Number(e.target.value) - 1]);
       setState(stateOption[Number(e.target.value) - 1]);
       const res = getCity(Number(e.target.value)).then((r: any) => {
-        console.log(r);
         setLocationOption(r);
       });
-      // console.log(r);
     }
   };
 
   const handleChangeLocation = (e: SelectChangeEvent) => {
     if (locationOption && e.target.value) {
-      console.log(locationOption[Number(e.target.value) - 1]);
       setLocation(locationOption[Number(e.target.value) - 1]);
     }
   };

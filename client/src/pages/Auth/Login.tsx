@@ -7,7 +7,6 @@ import styled from "styled-components";
 const Login = () => {
   const location = useLocation();
   const { email } = location.state || "";
-  console.log(location);
   return (
     <LoginForm>
       <ButtonForm

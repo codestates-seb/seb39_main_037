@@ -14,7 +14,6 @@ export const useComment = () => {
   const getComment = async ({ reviewId, page }: any) => {
     const res = await get(`/comment/review/${reviewId}/${page}`).then(
       (r: any) => {
-        console.log(r);
         return r;
       },
     );
@@ -32,7 +31,6 @@ export const useComment = () => {
       reviewId,
       commentBody,
     }).then((r: any) => {
-      console.log(r);
       return r;
     });
     return res;
@@ -47,14 +45,12 @@ export const useComment = () => {
       userId,
       commentBody,
     }).then((r: any) => {
-      console.log(r);
       return r;
     });
     return res;
   };
   const delComment = async ({ commentId }: any) => {
     const res = await del(`comment/delete/${commentId}`).then((r: any) => {
-      console.log(r);
       return r;
     });
     return res;

@@ -8,7 +8,6 @@ import {
 import Rating, { IconContainerProps } from "@mui/material/Rating";
 import { styled } from "@mui/material/styles";
 import React from "react";
-// import styled from "styled-components";
 
 interface IRatingImgProps {
   title: string;
@@ -50,12 +49,10 @@ const customIcons: {
 
 const IconContainer = (props: IconContainerProps) => {
   const { value, ...other } = props;
-  // console.log(other);
   return <span {...props}>{customIcons[value].icon}</span>;
 };
 const RatingImg = ({ title, setRate }: IRatingImgProps) => {
   const handleClick = (e: any) => {
-    console.log(e.target.value);
     setRate(e.target.value);
   };
   return (

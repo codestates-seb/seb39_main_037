@@ -54,7 +54,6 @@ const ToastEditor = ({
             if (!thumbnail) {
               setThumbnail?.(imgUrl);
             }
-            // console.log(imgUrl);
             callback(imgUrl);
           },
         }}

@@ -23,26 +23,6 @@ const MenuType = ({ setSelectedmenuType }: IRandomprops) => {
     menuType();
   }, []);
 
-  // const list: string[] = [];
-  // useEffect(() => {
-  //   async function menuList() {
-  //     if (!nowmenuType) {
-  //       console.log("not choice");
-  //     } else {
-  //       getRandomMenu(nowmenuType).then((res) => {
-  //         // console.log(res);
-  //         res.map(({ foodName }: any) => {
-  //           return list.push(foodName);
-  //         });
-  //         // console.log(list);
-  //         setMenuList(list);
-  //       });
-  //     }
-  //   }
-  //   menuList();
-  // }, [nowmenuType]);
-  // console.log(menuList);
-
   const ClickMenu = async (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     const target = e.currentTarget as HTMLInputElement;

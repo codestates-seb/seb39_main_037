@@ -33,7 +33,6 @@ const Review = () => {
       });
     }
   }, [currentPage]);
-  console.log(restaurantList, pageInfo);
   if (!restaurantList || !pageInfo) return <Loading />;
   return (
     <ReviewWrapper>
@@ -50,7 +49,6 @@ const Review = () => {
             activePage={currentPage}
             totalItemsCount={pageInfo.totalElements}
             onChange={(e: any) => {
-              console.log(e);
               setCurrentPage(e);
             }}
           />

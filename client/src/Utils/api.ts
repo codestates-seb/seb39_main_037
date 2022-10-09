@@ -1,6 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
-console.log(process.env.REACT_APP_API_URL);
 // instance 생성
 const instance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -38,7 +37,6 @@ instance.interceptors.request.use(interceptorRequestFulfilled);
 
 // response interceptor
 const responseInterceptorFulfilled = (res: AxiosResponse) => {
-  // console.log(res);
   if (res.status >= 200 && res.status < 300) {
     if (res.config.method === "post") {
       // post일 때는 전체 넘김
@@ -52,8 +50,6 @@ const responseInterceptorFulfilled = (res: AxiosResponse) => {
 
 const responseInterceptorRejected = (error: AxiosError | any) => {
   const errorMsg = error.response?.data?.message ?? "에러입니다";
-  console.log(error);
-  console.log(error.response);
   alert(errorMsg);
 };
 
