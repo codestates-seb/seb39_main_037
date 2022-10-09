@@ -22,7 +22,6 @@ const RandomMap = () => {
 
   const [data, setData] = useState<object[]>([]);
   const navigate = useNavigate();
-  console.log(currentLocation.locationId);
   if (currentLocation.locationId === 0) {
     // 로케이션이 저장되어있지 않으면?
     navigate("/location");
@@ -35,7 +34,6 @@ const RandomMap = () => {
       page: currentPage,
     });
     try {
-      // console.log(res);
       setData(res.data);
       setPageInfo(res.pageInfo);
     } catch (err) {
@@ -53,19 +51,20 @@ const RandomMap = () => {
         <KakaoMap restaurants={data} />
         <SelectedMenuWrapper>{menuName}</SelectedMenuWrapper>
       </KakaoMapWrapper>
-      <RestaurantWrapper>
-        <RestaurantList restaurants={data} />
-      </RestaurantWrapper>
-      {pageInfo.totalPages > 1 && (
-        <PaginationForm
-          activePage={currentPage}
-          totalItemsCount={pageInfo.totalElements}
-          onChange={(e: any) => {
-            console.log(e);
-            setCurrentPage(e);
-          }}
-        />
-      )}
+      <InfoWrapper>
+        <RestaurantWrapper>
+          <RestaurantList restaurants={data} />
+        </RestaurantWrapper>
+        {pageInfo.totalPages > 1 && (
+          <PaginationForm
+            activePage={currentPage}
+            totalItemsCount={pageInfo.totalElements}
+            onChange={(e: any) => {
+              setCurrentPage(e);
+            }}
+          />
+        )}
+      </InfoWrapper>
     </RandomMapWrapper>
   );
 };
@@ -78,6 +77,7 @@ const RandomMapWrapper = styled.div`
   min-height: 100vh;
   @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
     flex-direction: column;
+    justify-content: center;
   }
 `;
 const KakaoMapWrapper = styled.div`
@@ -91,8 +91,12 @@ const KakaoMapWrapper = styled.div`
   align-items: center;
   align-content: center;
   position: sticky;
-  top: 150px;
+  /* top: 150px; */
   left: 2rem;
+  @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
+    max-height: 30vh;
+    position: static;
+  }
 `;
 
 const SelectedMenuWrapper = styled.div`
@@ -106,7 +110,13 @@ const SelectedMenuWrapper = styled.div`
   font-weight: 600;
   background-color: #fce205;
 `;
-
+const InfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+  max-height: 700px;
+  overflow-y: auto;
+`;
 const RestaurantWrapper = styled.div`
   flex: 1;
   padding: 2rem;
@@ -117,4 +127,8 @@ const RestaurantWrapper = styled.div`
   justify-content: center;
   gap: 3rem;
   min-width: calc(100%-32px);
+  flex-direction: column;
+  @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
+    display: none;
+  }
 `;

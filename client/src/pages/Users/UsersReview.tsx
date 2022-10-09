@@ -17,7 +17,6 @@ const UsersReview = () => {
     await getUsersReview({
       page: currentPage,
     }).then((r: any) => {
-      // console.log(r);
       setPageInfo(r.pageInfo);
       setData(r.data);
     });
@@ -25,7 +24,6 @@ const UsersReview = () => {
   useEffect(() => {
     getData();
   }, []);
-  console.log(data);
 
   return (
     <Container>

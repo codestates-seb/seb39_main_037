@@ -5,7 +5,6 @@ export const useRestaurant = () => {
   const getRestaurantByLocation = async ({ locationId, page }: any) => {
     const res = await get(`restaurant/location/${locationId}/${page}`).then(
       (r: any) => {
-        console.log(r);
         return r;
       },
     );

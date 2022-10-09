@@ -25,10 +25,12 @@ const TeamCard = ({
       <MemberText>
         <NameTag>
           <Name>{name}</Name>
-          {featureTag.map((el, idx) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <FeatureTag key={idx}>{el}</FeatureTag>
-          ))}
+          <FeatureTagWrapper>
+            {featureTag.map((el, idx) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <FeatureTag key={idx}>{el}</FeatureTag>
+            ))}
+          </FeatureTagWrapper>
         </NameTag>
         <div>{intro}</div>
         <div>
@@ -101,6 +103,7 @@ const NameTag = styled.div`
   display: flex;
   align-items: center;
   @media (max-width: 768px) {
+    flex-direction: column;
     justify-content: center;
   }
 `;
@@ -112,7 +115,9 @@ const Name = styled.span`
     font-size: 16px;
   }
 `;
-
+const FeatureTagWrapper = styled.div`
+  display: flex;
+`;
 const FeatureTag = styled.span`
   font-size: 0.75rem;
   padding: 0.25rem 0.75rem;
@@ -132,40 +137,3 @@ const CircleTag = styled.span`
   color: var(--main-yellow);
   font-weight: 600;
 `;
-
-//  <TeamCard
-//             img={Park}
-//             name="박지영"
-//             featureTag={["auth", "main", "review"]}
-//             intro="무엇을 먹을지 모르겠을 땐? 같이 푸드레코해요!"
-//             github="https://github.com/JIYEONGSTAR"
-//             blog="https://jiyeongstar.tistory.com/"
-//             email="jiyeongstar@gmail.com"
-//           />
-//           <TeamCard
-//             img={Park}
-//             name="박지영"
-//             featureTag={["auth", "main", "review"]}
-//             intro="무엇을 먹을지 모르겠을 땐? 같이 푸드레코해요!"
-//             github="https://github.com/JIYEONGSTAR"
-//             blog="https://jiyeongstar.tistory.com/"
-//             email="jiyeongstar@gmail.com"
-//           />
-// <TeamCard
-//   img={Park}
-//   name="박지영"
-//   featureTag={["auth", "main", "review"]}
-//   intro="무엇을 먹을지 모르겠을 땐? 같이 푸드레코해요!"
-//   github="https://github.com/JIYEONGSTAR"
-//   blog="https://jiyeongstar.tistory.com/"
-//   email="jiyeongstar@gmail.com"
-// />
-//           <TeamCard
-//             img={Park}
-//             name="박지영"
-//             featureTag={["auth", "main", "review"]}
-//             intro="무엇을 먹을지 모르겠을 땐? 같이 푸드레코해요!"
-//             github="https://github.com/JIYEONGSTAR"
-//             blog="https://jiyeongstar.tistory.com/"
-//             email="jiyeongstar@gmail.com"
-//           />

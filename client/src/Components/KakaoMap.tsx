@@ -34,7 +34,6 @@ const KakaoMap = ({ restaurants }: Array<IRestaurant> | any) => {
 
   useEffect(() => {
     if (!mapLoad) return;
-    console.log("window.kakao", window.kakao);
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById("map");
       const mapOption = {
@@ -51,9 +50,9 @@ const KakaoMap = ({ restaurants }: Array<IRestaurant> | any) => {
           title: r.restaurantName, // 가게이름
           latlng: new window.kakao.maps.LatLng(r.mapy, r.mapx), // 위도경도 순서
           restaurantId: r.restaurantId, // 레스토랑아이디
+          star: ((r.aveTaste + r.aveFacility + r.avePrice) / 3).toFixed(2),
         };
       });
-      console.log(restaurantPositions);
       // 마커생성
       restaurantPositions.forEach((r: any) => {
         const marker = new window.kakao.maps.Marker({
@@ -66,7 +65,10 @@ const KakaoMap = ({ restaurants }: Array<IRestaurant> | any) => {
         marker.setMap(map);
         // 마우스오버
         // 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
-        const iwContent = `<div style="padding:5px;">${r.title}</div>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        const iwContent = `<div style="
+          padding:5px"
+        }}
+        >${r.title}<p style="margin-top:10px">평점:${r.star}</p></div>`; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 
         // 인포윈도우를 생성합니다
         const infowindow = new window.kakao.maps.InfoWindow({

@@ -37,8 +37,6 @@ export const useAuth = () => {
 
   const postLogin = async ({ email, password }: IPostLogin) => {
     const res = await post(`/login`, { email, password }).then((r: any) => {
-      console.log(r);
-
       setCurrentUser(r.data);
       localStorage.setItem(
         "user-token",

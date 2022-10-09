@@ -34,13 +34,11 @@ const CommentList = ({ reviewId }: IComments) => {
   const [pageInfo, setPageInfo] = useState<IPageObj | null>(null);
   useEffect(() => {
     getComment({ reviewId, page: currentPage }).then((r: any) => {
-      console.log(r);
       setCommentList(r);
       // setPageInfo(r.pageInfo);
     });
   }, [page]);
 
-  console.log("comment", commentList);
   if (commentList === null) return <Loading />;
   return (
     <CommentListWrapper>
@@ -55,7 +53,6 @@ const CommentList = ({ reviewId }: IComments) => {
           activePage={currentPage}
           totalItemsCount={pageInfo.totalElements}
           onChange={(e: any) => {
-            console.log(e);
             setCurrentPage(e);
           }}
         />

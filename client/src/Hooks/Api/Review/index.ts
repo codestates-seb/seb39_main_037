@@ -14,7 +14,6 @@ export const useReview = () => {
   const getReviewByRestaurant = async ({ restaurantId, page }: any) => {
     const res = await get(`/review/restaurant/${restaurantId}/${page}`).then(
       (r: any) => {
-        console.log(r);
         return r;
       },
     );
@@ -22,7 +21,6 @@ export const useReview = () => {
   };
   const getReview = async ({ reviewId }: any) => {
     const res = await get(`/review/${reviewId}`).then((r: any) => {
-      console.log(r);
       return r;
     });
     return res;
@@ -46,14 +44,12 @@ export const useReview = () => {
       facilityStar,
       priceStar,
     }).then((r: any) => {
-      console.log(r);
       return r;
     });
     return res;
   };
   const delReview = async ({ reviewId }: any) => {
     const res = await del(`review/delete/${reviewId}`).then((r: any) => {
-      console.log(r);
       return r;
     });
     return res;
